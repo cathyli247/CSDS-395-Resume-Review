@@ -10,6 +10,7 @@ from django.views.generic.edit import FormView
 class RegisterView(FormView):
     template_name = 'register.html'
     form_class = RegisterForm
+    success_url = '/login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,10 +21,14 @@ class RegisterView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        result = 'success'
-        return JsonResponse(result)
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
+        print(self.request.POST)
         return super().form_valid(form)
 
 class LoginView(FormView):
@@ -39,9 +44,11 @@ class LoginView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        result = 'success'
-        return JsonResponse(result)
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
         return super().form_valid(form)
-
