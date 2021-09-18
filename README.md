@@ -10,7 +10,7 @@
   [FormView](https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/)
 
 - frontend:      
- html files location: /templates/resume_review      
+ html files location: /templates/    
  css/js files location: /static/
  
 - backend:    

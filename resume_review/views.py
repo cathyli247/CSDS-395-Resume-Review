@@ -1,3 +1,47 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+
+from resume_review.forms import RegisterForm, LoginForm
+from django.views.generic.edit import FormView
+
+
+class RegisterView(FormView):
+    template_name = 'register.html'
+    form_class = RegisterForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        result = 'success'
+        return JsonResponse(result)
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+class LoginView(FormView):
+    template_name = 'login.html'
+    form_class = LoginForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        result = 'success'
+        return JsonResponse(result)
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
