@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+    <!-- copy the header div for any future html coding -->
+    <div class="header">
+        <!-- maybe have a logo here? -->
+        <div class="logo">
+            <img src="#" alt="">
+        </div>
+        <!--navigation bar -->
+        <div class="nav">
+            <ul>
+                <li><a href="#">Homepage</a></li>
+                <li><a href="#">Notification</a></li>
+                <li><a href="#">Chat</a></li>
+            </ul>
+        </div>
+        <div class="searching" name=>
+            <input type="text">
+            <button></button>
+        </div>
+        <div class="user">
+            Hello, username
+        </div>
+    </div>
+    <!-- --------------------------------- -->
+    <div class="filter">
+        <div class="selectBox">
+            <div class="selectItem">
+                Delivery Time
+                <select name="deliveryTime" id="">
+                    <option value="noLimitation">No Limitation</option>
+                    <option value="withinOneWeek">Within One Week</option>
+                    <option value="withinTwoWeeks">Within Two Weeks</option>
+                    <option value="withinOneMonth">Within One Month</option>
+                </select>
+            </div>
+            <div class="selectItem">
+                Expected Price
+                <select name="expectedPrice" id="">
+                    <option value="0to10">0 to 10</option>
+                    <option value="10to15">10 to 15</option>
+                    <option value="15to20">15 to 20</option>
+                    <option value="20above">20 above</option>
+                </select>
+            </div>
+            <div class="selectItem">
+                reviewer type
+                <select name="reviewerType" id="">
+                    <option value="student"> student</option>
+                    <option value="faculty"> faculty</option>
+                    <option value="employee">employee</option>
+                </select>
+            </div>
+        </div>
+        <div class="checkBox">
+            <div class="checkItem">Sort By </div>
+            <div class="checkItem"> <input type="radio" name="sorting"> Price:L to H</div>
+            <div class="checkItem"> <input type="radio" name="sorting"> Price:H to L</div>
+            <div class="checkItem"> <input type="radio" name="sorting"> Delivery:Short to Long</div>
+            <div class="checkItem"> <input type="radio" name="sorting"> Delivery:Long to Short</div>
+        </div>
+
+    </div>
+</body>
+
+</html>

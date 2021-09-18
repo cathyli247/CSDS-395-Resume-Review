@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f3f5f3;
+}
+
+.header {
+  width: 1200px;
+  height: 60px;
+
+  margin: 30px auto;
+}
+
+.logo {
+  width: 200px;
+  height: 60px;
+  background-color: blue;
+  float: left;
+}
+
+li {
+  list-style: None;
+}
+
+.nav {
+  float: left;
+  margin-left: 50px;
+}
+
+.nav ul li {
+  float: left;
+}
+
+.nav ul li a {
+  display: block;
+  height: 60px;
+  padding: 0 10px;
+  line-height: 60px;
+  font-size: 20px;
+}
+
+.nav ul li a:hover {
+  border-bottom: 4px solid blue;
+  color: blue;
+}
+
+a {
+  text-decoration: none;
+}
+
+.searching {
+  float: left;
+  width: 396px;
+  height: 60px;
+  background-color: aqua;
+  margin-left: 30px;
+}
+
+.searching input {
+  float: left;
+  width: 320px;
+  height: 58px;
+  border: 1px solid aqua;
+  border-right: none;
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+.searching button {
+  float: left;
+  width: 60px;
+  height: 60px;
+  background-color: green;
+  border: 0;
+  background: url(btn.png);
+}
+
+.user {
+  float: right;
+  line-height: 60px;
+  margin-right: 40px;
+  font-size: 16px;
+}
+
+.filter {
+  background-color: purple;
+  width: 1200px;
+  height: 100px;
+  margin: 30px auto;
+}
+/* 
+select[name="deliveryTime"] {
+  float: left;
+  height: 30px;
+  margin-top: 10px;
+}
+
+select[name="expectedPrice"] {
+  float: left;
+  height: 30px;
+  margin-top: 10px;
+}
+select[name="reviewerType"] {
+  float: left;
+  height: 30px;
+  margin-top: 10px;
+} */
+select {
+  float: left;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.selectItem {
+  float: left;
+  margin-left: 35px;
+}
+.selectBox {
+  height: 50px;
+  background-color: crimson;
+  line-height: 50px;
+}
+
+.checkBox {
+  height: 50px;
+  background-color: aqua;
+  line-height: 50px;
+}
+
+.checkItem {
+  float: left;
+  margin-left: 35px;
+}
+
+input[type="radio"] {
+  float: left;
+  height: 30px;
+  margin-top: 10px;
+}
