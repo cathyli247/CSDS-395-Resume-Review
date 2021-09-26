@@ -6,6 +6,8 @@ background: linear-gradient(to bottom, #003658, #97d0f3); /* W3C, IE 10+/ Edge, 
 float:left;
 width:100%;
 padding : 50px 0;
+height: 100vh;
+overflow: auto;
 }
 .banner-sec{background:url(https://static.pexels.com/photos/33972/pexels-photo.jpg)  no-repeat left bottom; background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}
 .container{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1); height:600px}
