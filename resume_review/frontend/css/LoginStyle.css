@@ -32,6 +32,4 @@ overflow: auto;
     justify-content: center;
     padding: 0px;
 }
-a {
-    font-size: 13px;
-}
+.sign-up-link{font-size: 13px; margin-bottom:10px;}
