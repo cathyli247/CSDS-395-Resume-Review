@@ -17,12 +17,19 @@ padding : 50px 0;
 .login-sec .copy-text a{color:#E36262;}
 .login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #DE6262;}
 .login-sec h2:after{content:" "; width:100px; height:5px; background:linear-gradient(to right, #003658, #97d0f3); display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
-.btn-login{background: #003658; color:#fff; font-weight:600;}
+.btn-login{background: #003658; color:#fff; font-weight:600; width:280px}
 .banner-text{width:70%; position:absolute; bottom:40px; padding-left:20px;}
 .banner-text h2{color:#fff; font-weight:600;}
 .banner-text h2:after{content:" "; width:100px; height:5px; background:#FFF; display:block; margin-top:20px; border-radius:3px;}
 .banner-text p{color:#fff;}
-
 .carousel-item{height:600px;}
 .img-fluid{height:600px;}
 .carousel{height:600px;}
+.form-check{    
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+}
+a {
+    font-size: 13px;
+}
