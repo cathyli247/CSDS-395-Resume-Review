@@ -24,7 +24,7 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="img/login_1.jpeg" alt="First slide">
+                            <img class="d-block img-fluid" src="{% static 'img/login_1.jpeg' %}" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <div class="banner-text">
                                     <h2>Welcome to <br>CWRU Resume Review</h2>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block img-fluid" src="img/login_2.jpeg" alt="First slide">
+                            <img class="d-block img-fluid" src="{% static 'img/login_2.jpeg' %}" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <div class="banner-text">
                                     <h2>Our Protocol</h2>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block img-fluid" src="img/login_3.jpeg" alt="First slide">
+                            <img class="d-block img-fluid" src="{% static 'img/login_3.jpeg' %}" alt="First slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <div class="banner-text">
                                     <h2>Become a Reviewer?</h2>
@@ -55,19 +55,37 @@
             </div>
             <div class="col-md-4 login-sec">
                 <h2 class="text-center" style="color:#003658">Login Now</h2>
-                <form class="login-form">
+                <form class="login-form" method="post" action="" novalidate>
+                    {% csrf_token %}
                     <div class="form-group">
-                        <label for="exampleInputEmail1" class="text-uppercase">Username</label>
-                        <input type="text" class="form-control" placeholder="">
+                        <label for="id_username" class="text-uppercase">Username</label>
+                        <input type="text" class="form-control" required id="id_username" name="username">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="text-uppercase">Password</label>
-                        <input type="password" class="form-control" placeholder="">
+                        <label for="id_password" class="text-uppercase">Password</label>
+                        <input type="password" class="form-control" required id="id_password" name="password">
                     </div>
                     <div class="sign-up-link"><a href="{% url 'register' %}"> Not a member yet? Sign up Now!</a></div>
                     <div class="form-check">
                         <button type="submit" class="btn btn-login float-right">Submit</button>
                     </div>
+
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger mt-4" role="alert">
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <li>
+                            {% if field != '__all__' %}
+                            <strong>{{ field.label }}:</strong>
+                            {% endif %}
+                            {{ error }}
+                        </li>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                 </form>
             </div>
         </div>
