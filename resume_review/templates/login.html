@@ -61,20 +61,24 @@
                         <label for="id_username" class="text-uppercase">Username</label>
                         <input type="text" class="form-control" required id="id_username" name="username">
                     </div>
+                    <div class='login-err-msg'>
                     {% with field=form.username %}
                     {% for error in field.errors %}
                         {{ error }}
                     {% endfor %}
                     {% endwith %}
+                    </div>
                     <div class="form-group">
                         <label for="id_password" class="text-uppercase">Password</label>
                         <input type="password" class="form-control" required id="id_password" name="password">
                     </div>
+                    <div class='login-err-msg'>
                     {% with field=form.password %}
                         {% for error in field.errors %}
                             {{ error }}
                         {% endfor %}
                     {% endwith %}
+                    </div>
                     <div class="sign-up-link"><a href="{% url 'register' %}"> Not a member yet? Sign up Now!</a></div>
                     <div class="form-check">
                         <button type="submit" class="btn btn-login float-right">Submit</button>

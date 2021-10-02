@@ -54,45 +54,53 @@
                 </div>
             </div>
             <div class="col-md-4 login-sec">
-                <h2 class="text-center" style="color:#003658">Sign Up </h2>
+                <h2 class="text-center" style="color:#003658; margin-bottom: 10px;">Sign Up </h2>
                 <form class="login-form" method="post" action="" novalidate>
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_username" class="text-uppercase">Username</label>
                         <input type="text" class="form-control" id="id_username" name="username">
                     </div>
+                    <div class='login-err-msg'>
                     {% with field=form.username %}
                     {% for error in field.errors %}
                     {{ error }}
                     {% endfor %}
                     {% endwith %}
+                    </div>
                     <div class="form-group">
                         <label for="id_email" class="text-uppercase">Email</label>
                         <input type="text" class="form-control" id="id_email" name="email">
                     </div>
+                    <div class='login-err-msg'>
                     {% with field=form.email %}
                     {% for error in field.errors %}
                     {{ error }}
                     {% endfor %}
                     {% endwith %}
+                    </div>
                     <div class="form-group">
                         <label for="id_password1" class="text-uppercase">Password</label>
                         <input type="password" class="form-control" id="id_password1" name="password1">
                     </div>
+                    <div class='login-err-msg'>
                     {% with field=form.password1 %}
                     {% for error in field.errors %}
                     {{ error }}
                     {% endfor %}
                     {% endwith %}
+                    </div>
                     <div class="form-group">
                         <label for="id_password2" class="text-uppercase">Verify Password</label>
                         <input type="password" class="form-control" id="id_password2" name="password2">
                     </div>
+                    <div class='login-err-msg'>
                     {% with field=form.password2 %}
                     {% for error in field.errors %}
                     {{ error }}
                     {% endfor %}
                     {% endwith %}
+                    </div>
                     <div class="sign-up-link"><a href="{% url 'login' %}"> Login to your account. </a></div>
                     <div class="form-check">
                         <button type="submit" class="btn btn-login float-right">Submit</button>
@@ -103,4 +111,3 @@
     </div>
 </section>
 </body>
-</html>
