@@ -61,37 +61,42 @@
                         <label for="id_username" class="text-uppercase">Username</label>
                         <input type="text" class="form-control" id="id_username" name="username">
                     </div>
+                    {% with field=form.username %}
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    {% endwith %}
                     <div class="form-group">
                         <label for="id_email" class="text-uppercase">Email</label>
                         <input type="text" class="form-control" id="id_email" name="email">
                     </div>
+                    {% with field=form.email %}
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    {% endwith %}
                     <div class="form-group">
                         <label for="id_password1" class="text-uppercase">Password</label>
                         <input type="password" class="form-control" id="id_password1" name="password1">
                     </div>
+                    {% with field=form.password1 %}
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    {% endwith %}
                     <div class="form-group">
                         <label for="id_password2" class="text-uppercase">Verify Password</label>
                         <input type="password" class="form-control" id="id_password2" name="password2">
                     </div>
+                    {% with field=form.password2 %}
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    {% endwith %}
                     <div class="sign-up-link"><a href="{% url 'login' %}"> Login to your account. </a></div>
                     <div class="form-check">
                         <button type="submit" class="btn btn-login float-right">Submit</button>
                     </div>
-
-                    {% if form.errors %}
-                    <div class="alert alert-danger mt-4" role="alert">
-                        {% for field in form %}
-                        {% for error in field.errors %}
-                        <li>
-                            {% if field != '__all__' %}
-                            <strong>{{ field.label }}:</strong>
-                            {% endif %}
-                            {{ error }}
-                        </li>
-                        {% endfor %}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
                 </form>
             </div>
         </div>
