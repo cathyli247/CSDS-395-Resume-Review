@@ -1,0 +1,105 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+a{
+  text-decoration: none;
+  color: #fff;
+}
+
+section{
+  padding: 10rem 0;
+  background-color: #fff;
+}
+
+.card-wrapper{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 2rem;
+}
+
+.card{
+  max-width: 30rem;
+  max-height: 50rem;
+  /* width: 32rem; */
+  background-color: #ebeef8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
+  border-radius: 2rem;
+}
+
+.card .card-img{
+  width: 100%;
+  height: 26rem;
+  object-fit: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 63%, 0% 100%);
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.profile-img{
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: -10rem;
+  z-index: 1000;
+  border: 1rem solid #ebeef8;
+}
+
+.card h1{
+  font-size: 2.5rem;
+  color: #333;
+  margin: 1.5rem 0;
+}
+
+.card .about{
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  font-style: normal;
+  text-align: center;
+  color: #333;
+  padding: 1rem 2.5rem;
+}
+
+.card .btn{
+  padding: 1rem 2.5rem;
+  background-color: #003658;
+  border-radius: 2rem;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  color: #fff;
+  transition: all .5s;
+}
+
+.card .btn:hover{
+  transform: translateY(-2px);
+  box-shadow: .2rem .2rem 1rem rgba(21, 83, 207, 0.579);
+}
+
+.card .btn:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.card:hover{
+  transform: scale(1.02);
+}
+
+.checked {
+  color: orange;
+}
