@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -37,6 +39,7 @@ class Reviewer(models.Model):
     self_intro = models.TextField()
     comment = models.TextField(null=True)
     rate = models.SmallIntegerField(null=True)
+    delivery_time = models.DateTimeField(null=False, default=datetime.now()+timedelta(days=4))
 
 
 class Order(models.Model):
@@ -53,7 +56,9 @@ class Order(models.Model):
     ]
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
-    create_at = models.DateTimeField(auto_now=True)
+    order_id = models.CharField(null=False, max_length=150, default='')
+    create_at = models.DateTimeField(null=False, default=datetime.now())
+    finished_at = models.DateTimeField(null=False, default=datetime.now())
     state = models.CharField(
         max_length=1, choices=Order_State)
     resume = models.TextField(null=True)
