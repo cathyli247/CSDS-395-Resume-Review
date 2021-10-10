@@ -60,10 +60,15 @@
                             <button type="submit" class='upload-btn'>Upload</button>
                         </form>
                     </div>
-                    <!-- uploaded files -->
-                    <div class="col-sm-6 order-col-element" >
+                    <!-- uploaded files from users -->
+                    <div class="col-sm-3 order-col-element" >
                         <div class='uploaded-files'><a href="#"> upload1 </a></div>
                         <div class='uploaded-files'><a href="#"> upload2 </a></div>
+                    </div>
+                    <!-- uploaded files from reviewers -->
+                    <div class="col-sm-3 order-col-element" >
+                        <div class='uploaded-files'><a href="#"> download1 </a></div>
+                        <div class='uploaded-files'><a href="#"> download2 </a></div>
                     </div>
                 </div>
             </section>
@@ -90,7 +95,9 @@
                     <button type="submit" class='upload-btn submit-btn'>Submit</button>
                 </form>
             </section>
-            
+        </section>
+        <section class='cancel-field container-fluid'>
+            <button type="submit" class='upload-btn' id="cancel-btn">Cancel Order</button>
         </section>
     </body>
     <script src = "static/js/orderpage.js"></script>

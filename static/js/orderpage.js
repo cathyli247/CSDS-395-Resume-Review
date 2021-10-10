@@ -7,3 +7,7 @@ selectFileBtn.addEventListener('change', function(){
 function openRatingForm(){
     document.body.classList.add("showRatingForm");
 }
+
+function comf_rejc(){
+    document.body.classList.add("showConfirmStatus");
+}
