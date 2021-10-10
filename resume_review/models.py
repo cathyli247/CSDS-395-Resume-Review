@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -39,6 +39,7 @@ class Reviewer(models.Model):
     self_intro = models.TextField()
     comment = models.TextField(null=True)
     rate = models.SmallIntegerField(null=True)
+    delivery_time = models.DateTimeField(null=False, default=datetime.now()+timedelta(days=4))
 
 
 class Order(models.Model):
