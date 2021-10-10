@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset = "UTF-8">
+        <title> User Order </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="static/css/orderpage.css" />
+        <link rel="stylesheet" href="static/css/rating.css" />
+    </head>
+    <body>
+        <!-- Nav Bar-->
+
+        <section class='order-info'>
+            <!-- title -->
+            <div class='order-title'> <h2>Orders Details</h2></div>
+
+            <!-- information table -->
+            <section class='order-table'>
+                <table>
+                    <tr>
+                        <th>Reviewer</th>
+                        <th>Order Number</th> 
+                        <th>Price</th> 
+                    </tr>
+                    <tr>
+                        <td>Alfreds Futterkiste</td>
+                        <td>osrjgpojrgoijprg</td> 
+                        <td>$30</td> 
+                    </tr>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Status</th>
+                        <th>Start Time</th> 
+                        <th>Complete Time</th>
+                    </tr>
+                    <tr>
+                        <td>Completed</td>
+                        <td>2020-04-05</td> 
+                        <td>2020-04-11</td> 
+                    </tr>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- upload/download -->
+            <section class='upload-field container-fluid'>
+                <div><p> Uploads </p></div>
+                <div class="row">
+                    <!-- upload field -->
+                    <div class="col-sm-6 order-col-element" >
+                        <form class='upload-form'>
+                            <input type="file" id="select-file-btn" hidden/>
+                            <label for="select-file-btn" class='select-file-label'>Select File</label><br>
+                            <span id="file-selected">No file chosen</span> <br>
+                            <button type="submit" class='upload-btn'>Upload</button>
+                        </form>
+                    </div>
+                    <!-- uploaded files -->
+                    <div class="col-sm-6 order-col-element" >
+                        <div class='uploaded-files'><a href="#"> upload1 </a></div>
+                        <div class='uploaded-files'><a href="#"> upload2 </a></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rating -->
+            <section class='rating-field container-fluid'>
+                <div><p> Rating </p></div>
+                <label class="show-rating-btn" id="ratingtab" onclick="openRatingForm()"><a id="direct-to-rate" href="#ratingForm">Rate the Reviewer</a></label>
+                <form id="ratingForm" class="input-group">
+                    <div class="star">
+                        <input type="radio" id="star5" name="star" value="5" hidden/>
+                        <label for="star5" title="text"></label>
+                        <input type="radio" id="star4" name="star" value="4" hidden/>
+                        <label for="star4" title="text"></label>
+                        <input type="radio" id="star3" name="star" value="3" hidden/>
+                        <label for="star3" title="text"></label>
+                        <input type="radio" id="star2" name="star" value="2" hidden/>
+                        <label for="star2" title="text"></label>
+                        <input type="radio" id="star1" name="star" value="1" hidden/>
+                        <label for="star1" title="text"></label>
+                    </div>
+                    <br>
+                    <textarea class="textComments" placeholder = "Leave Comments..." rows = "6"></textarea>
+                    <button type="submit" class='upload-btn submit-btn'>Submit</button>
+                </form>
+            </section>
+            
+        </section>
+    </body>
+    <script src = "static/js/orderpage.js"></script>
+</html>
