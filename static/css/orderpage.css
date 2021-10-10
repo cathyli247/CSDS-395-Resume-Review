@@ -1,18 +1,22 @@
 .order-section{
-    background: linear-gradient(to bottom, #003658, #97d0f3); 
     height: 100vh;
+    margin: auto;
 }
 
 h2 {
-    margin-left: 60px;
-    margin-top: 15px;
+    margin-left: 50px;
+    margin-top: 10px;
     margin-bottom: 10px;
-    color: #fff;
+    color: #003658;
     font-size: 30px;
 }
 
-#order-title {
-    margin-top: 30px;
+.order-section {
+    margin-top: 20px;
+}
+
+.order-title {
+    padding: 20px;
 }
 
 .order-search {
@@ -26,17 +30,19 @@ form {
 }
 
 input{
-    width: 45%;
-    border-radius: 5px;
-    border: 0px;
+    width: 40%;
+    border-width: 0 0 2px;
+    border-color: #003658;
     padding: 3px;
+    margin: 8px;
     outline: none;
+    opacity: 90%;
 }
 
 button {
    border: 0px;
-   background-color: #e8f4fa;
    border-radius: 5px;
+   background-color: #fff;
    padding: 2px;
    height: 28px;
    width: 28px;
@@ -48,13 +54,17 @@ img {
 }
 
 
-
-tr:nth-child(odd) {
+tr:hover {
     background-color: #e8f4fa;
+    cursor: pointer;
 }
 
 th{
     padding: 15px 20px 20px 15px;
+}
+
+th {
+    color: #003658;
 }
 
 td{
