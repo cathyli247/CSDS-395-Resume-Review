@@ -7,3 +7,7 @@ selectFileBtn.addEventListener('change', function(){
 function comf_rejc(){
     document.body.classList.add("showConfirmStatus");
 }
+
+function ShowSubmitInfo(){
+    document.getElementById("submit-msg").innerHTML = 'Submitted';
+}

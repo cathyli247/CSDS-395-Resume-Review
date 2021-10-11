@@ -80,7 +80,7 @@
                 <div><p> Rating </p></div>
                 <label class="show-rating-btn" id="ratingtab" onclick="openRatingForm()"><a id="direct-to-rate" href="#ratingForm">Rate the Reviewer</a></label>
                 <p id="incomplete-msg" style="color:#9c0d03;"></p>
-                <form id="ratingForm" class="input-group">
+                <form id="ratingForm" class="input-group" onsubmit="return false">
                     <div class="star">
                         <input type="radio" id="star5" name="star" value="5" hidden/>
                         <label for="star5" title="text"></label>
@@ -95,7 +95,8 @@
                     </div>
                     <br>
                     <textarea class="textComments" placeholder = "Leave Comments..." rows = "6"></textarea>
-                    <button type="submit" class='upload-btn submit-btn'>Submit</button>
+                    <div id='submit-msg'><p></p></div>
+                    <button type="submit" class='upload-btn submit-btn' onclick=ShowSubmitInfo()>Submit</button>
                 </form>
             </section>
         </section>

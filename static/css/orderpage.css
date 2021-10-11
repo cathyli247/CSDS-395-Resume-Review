@@ -121,6 +121,7 @@ a:hover{ text-decoration: none;}
 #ratingForm { display: none; width: 60%; margin: auto;}
 .textComments { width: 90%; margin-bottom: 5px; padding: 2px;}
 .submit-btn { margin-bottom: 10px;}
+#submit-msg { color: #03ac28;}
 body.showRatingForm #ratingForm {
     display: block;
 }
