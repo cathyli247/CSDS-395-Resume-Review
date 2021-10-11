@@ -124,6 +124,9 @@ a:hover{ text-decoration: none;}
 body.showRatingForm #ratingForm {
     display: block;
 }
+#incomplete-msg{
+    color:#9c0d03;
+}
 
 .cancel-field {
     width: 90%; margin: auto; 

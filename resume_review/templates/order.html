@@ -34,7 +34,7 @@
                         <th>Date</th> 
                         <th>Price</th>
                     </tr>
-                    <tr>
+                    <tr data-href= '#'>
                         <td>Alfreds Futterkiste</td>
                         <td>2020-05-06</td> 
                         <td>$30</td>
@@ -47,6 +47,13 @@
             </section>
         </section>
     </body>
+
+    <script>
+        $('tr[data-href]').on("click", function() {
+            document.location = $(this).data('href');
+        });
+
+    </script>
     
     
 </html>

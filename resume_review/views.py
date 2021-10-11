@@ -75,3 +75,10 @@ class OrderPageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+class UserOrderDetailView(TemplateView):
+    template_name = "userorderdetail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

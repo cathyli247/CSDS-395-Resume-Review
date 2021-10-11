@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -5,10 +6,10 @@
         <meta charset = "UTF-8">
         <title> User Order </title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="static/css/orderpage.css" />
-        <link rel="stylesheet" href="static/css/rating.css" />
+        <link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
+        <script src = "{% static 'js/rating.js' %}"></script>
     </head>
     <body>
         <!-- Nav Bar-->
@@ -32,7 +33,7 @@
                     </tr>
                     </tr>
                 </table>
-                <table>
+                <table id="complete-info">
                     <tr>
                         <th>Status</th>
                         <th>Start Time</th> 
@@ -77,6 +78,7 @@
             <section class='rating-field container-fluid'>
                 <div><p> Rating </p></div>
                 <label class="show-rating-btn" id="ratingtab" onclick="openRatingForm()"><a id="direct-to-rate" href="#ratingForm">Rate the Reviewer</a></label>
+                <p id="incomplete-msg" style="color:#9c0d03;"></p>
                 <form id="ratingForm" class="input-group">
                     <div class="star">
                         <input type="radio" id="star5" name="star" value="5" hidden/>
@@ -100,5 +102,5 @@
             <button type="submit" class='upload-btn' id="cancel-btn">Cancel Order</button>
         </section>
     </body>
-    <script src = "static/js/orderpage.js"></script>
+    <script src = "{% static 'js/orderpage.js' %}"></script>
 </html>
