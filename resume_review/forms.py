@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth import password_validation, authenticate
 from django.contrib.auth.models import User
-from django.forms import ValidationError
+from django.forms import ValidationError, Select
+
+from resume_review import source_api
+
 
 class RegisterForm(forms.Form):
     username = forms.CharField(required=True, label='Username')
@@ -47,6 +50,28 @@ class LoginForm(forms.Form):
         return self.cleaned_data
 
 
+class UserProfileForm(forms.Form):
+    first_name = forms.CharField(required=True, label='First Name', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(required=True, label='Last Name', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'email'}))
 
+    phone_number = forms.CharField(required=True, label='Phone Number', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    MAJOR_CHOICES = source_api.get_major_list()
+    major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
+                              widget=Select(attrs={"class": "form-select"}))
+    FRESHMEN = 'F'
+    SOPHOMORE = 'S'
+    JUNIOR = 'J'
+    SENIOR = 'C'
+    GRADUATE = 'G'
 
+    ACADEMIC_STANDING_CHOICES = [
+        (FRESHMEN, 'Freshmen'),
+        (SOPHOMORE, 'Sophomore'),
+        (JUNIOR, 'Junior'),
+        (SENIOR, 'Senior'),
+        (GRADUATE, 'Graduate'),
+    ]
 
+    academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
+                                          widget=Select(attrs={"class": "form-select"}))
