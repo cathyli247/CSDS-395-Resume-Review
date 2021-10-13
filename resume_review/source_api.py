@@ -10,6 +10,7 @@ def get_major_list():
     for line in lines:
         texts = str(line).split('     ')
         texts[1] = texts[1].replace('\n', '')
-        t = (texts[0], texts[1].lower())
+        text = texts[1].lower().title()
+        t = (text, text)
         result.append(t)
     return result

@@ -10,11 +10,11 @@ from resume_review import source_api
 
 
 class Account(models.Model):
-    FRESHMEN = 'F'
-    SOPHOMORE = 'S'
-    JUNIOR = 'J'
-    SENIOR = 'C'
-    GRADUATE = 'G'
+    FRESHMEN = 'Freshmen'
+    SOPHOMORE = 'Sophomore'
+    JUNIOR = 'Junior'
+    SENIOR = 'Senior'
+    GRADUATE = 'Graduate'
 
     ACADEMIC_STANDING = [
         (FRESHMEN, 'Freshmen'),
@@ -30,7 +30,7 @@ class Account(models.Model):
     major = models.CharField(max_length=255, choices=MAJOR)
     department = models.CharField(max_length=255)
     academic = models.CharField(
-        max_length=1, choices=ACADEMIC_STANDING)
+        max_length=255, choices=ACADEMIC_STANDING)
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
 

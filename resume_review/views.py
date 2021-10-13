@@ -97,6 +97,10 @@ class UserProfileView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['user_name'] = user.username if user.is_authenticated else None
+        context['email'] = user.email if user.is_authenticated else None
+        context['account'] = user_api.get_account_by_user(user)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -105,7 +109,6 @@ class UserProfileView(FormView):
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        print(self.request.POST)
         if form.is_valid():
             return self.form_valid(form)
         else:
@@ -134,7 +137,9 @@ class UserProfileView(FormView):
         account.academic = academic_standing
         account.save()
         logger.info('save account info %s' % user)
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        return response
 
     def form_invalid(self, form):
-        return super().form_invalid(form)
+        response = super().form_invalid(form)
+        return response
