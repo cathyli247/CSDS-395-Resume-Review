@@ -18,32 +18,50 @@
             <div class='order-title'> <h2>Orders </h2></div>
 
             <!-- Search -->
-            <div class="order-search">
-                <form>
-                    <input type="text" placeholder="Reviewer name">
-                    <input type="text" placeholder="Date">
-                    <button type="submit"> <img src="{% static 'img/search_icon.png' %}"> </button>
-                </form>
+            <div class="order-search row">
+                <div class="col-sm-4 order-col-element" >
+                    <select id="order-select">
+                        <option value="user">Order sent</option>
+                        <option value="reviewer">Order Receviced</option>
+                    </select>
+                </div>
+                <div class="col-sm-8 order-col-element" >
+                    <form id='order-srch-form'>
+                        <input type="text" placeholder="Reviewer name">
+                        <input type="text" placeholder="Date">
+                        <button type="submit"> <img src="{% static 'img/search_icon.png' %}"> </button>
+                    </form>
+                </div>
             </div>
 
             <!-- order table -->
             <section class='order-table'>
                 <table>
-                    <tr>
-                        <th>Reviewer</th>
-                        <th>Date</th> 
-                        <th>Price</th>
-                    </tr>
-                    <tr data-href= '#'>
-                        <td>Alfreds Futterkiste</td>
-                        <td>2020-05-06</td> 
-                        <td>$30</td>
-                    </tr>
-                    <tr>
-                        <td>Alfreds Futterkiste</td>
-                        <td>2020-05-06</td> 
-                        <td>$30</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Date</th> 
+                            <th>Status</th> 
+                            <th>Price</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-href= '#'>
+                            <td>Alfreds Futterkiste</td>
+                            <td>2020-05-06</td> 
+                            <td>
+                            <!-- text-info:comfirmed, test-waring:pending, text-danger:rejected-->
+                            <span class="status text-success">•</span>
+                            Completed
+                            </td>
+                            <td>$30</td>
+                            <td class='go-to-detail'>
+                                <label href='#'> <img src="{% static 'img/right-arrow.png' %}"> </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </section>
     </body>

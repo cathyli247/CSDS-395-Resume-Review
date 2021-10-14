@@ -1,15 +1,19 @@
-.order-section{ height: 100vh; margin: auto; margin-top: 20px;}
+
+.order-section{ height: 100vh; margin: auto; margin-top: 20px; width: 85%;}
 
 h2 {
-    margin-left: 50px;
     margin-top: 10px;
     margin-bottom: 10px;
-    color: #003658;
+    color: #fff;
     font-size: 30px;
+    width: 100%;
+    margin:auto;
+    background-color: #003658;
+    padding: 8px;
 }
 
 .confirm-field{ 
-    width: 90%; 
+    width: 100%; 
     height: 90%; 
     margin-top: 10px; 
     margin-bottom: 10px;
@@ -17,7 +21,7 @@ h2 {
 }
 .confirm-option{
     float: right;
-    width:70px;
+    width: 70px;
     color: #fff;
     margin: 2px;
     margin-top: 30px;
@@ -37,11 +41,28 @@ body.showConfirmStatus #confirm-status {
 }
 
 .order-title { padding: 20px;}
+#order-select{
+    padding:10px;
+    border-radius: 3px;
+    margin-top:3px;
+}
+#order-srch-form{
+    width: 100%;
+    float:right;
+}
 .order-search {
-    width: 90%;
-    padding: 10px;
+    width: 95%;
+    padding: 5px;
     margin: auto;
 }
+.go-to-detail{
+    margin: auto;
+}
+td label{
+    margin-left:10px;
+    cursor: pointer;
+}
+
 
 form { align-items: center;}
 input{
@@ -68,7 +89,7 @@ th{ padding: 15px 20px 20px 15px;}
 th { color: #003658;}
 td{ padding: 15px;}
 table {
-    width: 90%;
+    width: 95%;
     margin: auto;
     background-color: #fff;
 }
@@ -102,12 +123,12 @@ span { margin: 3px;}
     margin-top: -3px;
     width: 90%;
 }
-.upload-field{ width: 90%; margin: auto;}
+.upload-field{ width: 95%; margin: auto;}
 .upload-form{ width: 90%; float: left;}
 p { margin-top: 10px; color: #003658; font-weight: bold;}
 .uploaded-files { width: 90%;}
 
-.rating-field{ width: 90%; margin: auto; margin-top: 30px; margin-bottom: 80px;}
+.rating-field{ width: 95%; margin: auto; margin-top: 30px; margin-bottom: 80px;}
 #direct-to-rate{ color:#fff}
 a:hover{ text-decoration: none;}
 .show-rating-btn{
