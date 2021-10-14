@@ -53,8 +53,7 @@ class LoginForm(forms.Form):
 class UserProfileForm(forms.Form):
     first_name = forms.CharField(required=True, label='First Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your first name'}))
     last_name = forms.CharField(required=True, label='Last Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your last name'}))
-    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'type':'email', 'placeholder': 'Enter your email'}))
-
+    avatar = forms.ImageField(required=False, label='Avatar')
     phone_number = forms.CharField(required=True, label='Phone Number', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'}))
     MAJOR_CHOICES = source_api.get_major_list()
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',

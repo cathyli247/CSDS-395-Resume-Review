@@ -117,13 +117,12 @@ class UserProfileView(FormView):
     def form_valid(self, form):
         first_name = self.request.POST.get('first_name', '')
         last_name = self.request.POST.get('last_name', '')
-        email = self.request.POST.get('email', '')
         phone_number = self.request.POST.get('phone_number', '')
         major = self.request.POST.get('major', '')
         academic_standing = self.request.POST.get('academic_standing', '')
+        avatar = self.request.FILES.get('avatar', '')
 
         user = self.request.user
-        user.email = email
         user.first_name = first_name
         user.last_name = last_name
         user.save()
@@ -135,6 +134,8 @@ class UserProfileView(FormView):
         account.phone = phone_number
         account.major = major
         account.academic = academic_standing
+        if avatar:
+            account.avatar = avatar
         account.save()
         logger.info('save account info %s' % user)
         response = super().form_valid(form)

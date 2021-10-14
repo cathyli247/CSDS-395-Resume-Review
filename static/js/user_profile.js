@@ -12,10 +12,10 @@ $(document).on('click','#cancel',function(){
     $('.edit').hide();
 });
 
-$(document).on('click','#submit',function(){
+$(document).on('click','#update',function(){
     if (checkValidity()) {
-        console.log('valid')
-        sendRequest();
+//        sendRequest();
+        $( "#submit" ).click();
     }
     else {
         $('.err-msg').show();
@@ -28,33 +28,29 @@ function init_page() {
     $('.err-msg').hide();
     $('input#id_first_name').val($('#info_first_name').text().replace(/\s/g,''));
     $('input#id_last_name').val($('#info_last_name').text().replace(/\s/g,''));
-    $('input#id_email').val($('#info_email').text().replace(/\s/g,''));
     $('input#id_phone_number').val($('#info_phone_number').text().replace(/\s/g,''));
     $('#id_major').val($('#info_major').text().trim());
     $('#id_academic_standing').val($('#info_academic_standing').text().replace(/\s/g,''));
 }
 
 function checkValidity() {
-    if (!($("input#id_first_name").val() && $("input#id_last_name").val() && $("input#id_email").val() && $("input#id_phone_number").val())) {
-        return false;
-    }
-    if (!($("input#id_email").val().includes("@") && $("input#id_email").val().includes(".com"))) {
+    if (!($("input#id_first_name").val() && $("input#id_last_name").val() && $("input#id_phone_number").val())) {
         return false;
     }
     return true;
 }
 
-function sendRequest() {
-    var frm = $('#profile-form');
-    $.ajax({
-                type: frm.attr('method'),
-                url: frm.attr('action'),
-                data: frm.serialize(),
-                success: function (data) {
-                    location.reload();
-                },
-                error: function(data) {
-                    console.log('failed');
-                }
-    });
-}
+//function sendRequest() {
+//    var frm = $('#profile-form');
+//    $.ajax({
+//                type: frm.attr('method'),
+//                url: frm.attr('action'),
+//                data: frm.serialize(),
+//                success: function (data) {
+//                    location.reload();
+//                },
+//                error: function(data) {
+//                    console.log('failed');
+//                }
+//    });
+//}

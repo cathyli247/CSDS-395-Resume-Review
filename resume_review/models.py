@@ -28,12 +28,11 @@ class Account(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     major = models.CharField(max_length=255, choices=MAJOR)
-    department = models.CharField(max_length=255)
     academic = models.CharField(
         max_length=255, choices=ACADEMIC_STANDING)
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
-
+    avatar = models.ImageField(upload_to='profile_pic', null=True, default='user.png')
 
 class Reviewer(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
