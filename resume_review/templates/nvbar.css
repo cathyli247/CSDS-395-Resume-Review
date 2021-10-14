@@ -8,10 +8,10 @@ body {
 }
 
 .header {
-  width: 1200px;
+  width: 1400px;
   height: 60px;
-
   margin: 30px auto;
+  color: #003658;
 }
 
 .logo {
@@ -42,7 +42,7 @@ li {
   font-size: 20px;
 }
 
-.nav ul li a:hover {
+.collapse ul li a:hover {
   border-bottom: 4px solid blue;
   color: blue;
 }
@@ -53,13 +53,11 @@ a {
 
 .searching {
   float: left;
-  width: 396px;
-  height: 60px;
-  background-color: aqua;
   margin-left: 30px;
+  margin-right: 50px;
 }
 
-.searching input {
+/* .searching input {
   float: left;
   width: 320px;
   height: 58px;
@@ -67,16 +65,7 @@ a {
   border-right: none;
   font-size: 16px;
   padding-left: 15px;
-}
-
-.searching button {
-  float: left;
-  width: 60px;
-  height: 60px;
-  background-color: green;
-  border: 0;
-  background: url(btn.png);
-}
+} */
 
 .user {
   float: right;
@@ -86,9 +75,8 @@ a {
 }
 
 .filter {
-  background-color: purple;
-  width: 1200px;
-  height: 100px;
+  background-color: rgba(21, 83, 207, 0.579);
+  width: 1400px;
   margin: 30px auto;
 }
 /* 
@@ -117,16 +105,15 @@ select {
 .selectItem {
   float: left;
   margin-left: 35px;
+  margin-top: 15px;
 }
 .selectBox {
   height: 50px;
-  background-color: crimson;
   line-height: 50px;
 }
 
 .checkBox {
   height: 50px;
-  background-color: aqua;
   line-height: 50px;
 }
 
@@ -139,4 +126,9 @@ input[type="radio"] {
   float: left;
   height: 30px;
   margin-top: 10px;
+}
+
+.dividing {
+  height: 10px;
+  width: auto;
 }
