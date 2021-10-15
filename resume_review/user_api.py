@@ -67,7 +67,9 @@ def get_good_reviewer():
         rate_sum = 0
         for c in comments:
             rate_sum += c.rate
-        ave_rate = rate_sum / comments.len()
+
+        ave_rate = rate_sum / len(comments) if len(comments) != 0 else 0
+
         if ave_rate > 4.5:
             good_reviewer.append(r)
         return good_reviewer

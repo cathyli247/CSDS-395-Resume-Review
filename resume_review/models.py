@@ -23,7 +23,7 @@ class Account(models.Model):
         (SENIOR, 'Senior'),
         (GRADUATE, 'Graduate'),
     ]
-    
+
     MAJOR = source_api.get_major_list()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
@@ -34,7 +34,7 @@ class Account(models.Model):
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
     avatar = models.ImageField(
-        upload_to='profile_pic', null=True, default='user.png')
+        upload_to='profile_pic', null=True, default='uaddsser.png')
 
 
 class Reviewer(models.Model):

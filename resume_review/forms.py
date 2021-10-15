@@ -51,14 +51,18 @@ class LoginForm(forms.Form):
 
 
 class UserProfileForm(forms.Form):
-    first_name = forms.CharField(required=True, label='First Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your first name'}))
-    last_name = forms.CharField(required=True, label='Last Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your last name'}))
+    first_name = forms.CharField(required=True, label='First Name', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter your first name'}))
+    last_name = forms.CharField(required=True, label='Last Name', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter your last name'}))
     avatar = forms.ImageField(required=False, label='Avatar')
-    phone_number = forms.CharField(required=True, label='Phone Number', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'}))
+    phone_number = forms.CharField(required=True, label='Phone Number', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'}))
     MAJOR_CHOICES = source_api.get_major_list()
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
                               widget=Select(attrs={"class": "form-select"}))
-    self_intro = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your self introduction'}))
+    self_intro = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': 'Enter your self introduction'}))
     price = forms.IntegerField()
 
     FRESHMEN = 'Freshmen'
@@ -77,3 +81,30 @@ class UserProfileForm(forms.Form):
 
     academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
                                           widget=Select(attrs={"class": "form-select"}))
+
+
+class SearchForm(forms.Form):
+    MAJOR_CHOICES = source_api.get_major_list()
+
+    FRESHMEN = 'Freshmen'
+    SOPHOMORE = 'Sophomore'
+    JUNIOR = 'Junior'
+    SENIOR = 'Senior'
+    GRADUATE = 'Graduate'
+    ACADEMIC_STANDING_CHOICES = [
+        (FRESHMEN, 'Freshmen'),
+        (SOPHOMORE, 'Sophomore'),
+        (JUNIOR, 'Junior'),
+        (SENIOR, 'Senior'),
+        (GRADUATE, 'Graduate'),
+    ]
+
+    name = forms.CharField(required=True, label='price', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter your name'}))
+    # three choices to filter
+    major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
+                              widget=Select(attrs={"class": "form-select"}))
+    academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
+                                          widget=Select(attrs={"class": "form-select"}))
+    price = forms.CharField(required=True, label='price', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter your expected price'}))
