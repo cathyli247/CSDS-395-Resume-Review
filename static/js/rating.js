@@ -1,9 +1,14 @@
-function openRatingForm(){
-    var infotable = document.getElementById("complete-info");
-    if (infotable.rows[1].cells[0].innerText == 'Completed') {
-        document.body.classList.add("showRatingForm");
+$( document ).ready(function() {
+    var info = document.getElementById("complete-info");
+    $('.ratingSection').show();
+    if (info.innerText == 'Completed') {
+        $('#ratingSection').show();
+        $('#cancel-btn').hide();
     }
     else {
-        document.getElementById("incomplete-msg").innerHTML = "Rating opens when the order is completed.";
+        
+        $('#ratingSection').hide();
+        $('#cancel-btn').show();
     }
-}
+
+});
