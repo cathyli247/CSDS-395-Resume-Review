@@ -2,7 +2,7 @@ import logging
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -14,6 +14,7 @@ from resume_review.forms import RegisterForm, LoginForm, UserProfileForm
 from django.views.generic.edit import FormView
 
 from resume_review.models import Account, Comment, Reviewer
+from resume_review.models import Account, Reviewer
 
 logger = logging.getLogger(__name__)
 
@@ -104,6 +105,16 @@ class UserProfileView(FormView):
         context['user_name'] = user.username if user.is_authenticated else None
         context['email'] = user.email if user.is_authenticated else None
         context['account'] = user_api.get_account_by_user(user)
+        account = user_api.get_account_by_user(user)
+        reviewer = user_api.get_reviewer_by_account(account)
+        if not reviewer:
+            context['self_intro'] = ''
+            context['reviewer'] = 'false'
+            context['price'] = ''
+        else:
+            context['self_intro'] = reviewer.self_intro
+            context['reviewer'] = 'true'
+            context['price'] = reviewer.price
         return context
 
     def get(self, request, *args, **kwargs):
@@ -111,6 +122,12 @@ class UserProfileView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        print(self.request.POST)
+        if self.request.POST.get('unlock', '') == 'true':
+            account = user_api.get_account_by_user(user=self.request.user)
+            reviewer,_ = Reviewer.objects.get_or_create(account=account)
+            return HttpResponseRedirect(self.get_success_url())
+
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
@@ -124,6 +141,8 @@ class UserProfileView(FormView):
         major = self.request.POST.get('major', '')
         academic_standing = self.request.POST.get('academic_standing', '')
         avatar = self.request.FILES.get('avatar', '')
+        self_intro = self.request.POST.get('self_intro', '')
+        price = self.request.POST.get('price', '')
 
         user = self.request.user
         user.first_name = first_name
@@ -142,6 +161,13 @@ class UserProfileView(FormView):
         account.save()
         logger.info('save account info %s' % user)
         response = super().form_valid(form)
+
+        reviewer = user_api.get_reviewer_by_account(account=account)
+        if reviewer:
+            reviewer.self_intro = self_intro
+            reviewer.price = price
+            reviewer.save()
+            logger.info('save reviewer info %s' % user)
         return response
 
     def form_invalid(self, form):

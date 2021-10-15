@@ -23,6 +23,7 @@ class Account(models.Model):
         (SENIOR, 'Senior'),
         (GRADUATE, 'Graduate'),
     ]
+    
     MAJOR = source_api.get_major_list()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)

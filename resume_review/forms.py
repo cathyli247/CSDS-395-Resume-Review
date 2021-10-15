@@ -58,6 +58,9 @@ class UserProfileForm(forms.Form):
     MAJOR_CHOICES = source_api.get_major_list()
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
                               widget=Select(attrs={"class": "form-select"}))
+    self_intro = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your self introduction'}))
+    price = forms.IntegerField()
+
     FRESHMEN = 'Freshmen'
     SOPHOMORE = 'Sophomore'
     JUNIOR = 'Junior'

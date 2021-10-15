@@ -25,6 +25,23 @@ def is_reviewer(user):
     return False
 
 
+def get_reviewer_by_account(account):
+    '''
+    get the reviewer obj by account
+    :param account:  Account Obj
+    :return: Reviewer Obj
+    '''
+    try:
+        reviewers = Reviewer.objects.filter(account=account)
+        if len(reviewers) == 0:
+            logger.error('cannot find reviewer for %s' % account.user)
+            return None
+        return reviewers[0]
+    except:
+        logger.error('get_reviewer_by_account failed')
+    return None
+
+
 def get_account_by_user(user):
     '''
     get the account object by user
