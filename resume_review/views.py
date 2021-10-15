@@ -13,7 +13,7 @@ from resume_review import user_api
 from resume_review.forms import RegisterForm, LoginForm, UserProfileForm
 from django.views.generic.edit import FormView
 
-from resume_review.models import Account
+from resume_review.models import Account, Comment, Reviewer
 
 logger = logging.getLogger(__name__)
 
@@ -43,8 +43,10 @@ class RegisterView(FormView):
         email = self.request.POST.get('email', '')
         password = self.request.POST.get('password1', '')
 
-        User.objects.create_user(username=username, email=email, password=password)
+        User.objects.create_user(
+            username=username, email=email, password=password)
         return super().form_valid(form)
+
 
 class LoginView(FormView):
     template_name = 'login.html'
@@ -79,6 +81,7 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['reviewer'] = user_api.get_good_reviewer()
         return context
 
 
@@ -128,7 +131,7 @@ class UserProfileView(FormView):
         user.save()
         logger.info('save user info %s' % user)
 
-        account,_ = Account.objects.get_or_create(user=user)
+        account, _ = Account.objects.get_or_create(user=user)
         account.first_name = first_name
         account.last_name = last_name
         account.phone = phone_number
