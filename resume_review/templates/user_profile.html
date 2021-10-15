@@ -30,6 +30,14 @@
                                     <h5 class="user-name">{{ user_name }}</h5>
                                     <h6 class="user-email">{{ email }}</h6>
 
+                                    {% if reviewer == 'true' %}
+                                    <div class="about">
+                                        <h5>About</h5>
+                                        <p>{{ self_intro }}</p>
+                                    </div>
+                                    {% endif %}
+
+
                                     <div class="mt-3 edit">
                                         <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#avatarModal">
                                             <i class="fa fa-fw fa-camera"></i>
@@ -153,6 +161,59 @@
                             </div>
 
                             <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <h6 class="mb-2 text-primary">Reviewer Info</h6>
+                                </div>
+                            </div>
+                            {% if reviewer == "false" %}
+                            <div class="reviewer-profile card mt-3">
+                                <div class="justify-content-center pt-5 pb-5" style="align-items:center">
+                                    <h3 class="text-center"><i class="fa fa-lock text-primary fa-3x pb-3"></i></h3>
+                                    <input type="text" name="unlock" value="{{reviewer}}" id="id_unlock" hidden>
+                                    <button class="btn btn-outline-primary d-flex justify-content-center" style="margin: 0 auto;" id="unlock" type="button"  data-toggle="modal" data-target="#unlockModal">Unlock Reviewer</button>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="row mb-3">
+                                {% with field=form.self_intro %}
+                                <div class="col-sm-4">
+                                    <h6 class="mb-0">{{ field.label }}</h6>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="info text-secondary" id="info_self_intro">
+                                        {{ self_intro }}
+                                    </div>
+                                    <div class="edit">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                                {% endwith %}
+                            </div>
+                            <div class="info">
+                                <hr>
+                            </div>
+
+                            <div class="row mb-3">
+                                {% with field=form.price %}
+                                <div class="col-sm-4">
+                                    <h6 class="mb-0">{{ field.label }}</h6>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="info text-secondary" id="info_price">
+                                        {{ price }}
+                                    </div>
+                                    <div class="edit">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                                {% endwith %}
+                            </div>
+                            <div class="info">
+                                <hr>
+                            </div>
+                            {% endif %}
+
+                            <div class="row mb-3">
                                 <div class="col-sm-8">
                                     <div class="text-right mt-3">
                                         <div class="info">
@@ -203,3 +264,24 @@
     </form>
 </body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-labelledby="unlockModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="unlockModalLongTitle">Confirm your option</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You will receive resume order after this confirmation. Please confirm your unlock of the reviewer feature.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="confirm_unlock">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
