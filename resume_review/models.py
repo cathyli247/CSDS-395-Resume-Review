@@ -23,6 +23,7 @@ class Account(models.Model):
         (SENIOR, 'Senior'),
         (GRADUATE, 'Graduate'),
     ]
+
     MAJOR = source_api.get_major_list()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
@@ -32,7 +33,9 @@ class Account(models.Model):
         max_length=255, choices=ACADEMIC_STANDING)
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
-    avatar = models.ImageField(upload_to='profile_pic', null=True, default='user.png')
+    avatar = models.ImageField(
+        upload_to='profile_pic', null=True, default='uaddsser.png')
+
 
 class Reviewer(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
@@ -40,9 +43,14 @@ class Reviewer(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
-    comment = models.TextField(null=True)
-    rate = models.SmallIntegerField(null=True)
     delivery_time = models.DateTimeField(null=False, default=timezone.now)
+
+
+class Comment(models.Model):
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    rate = models.CharField(max_length=255)
+    comment = models.TextField(null=True)
+    create_at = models.DateTimeField(null=False, default=timezone.now)
 
 
 class Order(models.Model):
