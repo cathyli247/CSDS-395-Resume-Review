@@ -81,7 +81,7 @@ class LoginView(FormView):
         return super().form_valid(form)
 
 
-class HomePageView(TemplateView):
+class HomePageView(FormView):
     template_name = "home.html"
     form_class = SearchForm
 
