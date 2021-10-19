@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 <link rel="stylesheet" href="{% static 'css/card.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src = "{% static 'js/home.js' %}"></script>
 
 <section>
     <div class="container">
@@ -16,7 +17,6 @@
                 <img src="{% static 'img/tink.jpeg' %}" alt="card background" class="card-img">
                 <img class="profile-img" src="{{reviewer.account.avatar.url}}" >
                 <h1>{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
-                <span class="fa fa-star checked"> {{ forloop.counter }}</span>
                 <p class="about">{{reviewer.self_intro}}</p>
                 <a href="#" class="btn">View</a>
             </div>
