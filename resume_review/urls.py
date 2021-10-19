@@ -8,4 +8,6 @@ urlpatterns = [
     path('order/', views.OrderPageView.as_view(), name='order'),
     path('order_detail/', views.OrderDetailView.as_view(), name='order_detail'),
     path('user_profile/', views.UserProfileView.as_view(), name='user_profile'),
+    path('reviewer_profile/', views.ReviewerCardView.as_view(),
+         name='reviewer_profile'),
 ]

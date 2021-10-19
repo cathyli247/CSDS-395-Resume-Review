@@ -154,6 +154,24 @@ class OrderDetailView(TemplateView):
         return self.render_to_response(context)
 
 
+class ReviewerCardView(TemplateView):
+    template_name = "reviewer_card.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviewer_id = self.request.GET.get('reviewer_id')
+        if not reviewer_id:
+            return context
+
+        reviewers = Reviewer.objects.filter(id=reviewer_id)
+        context['reviewer'] = reviewers[0] if len(reviewers) is not 0 else None
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+
 class UserProfileView(FormView):
     template_name = 'user_profile.html'
     form_class = UserProfileForm
