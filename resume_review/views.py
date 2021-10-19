@@ -138,6 +138,10 @@ class OrderPageView(TemplateView):
         return context
 
 
+class BaseView(TemplateView):
+    template_name = 'base.html'
+
+
 class OrderDetailView(TemplateView):
     template_name = "order_detail.html"
 

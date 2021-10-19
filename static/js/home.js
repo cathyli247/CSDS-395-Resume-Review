@@ -9,4 +9,6 @@ $( document ).ready(function() {
     $(".about").css({top: 300, left: 10, position:'absolute'});
     $("h1").parent().css({position: 'relative'});
     $("h1").css({top: 260, left: 123, position:'absolute'});
+
+    $("#sidebar" ).find('.main-body').remove();
 });
