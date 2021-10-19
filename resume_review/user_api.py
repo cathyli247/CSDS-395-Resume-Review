@@ -85,7 +85,7 @@ def get_good_reviewer():
     good_reviewer = []
     reviewers = Reviewer.objects.all()
     for r in reviewers:
-        comments = Comment.objects.all().filter(reviewer_id=r.account_id)
+        comments = Comment.objects.filter(reviewer=r)
         rate_sum = 0
         for c in comments:
             rate_sum += int(float(c.rate))

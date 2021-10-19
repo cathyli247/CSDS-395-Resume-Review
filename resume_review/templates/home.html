@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src = "{% static 'js/jquery.min.js' %}"></script>
     <script src = "{% static 'js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
@@ -42,8 +43,8 @@
             {% for reviewer in reviewer %}
             <div class="card">
                 <img src="{% static 'img/tink.jpeg' %}" alt="card background" class="card-img">
-                <img src="{% static 'img/pikachu.jpeg' %}" alt="profile image" class="profile-img">
-                <h1>{{reviewer.account.first_name}}</h1>
+                <img class="profile-img" src="{{reviewer.account.avatar.url}}" >
+                <h1>{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
                 <span class="fa fa-star checked"> {{ forloop.counter }}</span>
                 <p class="about">{{reviewer.self_intro}}</p>
                 <a href="#" class="btn">View</a>
