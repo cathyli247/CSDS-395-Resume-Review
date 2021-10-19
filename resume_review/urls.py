@@ -6,7 +6,8 @@ urlpatterns = [
     path('', views.LoginView.as_view(), name="login"),
     path('home/', views.HomePageView.as_view(), name='home'),
     path('order/', views.OrderPageView.as_view(), name='order'),
-    path('userorderdetail/', views.UserOrderDetailView.as_view(), name='userorderdetail'),
+    path('order_detail/', views.OrderDetailView.as_view(), name='order_detail'),
     path('user_profile/', views.UserProfileView.as_view(), name='user_profile'),
-
+    path('reviewer_profile/', views.ReviewerCardView.as_view(),
+         name='reviewer_profile'),
 ]

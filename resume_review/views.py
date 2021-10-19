@@ -16,8 +16,7 @@ from resume_review import user_api
 from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm
 from django.views.generic.edit import FormView
 
-from resume_review.models import Account, Comment, Reviewer
-from resume_review.models import Account, Reviewer
+from resume_review.models import Account, Comment, Reviewer, Order
 from django.urls import reverse
 
 logger = logging.getLogger(__name__)
@@ -126,7 +125,51 @@ class OrderPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        current_account = user_api.get_account_by_user(user)
+        user_order = Order.objects.filter(account=current_account)
+        current_reviewer = user_api.get_reviewer_by_account(current_account)
+        reviewer_order = Order.objects.filter(
+            reviewer=current_reviewer) if current_reviewer is not None else None
+        context['user_order'] = user_order
+        context['reviewer_order'] = reviewer_order
         return context
+
+
+class OrderDetailView(TemplateView):
+    template_name = "order_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_id = self.request.GET.get('order_id')
+        if not order_id:
+            return context
+
+        order = user_api.get_order(order_id)
+        context['order'] = order
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+
+class ReviewerCardView(TemplateView):
+    template_name = "reviewer_card.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviewer_id = self.request.GET.get('reviewer_id')
+        if not reviewer_id:
+            return context
+
+        reviewers = Reviewer.objects.filter(id=reviewer_id)
+        context['reviewer'] = reviewers[0] if len(reviewers) is not 0 else None
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
 
 
 class UserOrderDetailView(TemplateView):
@@ -165,7 +208,6 @@ class UserProfileView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
         if self.request.POST.get('unlock', '') == 'true':
             account = user_api.get_account_by_user(user=self.request.user)
             reviewer, _ = Reviewer.objects.get_or_create(account=account)
