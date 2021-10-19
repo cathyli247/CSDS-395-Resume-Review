@@ -81,7 +81,7 @@ class LoginView(FormView):
         return super().form_valid(form)
 
 
-class HomePageView(TemplateView):
+class HomePageView(FormView):
     template_name = "home.html"
     form_class = SearchForm
 
@@ -127,6 +127,7 @@ class OrderPageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
 
 class UserOrderDetailView(TemplateView):
     template_name = "userorderdetail.html"
@@ -215,4 +216,3 @@ class UserProfileView(FormView):
     def form_invalid(self, form):
         response = super().form_invalid(form)
         return response
-
