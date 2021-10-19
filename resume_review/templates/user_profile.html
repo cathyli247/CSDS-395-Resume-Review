@@ -1,12 +1,13 @@
-<!--{% extends "base.html" %}-->
-<!--{% load static %}-->
+{% extends "base.html" %}
+{% load static %}
 {% block title %}User Profile{% endblock %}
-<!--{% block content %}-->
+{% block content %}
 <script src = "{% static 'js/user_profile.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/user_profile.css' %}" />
 <div class="main-body">
     <form class="profile-form" id="profile-form" method="post" action="" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
+        <input id="id_form" value="user_profile" name="form" hidden>
         <div class="container">
             <div class="row gutters">
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -276,4 +277,4 @@
     </div>
 </div>
 
-<!--{% endblock %}-->
+{% endblock %}

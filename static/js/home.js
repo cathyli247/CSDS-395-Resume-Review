@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    $("li#home" ).addClass("active");
     $(".card-img").parent().css({position: 'relative'});
     $(".card-img").css({top: 0, left: 0, position:'absolute'});
     $(".btn").parent().css({position: 'relative'});

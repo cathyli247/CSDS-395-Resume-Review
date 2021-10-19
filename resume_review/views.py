@@ -56,7 +56,7 @@ class RegisterView(FormView):
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
-    success_url = '/home'
+    success_url = 'home/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,7 +88,6 @@ class HomePageView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reviewer'] = user_api.get_good_reviewer()
-        print(user_api.get_good_reviewer())
         return context
 
     def post(self, request, *args, **kwargs):

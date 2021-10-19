@@ -15,29 +15,31 @@
 <body>
 <div id="sidebar">
     {% block sidebar %}
-    <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars text-white"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
-                <li class="nav-item active" id="home">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-home"></i>Home Page</a>
-                </li>
-                <li class="nav-item" id="order">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Order History</a>
-                </li>
-                <li class="nav-item" id="chat">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-comment"></i>Chat</a>
-                </li>
-                <li class="nav-item" id="user_profile">
-                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-id-card"></i>User Profile</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white" href="{% url 'home' %}"><i class="fa fa-graduation-cap fa-lg mr-2"></i>RESCUEME</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nvbCollapse" aria-controls="nvbCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nvbCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item pl-1" id="home">
+                        <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home fa-fw mr-1"></i>Home Page</a>
+                    </li>
+                    <li class="nav-item pl-1" id="order">
+                        <a class="nav-link" href="{% url 'order' %}"><i class="fa fa-th-list fa-fw mr-1"></i>Order History</a>
+                    </li>
+                    <li class="nav-item pl-1" id="chat">
+                        <a class="nav-link" href="#"><i class="fa fa-comment fa-fw mr-1"></i>Chat</a>
+                    </li>
+                    <li class="nav-item pl-1" id="user_profile">
+                        <a class="nav-link" href="{% url 'user_profile' %}"><i class="fas fa-id-badge fa-fw mr-1"></i>User Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="nav-link" id href="{% url 'login' %}"><i class="fas fa-sign-out-alt fa-fw mr-1"></i>Logout</a>
         </div>
-        <a class="navbar-brand navbar-logo" href="{% url 'login' %}">Logout</a>
+
     </nav>
     {% endblock %}
 </div>
