@@ -34,7 +34,7 @@ class Account(models.Model):
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
     avatar = models.ImageField(
-        upload_to='profile_pic', null=True, default='uaddsser.png')
+        upload_to='profile_pic', null=True, default='user.png')
 
 
 class Reviewer(models.Model):

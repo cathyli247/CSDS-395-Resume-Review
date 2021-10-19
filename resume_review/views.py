@@ -47,8 +47,9 @@ class RegisterView(FormView):
         email = self.request.POST.get('email', '')
         password = self.request.POST.get('password1', '')
 
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=username, email=email, password=password)
+        Account.objects.create(user=user)
         return super().form_valid(form)
 
 

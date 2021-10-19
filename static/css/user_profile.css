@@ -1,11 +1,15 @@
 body {
     margin: 0;
-    padding-top: 40px;
     color: #2e323c;
     background: #f5f6fa;
     position: relative;
     height: 100%;
 }
+
+.main-body {
+    padding-top: 40px;
+}
+
 .account-settings .user-profile {
     margin: 0 0 1rem 0;
     padding-bottom: 1rem;
@@ -41,6 +45,7 @@ body {
 .account-settings .about p {
     font-size: 0.825rem;
 }
+
 .form-control {
     border: 1px solid #cfd1d8;
     -webkit-border-radius: 2px;
@@ -75,4 +80,5 @@ body {
     border-radius: 25px;
     border: 2px solid #0d6efd;
 }
+
 
