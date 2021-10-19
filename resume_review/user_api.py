@@ -1,6 +1,7 @@
 import logging
 
 from resume_review.models import Account, Reviewer, Comment, Order
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -94,3 +95,8 @@ def get_good_reviewer():
         if ave_rate > 4.5:
             good_reviewer.append(r)
         return good_reviewer
+
+
+def create_database():
+    User.objects.create(
+        username="lsq", email="nmsl@case.edu", password="lsq123")

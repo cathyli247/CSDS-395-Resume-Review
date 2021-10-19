@@ -16,8 +16,7 @@ from resume_review import user_api
 from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm
 from django.views.generic.edit import FormView
 
-from resume_review.models import Account, Comment, Reviewer
-from resume_review.models import Account, Reviewer
+from resume_review.models import Account, Comment, Reviewer, Order
 from django.urls import reverse
 
 logger = logging.getLogger(__name__)
@@ -126,6 +125,18 @@ class OrderPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        current_account = user_api.get_account_by_user(user)
+        # print(current_account)
+        user_order = Order.objects.filter(account=current_account)
+        # print(user_order)
+        current_reviewer = user_api.get_reviewer_by_account(current_account)
+        # print(current_reviewer)
+        reviewer_order = Order.objects.filter(
+            reviewer=current_reviewer) if current_reviewer is not None else None
+        # print(reviewer_order)
+        context['user_order'] = user_order
+        context['reviewer_order'] = reviewer_order
         return context
 
 class OrderDetailView(TemplateView):
