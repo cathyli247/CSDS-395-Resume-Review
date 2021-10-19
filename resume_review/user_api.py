@@ -1,6 +1,6 @@
 import logging
 
-from resume_review.models import Account, Reviewer, Comment
+from resume_review.models import Account, Reviewer, Comment, Order
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +59,28 @@ def get_account_by_user(user):
     return None
 
 
+def get_order(order_id):
+    '''
+    get the order object by order id
+    :param order_id:
+    :return: order obj
+    '''
+    try:
+        orders = Order.objects.filter(order_id=order_id)
+        if len(orders) == 0:
+            logger.error('cannot find order for %s' % order_id)
+            return None
+        return orders[0]
+    except:
+        logger.error('get_order failed')
+    return None
+
+
 def get_good_reviewer():
+    '''
+    get the reviewer with rates > 4.5
+    :return: a list of good reviewer
+    '''
     good_reviewer = []
     reviewers = Reviewer.objects.all()
     for r in reviewers:

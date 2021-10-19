@@ -128,6 +128,22 @@ class OrderPageView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
+class OrderDetailView(TemplateView):
+    template_name = "order_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_id = self.request.GET.get('order_id')
+        if not order_id:
+            return context
+
+        order = user_api.get_order(order_id)
+        context['order'] = order
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
 
 class UserProfileView(FormView):
     template_name = 'user_profile.html'
@@ -157,7 +173,6 @@ class UserProfileView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
         if self.request.POST.get('unlock', '') == 'true':
             account = user_api.get_account_by_user(user=self.request.user)
             reviewer, _ = Reviewer.objects.get_or_create(account=account)
