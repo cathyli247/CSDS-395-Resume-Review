@@ -44,8 +44,9 @@ class Reviewer(models.Model):
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
     delivery_time = models.DateTimeField(null=False, default=timezone.now)
-
-
+    def get_name(self): 
+        return self.account.first_name
+        
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rate = models.CharField(max_length=255)

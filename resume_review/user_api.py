@@ -85,16 +85,14 @@ def get_good_reviewer():
     good_reviewer = []
     reviewers = Reviewer.objects.all()
     for r in reviewers:
-        comments = Comment.objects.filter(reviewer=r)
+        comments = Comment.objects.all().filter(reviewer_id=r.account_id)
         rate_sum = 0
         for c in comments:
-            rate_sum += c.rate
-
+            rate_sum += int(float(c.rate))
         ave_rate = rate_sum / len(comments) if len(comments) != 0 else 0
-
-        if ave_rate > 4.5:
+        if ave_rate >= 4.0:
             good_reviewer.append(r)
-        return good_reviewer
+    return good_reviewer
 
 
 def create_database():
