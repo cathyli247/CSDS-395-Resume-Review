@@ -67,7 +67,6 @@ class Order(models.Model):
     ]
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
-    order_id = models.CharField(null=False, max_length=150, default='')
     create_at = models.DateTimeField(null=False, default=timezone.now)
     finished_at = models.DateTimeField(null=False, default=timezone.now)
     state = models.CharField(

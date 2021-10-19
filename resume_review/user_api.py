@@ -67,7 +67,7 @@ def get_order(order_id):
     :return: order obj
     '''
     try:
-        orders = Order.objects.filter(order_id=order_id)
+        orders = Order.objects.filter(id=order_id)
         if len(orders) == 0:
             logger.error('cannot find order for %s' % order_id)
             return None
@@ -98,5 +98,9 @@ def get_good_reviewer():
 
 
 def create_database():
-    User.objects.create(
-        username="lsq", email="nmsl@case.edu", password="lsq123")
+    # User.objects.create(
+    #     username="lsq", email="nmsl@case.edu", password="lsq123")
+    user = User.objects.get(username="marcus")
+    account = Account.objects.get(user=user)
+    Order.objects.create(account=account,
+                         reviewer=Reviewer.objects.get(id=1))

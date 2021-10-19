@@ -127,17 +127,14 @@ class OrderPageView(TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         current_account = user_api.get_account_by_user(user)
-        # print(current_account)
         user_order = Order.objects.filter(account=current_account)
-        # print(user_order)
         current_reviewer = user_api.get_reviewer_by_account(current_account)
-        # print(current_reviewer)
         reviewer_order = Order.objects.filter(
             reviewer=current_reviewer) if current_reviewer is not None else None
-        # print(reviewer_order)
         context['user_order'] = user_order
         context['reviewer_order'] = reviewer_order
         return context
+
 
 class OrderDetailView(TemplateView):
     template_name = "order_detail.html"
@@ -155,6 +152,7 @@ class OrderDetailView(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
 
 class UserProfileView(FormView):
     template_name = 'user_profile.html'
