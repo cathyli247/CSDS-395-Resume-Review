@@ -173,7 +173,6 @@ class ReviewerCardView(TemplateView):
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
 
-
 class UserProfileView(FormView):
     template_name = 'user_profile.html'
     form_class = UserProfileForm
