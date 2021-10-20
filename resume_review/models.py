@@ -34,7 +34,7 @@ class Account(models.Model):
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
     avatar = models.ImageField(
-        upload_to='profile_pic', null=True, default='uaddsser.png')
+        upload_to='profile_pic', null=True, default='user.png')
 
 
 class Reviewer(models.Model):
@@ -44,8 +44,9 @@ class Reviewer(models.Model):
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
     delivery_time = models.DateTimeField(null=False, default=timezone.now)
-
-
+    def get_name(self): 
+        return self.account.first_name
+        
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rate = models.CharField(max_length=255)
@@ -54,23 +55,23 @@ class Comment(models.Model):
 
 
 class Order(models.Model):
-    PENDING = 'P'
-    ACCEPT = 'A'
-    REJECT = 'R'
-    COMPLETE = 'D'
+    PENDING = 'Pending'
+    ACCEPT = 'Accepted'
+    REJECT = 'Rejected'
+    COMPLETE = 'Completed'
 
     Order_State = [
         (PENDING, 'Pending'),
-        (ACCEPT, 'Accept'),
-        (REJECT, 'Reject'),
-        (COMPLETE, 'Complete'),
+        (ACCEPT, 'Accepted'),
+        (REJECT, 'Rejected'),
+        (COMPLETE, 'Completed'),
     ]
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
     create_at = models.DateTimeField(null=False, default=timezone.now)
-    finished_at = models.DateTimeField(null=False, default=timezone.now)
+    finished_at = models.DateTimeField(null=True)
     state = models.CharField(
-        max_length=1, choices=Order_State)
+        max_length=100, choices=Order_State, default=PENDING)
     resume = models.TextField(null=True)
 
 

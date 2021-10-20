@@ -1,7 +1,7 @@
 import logging
 
 from django.db.models import Q
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -47,15 +47,16 @@ class RegisterView(FormView):
         email = self.request.POST.get('email', '')
         password = self.request.POST.get('password1', '')
 
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=username, email=email, password=password)
+        Account.objects.create(user=user)
         return super().form_valid(form)
 
 
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
-    success_url = '/home'
+    success_url = 'home/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,6 +64,7 @@ class LoginView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        logout(self.request)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -88,6 +90,12 @@ class HomePageView(FormView):
         context = super().get_context_data(**kwargs)
         context['reviewer'] = user_api.get_good_reviewer()
         return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -122,6 +130,12 @@ class HomePageView(FormView):
 
 class OrderPageView(TemplateView):
     template_name = "order.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -169,15 +183,9 @@ class ReviewerCardView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         return self.render_to_response(context)
-
-
-class UserOrderDetailView(TemplateView):
-    template_name = "userorderdetail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 
 class UserProfileView(FormView):
@@ -205,6 +213,8 @@ class UserProfileView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):

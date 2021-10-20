@@ -1,3 +1,6 @@
+from django.contrib.auth.models import User
+
+
 def get_major_list():
     '''
     get the major list
@@ -311,3 +314,8 @@ def get_major_list():
               ('World Literature', 'World Literature'),
               ("Women'S Studies", "Women'S Studies")]
     return result
+
+
+
+
+

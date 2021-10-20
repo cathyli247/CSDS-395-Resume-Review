@@ -1,10 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{{order}}
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
+<link rel="stylesheet" href="{% static 'css/rating.css' %}" />
+<script src = "{% static 'js/rating.js' %}"></script>
+<script src = "{% static 'js/orderpage.js' %}"></script>
+
+<section class='order-section'>
+    <!-- title -->
+    <div class='order-title'> <h2>Orders Details</h2></div>
+
+    <!-- information table -->
+    <section class='order-table row'>
+        <div class="col-sm-6 order-col-element" >
+            <table>
+                <tr>
+                    <th>Reviewer</th>
+                    <td>{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Order number</th>
+                    <td>#{{ order.id }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>${{ order.reviewer.price }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-6 order-col-element" >
+            <table>
+                <tr>
+                    <th>Status</th>
+                    <td id="complete-info">{{order.state}}</td>
+                </tr>
+                <tr>
+                    <th>Start Time</th>
+                    <td>{{order.create_at}}</td>
+                </tr>
+                <tr>
+                    <th>Complete Time</th>
+                    <td>{{order.finished_at}}</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- upload/download -->
+    <section class='upload-field container-fluid'>
+        <div><p> Uploads </p></div>
+        <div class="row">
+            <!-- upload field -->
+            <div class="col-sm-2 order-col-element" >
+                <form class='upload-form'>
+                    <input type="file" id="select-file-btn" hidden/>
+                    <label for="select-file-btn" class='select-file-label'>Select File</label><br>
+                    <span id="file-selected">No file chosen</span> <br>
+                    <button type="submit" class='upload-btn form-button'>Upload</button>
+                </form>
+            </div>
+            <!-- uploaded files from users -->
+            <div class="col-sm-10 order-col-element" >
+                <div class='uploaded-files'><a href="#"> download1 </a></div>
+                <div class='uploaded-files'><a href="#"> download2 </a></div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- Rating -->
+    <section class='rating-field container-fluid'>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #003658;" id="ratingSection">
+            Rate the Reviewer
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Rating Form</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <form id="ratingForm">
+                            <div class="star">
+                                <input type="radio" id="star5" name="star" value="5" hidden/>
+                                <label for="star5" title="text"></label>
+                                <input type="radio" id="star4" name="star" value="4" hidden/>
+                                <label for="star4" title="text"></label>
+                                <input type="radio" id="star3" name="star" value="3" hidden/>
+                                <label for="star3" title="text"></label>
+                                <input type="radio" id="star2" name="star" value="2" hidden/>
+                                <label for="star2" title="text"></label>
+                                <input type="radio" id="star1" name="star" value="1" hidden/>
+                                <label for="star1" title="text"></label>
+                            </div>
+                            <br>
+                            <textarea class="textComments" placeholder = "Leave Comments..." rows = "6"></textarea>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save rating</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class='cancel-field container-fluid'>
+        <button type="submit" class='upload-btn' id="cancel-btn">Cancel Order</button>
+    </section>
+</section>
+
+{% endblock %}

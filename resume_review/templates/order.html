@@ -1,19 +1,16 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
 
-    <head>
-        <meta charset = "UTF-8">
-        <title> Orders </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
-    </head>
-    <body>
-        <!-- Nav Bar-->
-        {{user_order}}
+{% block title %}Order{% endblock %}
 
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
+<script src = "{% static 'js/order.js' %}"></script>
+
+    <!-- Nav Bar-->
         <section class='order-section'>
             <!-- title -->
             <div class='order-title'> <h2>Orders </h2></div>
@@ -40,7 +37,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Reviewer Name</th>
                             <th>Date</th> 
                             <th>Status</th> 
                             <th>Price</th>
@@ -48,19 +45,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for order in user_order %}
                         <tr data-href= '#'>
-                            <td>Alfreds Futterkiste</td>
-                            <td>2020-05-06</td> 
+                            <td>{{ order.reviewer.account.first_name }}</td>
+                            <td>{{ order.create_at }}</td>
                             <td>
                             <!-- text-info:comfirmed, test-waring:pending, text-danger:rejected-->
                             <span class="status text-success">•</span>
-                            Completed
+                            {{ order.state }}
                             </td>
-                            <td>$30</td>
+                            <td>{{ order.reviewer.price }}</td>
                             <td class='go-to-detail'>
-                                <label href='#'> <img src="{% static 'img/right-arrow.png' %}"> </button>
+                                <a href="/order_detail/?order_id={{ order.id }}"> <img src="{% static 'img/right-arrow.png' %}"></a>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </section>
@@ -73,6 +72,5 @@
         });
 
     </script>
-    
-    
-</html>
+
+{% endblock %}

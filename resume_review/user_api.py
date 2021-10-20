@@ -88,19 +88,33 @@ def get_good_reviewer():
         comments = Comment.objects.filter(reviewer=r)
         rate_sum = 0
         for c in comments:
-            rate_sum += c.rate
-
+            rate_sum += int(float(c.rate))
         ave_rate = rate_sum / len(comments) if len(comments) != 0 else 0
-
-        if ave_rate > 4.5:
+        if ave_rate >= 4.0:
             good_reviewer.append(r)
-        return good_reviewer
+    return good_reviewer
 
 
-def create_database():
-    # User.objects.create(
-    #     username="lsq", email="nmsl@case.edu", password="lsq123")
-    user = User.objects.get(username="marcus")
-    account = Account.objects.get(user=user)
-    Order.objects.create(account=account,
-                         reviewer=Reviewer.objects.get(id=1))
+def create_test_database():
+    user = User.objects.create_user(username='user1', email='user1@case.edu', password="111111")
+    account1 = Account.objects.create(user=user)
+
+    user = User.objects.create_user(username='user2', email='user2@case.edu',password="111111")
+    account2 = Account.objects.create(user=user)
+    reviewer2 = Reviewer.objects.create(account=account2)
+
+    user = User.objects.create_user(username='user3', email='user3@case.edu', password="111111")
+    account3 = Account.objects.create(user=user)
+    reviewer3 = Reviewer.objects.create(account=account3)
+
+    user = User.objects.create_user(username='user4', email='user4@case.edu', password="111111")
+    account4 = Account.objects.create(user=user)
+    reviewer4 = Reviewer.objects.create(account=account4)
+
+    Order.objects.create(account=account1, reviewer=reviewer2)
+    Order.objects.create(account=account1, reviewer=reviewer3)
+    Order.objects.create(account=account1, reviewer=reviewer3)
+    Order.objects.create(account=account2, reviewer=reviewer3)
+    Order.objects.create(account=account2, reviewer=reviewer4)
+    Order.objects.create(account=account4, reviewer=reviewer2)
+

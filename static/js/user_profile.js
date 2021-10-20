@@ -13,6 +13,7 @@ $(document).on('click','#cancel',function(){
 });
 
 $(document).on('click','#update',function(){
+    console.log('click');
     if (checkValidity()) {
         $( "#submit" ).click();
     }
@@ -27,6 +28,7 @@ $(document).on('click','#confirm_unlock',function(){
 });
 
 function init_page() {
+    $("li#user_profile" ).addClass("active");
     $('.info').show();
     $('.edit').hide();
     $('.err-msg').hide();
@@ -37,17 +39,13 @@ function init_page() {
     $('#id_academic_standing').val($('#info_academic_standing').text().replace(/\s/g,''));
     $('#id_self_intro').val($('#info_self_intro').text().trim());
     var price = $('#info_price').text().trim();
-    console.log(parseInt(price));
     $('#id_price').val(parseInt(price));
+
 }
 
 
 function checkValidity() {
     if (!($("input#id_first_name").val() && $("input#id_last_name").val() && $("input#id_phone_number").val())) {
-        return false;
-    }
-    var price = $('#id_price').val()
-    if (price.match(".*[a-z].*")) {
         return false;
     }
     return true;
