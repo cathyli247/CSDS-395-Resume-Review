@@ -1,7 +1,7 @@
 import logging
 
 from django.db.models import Q
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -64,6 +64,7 @@ class LoginView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        logout(self.request)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -89,6 +90,12 @@ class HomePageView(FormView):
         context = super().get_context_data(**kwargs)
         context['reviewer'] = user_api.get_good_reviewer()
         return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -124,6 +131,12 @@ class HomePageView(FormView):
 class OrderPageView(TemplateView):
     template_name = "order.html"
 
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
@@ -135,11 +148,6 @@ class OrderPageView(TemplateView):
         context['user_order'] = user_order
         context['reviewer_order'] = reviewer_order
         return context
-
-
-class BaseView(TemplateView):
-    template_name = 'base.html'
-
 
 class OrderDetailView(TemplateView):
     template_name = "order_detail.html"
@@ -174,7 +182,10 @@ class ReviewerCardView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         return self.render_to_response(context)
+
 
 class UserProfileView(FormView):
     template_name = 'user_profile.html'
@@ -201,6 +212,8 @@ class UserProfileView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
