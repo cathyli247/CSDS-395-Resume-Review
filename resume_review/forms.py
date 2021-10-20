@@ -60,7 +60,7 @@ class UserProfileForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'}))
     MAJOR_CHOICES = source_api.get_major_list()
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
-                              widget=Select(attrs={"class": "form-select"}))
+                              widget=Select(attrs={"class": "form-select"}), initial='Accounting')
     self_intro = forms.CharField(required=False, widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Enter your self introduction'}))
     price = forms.IntegerField(required=False)
@@ -79,7 +79,7 @@ class UserProfileForm(forms.Form):
         (GRADUATE, 'Graduate'),
     ]
 
-    academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
+    academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, initial='Freshman', label='Academic Standing',
                                           widget=Select(attrs={"class": "form-select"}))
 
 

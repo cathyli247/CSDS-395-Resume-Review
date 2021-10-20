@@ -48,5 +48,13 @@ function checkValidity() {
     if (!($("input#id_first_name").val() && $("input#id_last_name").val() && $("input#id_phone_number").val())) {
         return false;
     }
+
+    var phone = $('input#id_phone_number').val(),
+    intRegex = /[0-9 -()+]+$/;
+    if((phone.length < 6) || (!intRegex.test(phone)))
+    {
+         return false;
+    }
+
     return true;
 }

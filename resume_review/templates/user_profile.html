@@ -4,6 +4,7 @@
 {% block content %}
 <script src = "{% static 'js/user_profile.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/user_profile.css' %}" />
+
 <div class="main-body">
     <form class="profile-form" id="profile-form" method="post" action="" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
