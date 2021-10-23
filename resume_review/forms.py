@@ -108,3 +108,6 @@ class SearchForm(forms.Form):
                                           widget=Select(attrs={"class": "form-select"}))
     price = forms.CharField(required=True, label='price', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Enter your expected price'}))
+
+class OrderDetailForm(forms.Form):
+    resume = forms.FileField()

@@ -3,7 +3,7 @@ import logging
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, FileResponse
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
@@ -13,7 +13,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from resume_review import user_api
-from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm
+from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm, OrderDetailForm
 from django.views.generic.edit import FormView
 
 from resume_review.models import Account, Comment, Reviewer, Order
@@ -150,8 +150,10 @@ class OrderPageView(TemplateView):
         return context
 
 
-class OrderDetailView(TemplateView):
+
+class OrderDetailView(FormView):
     template_name = "order_detail.html"
+    form_class = OrderDetailForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -166,6 +168,21 @@ class OrderDetailView(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        resume = self.request.FILES.get('resume', '')
+        order_id = self.request.GET.get('order_id', '')
+        order = user_api.get_order(order_id)
+        if self.request.POST.get('download', '') == 'true':
+            filepath = order.resume.path
+            response = FileResponse(open(filepath, 'rb'))
+            return response
+        if resume:
+            order.resume = resume
+            order.save()
+            logger.info('save resume to order %s' % order.id)
+
+        return HttpResponseRedirect(self.request.path_info + '?order_id=' + order_id)
 
 
 class ReviewerCardView(TemplateView):

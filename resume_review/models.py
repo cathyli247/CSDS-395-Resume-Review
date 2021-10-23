@@ -72,7 +72,7 @@ class Order(models.Model):
     finished_at = models.DateTimeField(null=True)
     state = models.CharField(
         max_length=100, choices=Order_State, default=PENDING)
-    resume = models.TextField(null=True)
+    resume = models.FileField(upload_to ='resumes', null=True)
 
 
 class Chat(models.Model):

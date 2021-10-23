@@ -9,6 +9,9 @@
 <script src = "{% static 'js/rating.js' %}"></script>
 <script src = "{% static 'js/orderpage.js' %}"></script>
 
+<form class="order-detail-form" id="order-detail-form" method="post" action="" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
 <section class='order-section'>
     <!-- title -->
     <div class='order-title'> <h2>Orders Details</h2></div>
@@ -53,24 +56,41 @@
 
     <!-- upload/download -->
     <section class='upload-field container-fluid'>
-        <div><p> Uploads </p></div>
-        <div class="row">
+        <div><p> Documents </p></div>
+        <div class="row" style="margin-right:50px">
             <!-- upload field -->
-            <div class="col-sm-2 order-col-element" >
-                <form class='upload-form'>
-                    <input type="file" id="select-file-btn" hidden/>
-                    <label for="select-file-btn" class='select-file-label'>Select File</label><br>
-                    <span id="file-selected">No file chosen</span> <br>
-                    <button type="submit" class='upload-btn form-button'>Upload</button>
-                </form>
+
+            <div class="file-upload col-9">
+                <div class="file-select">
+                    <div class="file-select-button" id="fileName">Choose File</div>
+                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                    {{ form.resume }}
+                </div>
             </div>
-            <!-- uploaded files from users -->
-            <div class="col-sm-10 order-col-element" >
-                <div class='uploaded-files'><a href="#"> download1 </a></div>
-                <div class='uploaded-files'><a href="#"> download2 </a></div>
+            <div class="col-3">
+                <div style="display: flex; justify-content: flex-end">
+                    <button type="submit" class="btn btn-outline-primary" id="submit" style="width:100px">Upload</button>
+                </div>
+            </div>
+
+        </div>
+
+        {% if order.resume %}
+
+        <div class="row" style="margin-right:50px;margin-top:20px">
+            <div class="col-9">
+                {{ order.resume }}
+            </div>
+            <div class="col-3">
+                <div style="display: flex; justify-content: flex-end">
+                    <input id="id_download" name="download" hidden value="false">
+                    <button type="submit" class="btn btn-outline-primary" id="download" style="width:100px">Download</button>
+                </div>
             </div>
         </div>
+        {% endif %}
     </section>
+
 
     <hr>
 
@@ -120,5 +140,5 @@
         <button type="submit" class='upload-btn' id="cancel-btn">Cancel Order</button>
     </section>
 </section>
-
+</form>
 {% endblock %}
