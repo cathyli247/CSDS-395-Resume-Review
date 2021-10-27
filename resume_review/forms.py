@@ -98,6 +98,12 @@ class SearchForm(forms.Form):
         (SENIOR, 'Senior'),
         (GRADUATE, 'Graduate'),
     ]
+    PRICE_CHOICE = [
+        ('1', '<20'),
+        ('2', '20-50'),
+        ('3', '50-100'),
+        ('4', '>100'),
+    ]
 
     name = forms.CharField(required=True, label='price', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Enter your name'}))
@@ -106,8 +112,8 @@ class SearchForm(forms.Form):
                               widget=Select(attrs={"class": "form-select"}))
     academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
                                           widget=Select(attrs={"class": "form-select"}))
-    price = forms.CharField(required=True, label='price', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Enter your expected price'}))
+    price = forms.ChoiceField(choices=PRICE_CHOICE, required=True, label='Price',
+                              widget=Select(attrs={"class": "form-select"}))
 
 class OrderDetailForm(forms.Form):
     resume = forms.FileField()

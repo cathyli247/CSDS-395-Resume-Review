@@ -10,6 +10,11 @@
 <script src = "{% static 'js/home.js' %}"></script>
 
 <section>
+    {{ form.name }}
+    {{ form.major }}
+    {{ form.academic_standing }}
+    {{ form.price }}
+
     <div class="container">
         <div class="card-wrapper">
             {% for reviewer in reviewer %}
