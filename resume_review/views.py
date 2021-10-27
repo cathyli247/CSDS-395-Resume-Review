@@ -1,7 +1,7 @@
 import logging
 
 from django.db.models import Q
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -16,8 +16,7 @@ from resume_review import user_api
 from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm
 from django.views.generic.edit import FormView
 
-from resume_review.models import Account, Comment, Reviewer
-from resume_review.models import Account, Reviewer
+from resume_review.models import Account, Comment, Reviewer, Order
 from django.urls import reverse
 
 logger = logging.getLogger(__name__)
@@ -48,15 +47,16 @@ class RegisterView(FormView):
         email = self.request.POST.get('email', '')
         password = self.request.POST.get('password1', '')
 
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=username, email=email, password=password)
+        Account.objects.create(user=user)
         return super().form_valid(form)
 
 
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
-    success_url = '/home'
+    success_url = 'home/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,6 +64,7 @@ class LoginView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        logout(self.request)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -81,7 +82,7 @@ class LoginView(FormView):
         return super().form_valid(form)
 
 
-class HomePageView(TemplateView):
+class HomePageView(FormView):
     template_name = "home.html"
     form_class = SearchForm
 
@@ -89,6 +90,12 @@ class HomePageView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['reviewer'] = user_api.get_good_reviewer()
         return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -124,9 +131,60 @@ class HomePageView(TemplateView):
 class OrderPageView(TemplateView):
     template_name = "order.html"
 
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        current_account = user_api.get_account_by_user(user)
+        user_order = Order.objects.filter(account=current_account)
+        current_reviewer = user_api.get_reviewer_by_account(current_account)
+        reviewer_order = Order.objects.filter(
+            reviewer=current_reviewer) if current_reviewer is not None else None
+        context['user_order'] = user_order
+        context['reviewer_order'] = reviewer_order
         return context
+
+class OrderDetailView(TemplateView):
+    template_name = "order_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_id = self.request.GET.get('order_id')
+        if not order_id:
+            return context
+
+        order = user_api.get_order(order_id)
+        context['order'] = order
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+
+class ReviewerCardView(TemplateView):
+    template_name = "reviewer_card.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviewer_id = self.request.GET.get('reviewer_id')
+        if not reviewer_id:
+            return context
+
+        reviewers = Reviewer.objects.filter(id=reviewer_id)
+        context['reviewer'] = reviewers[0] if len(reviewers) is not 0 else None
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return self.render_to_response(context)
 
 
 class UserProfileView(FormView):
@@ -154,10 +212,11 @@ class UserProfileView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
         if self.request.POST.get('unlock', '') == 'true':
             account = user_api.get_account_by_user(user=self.request.user)
             reviewer, _ = Reviewer.objects.get_or_create(account=account)

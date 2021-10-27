@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Rebiewer Profile{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="{% static 'css/reviewer_profile.css' %}" />
+<div class="main-body">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4 mb-0 mb-lg-5 wow fadeIn" style="margin-left: -350px; margin-top: 15px;">
+            <div class="card border-0 shadow">
+                <img src="{{reviewer.account.avatar.url}}" alt="...">
+                <div class="card-body p-1-9 p-xl-5">
+                    <div class="mb-4">
+                        <h3 class="h4 mb-0">{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h3>
+                        <span class="text-primary"review</span>
+                    </div>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-3"><a href="#!"><i class="far fa-envelope display-25 me-3 text-secondary"></i>{{reviewer.account.user.email}}</a></li>
+                        <li class="mb-3"><a href="#!"><i class="fas fa-mobile-alt display-25 me-3 text-secondary"></i>+ {{reviewer.account.phone}}</li>
+                        <li><a href="#!"><i class="fas fa-map-marker-alt display-25 me-3 text-secondary"></i>205 Main Street, USA</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-lg-8 mb-2 mb-lg-0 wow fadeIn" style="width: 40%; margin-top: 15px;">
+        <div class="col-lg-8">
+            <div class="ps-lg-1-6 ps-xl-5">
+                <div class="mb-5 wow fadeIn">
+                    <div class="text-start mb-1-6 wow fadeIn">
+                        <h2 class="h1 mb-0 text-primary"> About Me </h2>
+                    </div>
+                    <p>{{reviewer.self_intro}}</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

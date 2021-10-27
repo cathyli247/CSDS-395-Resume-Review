@@ -34,7 +34,7 @@ class Account(models.Model):
     phone = models.CharField(max_length=12)
     create_at = models.DateField(auto_now=True)
     avatar = models.ImageField(
-        upload_to='profile_pic', null=True, default='uaddsser.png')
+        upload_to='profile_pic', null=True, default='user.png')
 
 
 class Reviewer(models.Model):
@@ -44,8 +44,9 @@ class Reviewer(models.Model):
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
     delivery_time = models.DateTimeField(null=False, default=timezone.now)
-
-
+    def get_name(self): 
+        return self.account.first_name
+        
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rate = models.CharField(max_length=255)
@@ -67,7 +68,6 @@ class Order(models.Model):
     ]
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
-    order_id = models.CharField(null=False, max_length=150, default='')
     create_at = models.DateTimeField(null=False, default=timezone.now)
     finished_at = models.DateTimeField(null=False, default=timezone.now)
     state = models.CharField(

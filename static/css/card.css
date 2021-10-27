@@ -29,8 +29,8 @@ section{
 }
 
 .card{
-  max-width: 30rem;
-  max-height: 50rem;
+  width: 32rem;
+  height: 52rem;
   /* width: 32rem; */
   background-color: #ebeef8;
   display: flex;

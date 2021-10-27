@@ -1,6 +1,7 @@
 import logging
 
-from resume_review.models import Account, Reviewer, Comment
+from resume_review.models import Account, Reviewer, Comment, Order
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -59,17 +60,45 @@ def get_account_by_user(user):
     return None
 
 
+def get_order(order_id):
+    '''
+    get the order object by order id
+    :param order_id:
+    :return: order obj
+    '''
+    try:
+        orders = Order.objects.filter(id=order_id)
+        if len(orders) == 0:
+            logger.error('cannot find order for %s' % order_id)
+            return None
+        return orders[0]
+    except:
+        logger.error('get_order failed')
+    return None
+
+
 def get_good_reviewer():
+    '''
+    get the reviewer with rates > 4.5
+    :return: a list of good reviewer
+    '''
     good_reviewer = []
     reviewers = Reviewer.objects.all()
     for r in reviewers:
         comments = Comment.objects.filter(reviewer=r)
         rate_sum = 0
         for c in comments:
-            rate_sum += c.rate
-
+            rate_sum += int(float(c.rate))
         ave_rate = rate_sum / len(comments) if len(comments) != 0 else 0
-
-        if ave_rate > 4.5:
+        if ave_rate >= 4.0:
             good_reviewer.append(r)
-        return good_reviewer
+    return good_reviewer
+
+
+def create_database():
+    # User.objects.create(
+    #     username="lsq", email="nmsl@case.edu", password="lsq123")
+    user = User.objects.get(username="marcus")
+    account = Account.objects.get(user=user)
+    Order.objects.create(account=account,
+                         reviewer=Reviewer.objects.get(id=1))

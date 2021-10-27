@@ -1,34 +1,27 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script src = "{% static 'js/bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-    <title>Title</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src = "{% static 'js/home.js' %}"></script>
+
+<section>
+    <div class="container">
+        <div class="card-wrapper">
+            {% for reviewer in reviewer %}
+            <div class="card">
+                <img src="{% static 'img/tink.jpeg' %}" alt="card background" class="card-img">
+                <img class="profile-img" src="{{reviewer.account.avatar.url}}" >
+                <h1>{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
+                <p class="about">{{reviewer.self_intro}}</p>
+                <a href="#" class="btn">View</a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-</nav>
-</body>
-</html>
+</section>
+{% endblock %}

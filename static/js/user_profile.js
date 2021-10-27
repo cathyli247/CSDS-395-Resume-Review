@@ -27,6 +27,7 @@ $(document).on('click','#confirm_unlock',function(){
 });
 
 function init_page() {
+    $("li#user_profile" ).addClass("active");
     $('.info').show();
     $('.edit').hide();
     $('.err-msg').hide();
@@ -37,8 +38,8 @@ function init_page() {
     $('#id_academic_standing').val($('#info_academic_standing').text().replace(/\s/g,''));
     $('#id_self_intro').val($('#info_self_intro').text().trim());
     var price = $('#info_price').text().trim();
-    console.log(parseInt(price));
     $('#id_price').val(parseInt(price));
+
 }
 
 
