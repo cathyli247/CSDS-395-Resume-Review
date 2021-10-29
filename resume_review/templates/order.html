@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
 <script src = "{% static 'js/order.js' %}"></script>
 
-    <!-- Nav Bar-->
         <section class='order-section'>
             <!-- title -->
             <div class='order-title'> <h2>Orders </h2></div>
@@ -19,7 +18,7 @@
             <div class="order-search row">
                 <div class="col-sm-4 order-col-element" >
                     <select id="order-select">
-                        <option value="user">Order sent</option>
+                        <option value="user">Order Sent</option>
                         <option value="reviewer">Order Receviced</option>
                     </select>
                 </div>
@@ -27,7 +26,7 @@
                     <form id='order-srch-form'>
                         <input type="text" placeholder="Reviewer name">
                         <input type="text" placeholder="Date">
-                        <button type="submit"> <img src="{% static 'img/search_icon.png' %}"> </button>
+                        <button type="submit" class='search-order-button'> <img src="{% static 'img/search_icon.png' %}"> </button>
                     </form>
                 </div>
             </div>
@@ -46,11 +45,11 @@
                     </thead>
                     <tbody>
                         {% for order in user_order %}
-                        <tr data-href= '#'>
+                        <tr data-href= "/order_detail/?order_id={{ order.id }}">
                             <td>{{ order.reviewer.account.first_name }}</td>
                             <td>{{ order.create_at }}</td>
-                            <td>
-                            <!-- text-info:comfirmed, test-waring:pending, text-danger:rejected-->
+                            <td id = "status-of-order">
+                            <!-- text-info:comfirmed, text-waring:pending, text-danger:rejected-->
                             <span class="status text-success">•</span>
                             {{ order.state }}
                             </td>
@@ -65,6 +64,8 @@
             </section>
         </section>
     </body>
+
+    <div id="test-status">Failed</div>
 
     <script>
         $('tr[data-href]').on("click", function() {
