@@ -20,6 +20,11 @@ $(document).on('click','#submit',function(){
     $('input#id_download').val('false');
 });
 
+$( document ).ready(function() {
+  var newFileName = $('#download-files').text().replace('resumes/', '');
+  $('#download-files').text(newFileName)
+});
+
 const selectFileBtn = document.getElementById('select-file-btn');
 const fileSelected = document.getElementById('file-selected');
 //selectFileBtn.addEventListener('change', function(){
