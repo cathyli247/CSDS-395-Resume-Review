@@ -85,13 +85,16 @@ class UserProfileForm(forms.Form):
 
 class SearchForm(forms.Form):
     MAJOR_CHOICES = source_api.get_major_list()
+    MAJOR_CHOICES.insert(0, ('All', 'All'))
 
+    ALL = 'All'
     FRESHMEN = 'Freshmen'
     SOPHOMORE = 'Sophomore'
     JUNIOR = 'Junior'
     SENIOR = 'Senior'
     GRADUATE = 'Graduate'
     ACADEMIC_STANDING_CHOICES = [
+        (ALL, 'All'),
         (FRESHMEN, 'Freshmen'),
         (SOPHOMORE, 'Sophomore'),
         (JUNIOR, 'Junior'),
@@ -99,6 +102,7 @@ class SearchForm(forms.Form):
         (GRADUATE, 'Graduate'),
     ]
     PRICE_CHOICE = [
+        ('All', 'All'),
         ('1', '<20'),
         ('2', '20-50'),
         ('3', '50-100'),
@@ -109,11 +113,11 @@ class SearchForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'Enter your name'}))
     # three choices to filter
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
-                              widget=Select(attrs={"class": "form-select"}))
+                              widget=Select(attrs={"class": "form-select"}), initial='All')
     academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
-                                          widget=Select(attrs={"class": "form-select"}))
+                                          widget=Select(attrs={"class": "form-select"}), initial='All')
     price = forms.ChoiceField(choices=PRICE_CHOICE, required=True, label='Price',
-                              widget=Select(attrs={"class": "form-select"}))
+                              widget=Select(attrs={"class": "form-select"}), initial='All')
 
 class OrderDetailForm(forms.Form):
     resume = forms.FileField()

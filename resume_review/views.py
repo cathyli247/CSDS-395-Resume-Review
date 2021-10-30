@@ -111,15 +111,15 @@ class HomePageView(FormView):
             account__last_name__contains=name)) if name is not None else reviewer
         major = self.request.POST.get('major', '')
         reviewer = reviewer.filter(
-            account__major=major) if major is not None else reviewer
+            account__major=major) if major != 'All' else reviewer
 
         academic_standing = self.request.POST.get('academic_standing', '')
         reviewer = reviewer.filter(
-            account__academic=academic_standing) if academic_standing is not None else reviewer
+            account__academic=academic_standing) if academic_standing != 'All' else reviewer
 
         price = self.request.POST.get('price', '')
         reviewer = reviewer.filter(
-            price__gte=price) if price is not None else reviewer
+            price__gte=price) if price != 'All' else reviewer
 
         return redirect(reverse('home', kwargs={"reviewer": reviewer}))
 
