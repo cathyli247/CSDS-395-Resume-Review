@@ -50,7 +50,8 @@
                             <td>{{ order.create_at }}</td>
                             <td id = "status-of-order">
                             <!-- text-info:comfirmed, text-waring:pending, text-danger:rejected-->
-                            <span class="status text-success">•</span>
+
+                            <span class="status {{ order.state }}">•</span>
                             {{ order.state }}
                             </td>
                             <td>{{ order.reviewer.price }}</td>
