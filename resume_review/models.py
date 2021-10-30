@@ -75,7 +75,4 @@ class Order(models.Model):
     resume = models.FileField(upload_to ='resumes', null=True)
 
 
-class Chat(models.Model):
-    account = models.ForeignKey(Account, on_delete=models.PROTECT)
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
-    content = models.TextField(null=True)
+
