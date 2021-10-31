@@ -118,5 +118,10 @@ def create_test_database():
     Order.objects.create(account=account2, reviewer=reviewer4)
     Order.objects.create(account=account4, reviewer=reviewer2)
 
-
-
+def get_average_rating(r):
+    comments = Comment.objects.filter(reviewer=r)
+    rate_sum = 0
+    for comment in comments:
+        rate_sum += float(comment.rate)
+    average_rate = rate_sum/len(comments)
+    return average_rate
