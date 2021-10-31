@@ -69,7 +69,7 @@ class Order(models.Model):
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
     create_at = models.DateTimeField(null=False, default=timezone.now)
-    finished_at = models.DateTimeField(null=True)
+    finished_at = models.DateTimeField(null=True, default=None)
     state = models.CharField(
         max_length=100, choices=Order_State, default=PENDING)
     resume = models.FileField(upload_to ='resumes', null=True)

@@ -96,27 +96,37 @@ def get_good_reviewer():
 
 
 def create_test_database():
-    user = User.objects.create_user(username='user1', email='user1@case.edu', password="111111")
-    account1 = Account.objects.create(user=user)
+    # user = User.objects.create_user(username='user1', email='user1@case.edu', password="111111")
+    # account1 = Account.objects.create(user=user)
+    #
+    user = User.objects.get(username='user2')
+    account2 = Account.objects.get(user=user)
+    reviewer2 = Reviewer.objects.get(account=account2)
 
-    user = User.objects.create_user(username='user2', email='user2@case.edu',password="111111")
-    account2 = Account.objects.create(user=user)
-    reviewer2 = Reviewer.objects.create(account=account2)
+    user = User.objects.get(username='user3')
+    account3 = Account.objects.get(user=user)
+    reviewer3 = Reviewer.objects.get(account=account3)
 
-    user = User.objects.create_user(username='user3', email='user3@case.edu', password="111111")
-    account3 = Account.objects.create(user=user)
-    reviewer3 = Reviewer.objects.create(account=account3)
+    user = User.objects.get(username='user4')
+    account4 = Account.objects.get(user=user)
+    reviewer4 = Reviewer.objects.get(account=account2)
 
-    user = User.objects.create_user(username='user4', email='user4@case.edu', password="111111")
-    account4 = Account.objects.create(user=user)
-    reviewer4 = Reviewer.objects.create(account=account4)
+    Order.objects.create(account=account2, reviewer=reviewer4, state='Rejected')
 
-    Order.objects.create(account=account1, reviewer=reviewer2)
-    Order.objects.create(account=account1, reviewer=reviewer3)
-    Order.objects.create(account=account1, reviewer=reviewer3)
-    Order.objects.create(account=account2, reviewer=reviewer3)
-    Order.objects.create(account=account2, reviewer=reviewer4)
-    Order.objects.create(account=account4, reviewer=reviewer2)
+    # user = User.objects.create_user(username='user3', email='user3@case.edu', password="111111")
+    # account3 = Account.objects.create(user=user)
+    # reviewer3 = Reviewer.objects.create(account=account3)
+    #
+    # user = User.objects.create_user(username='user4', email='user4@case.edu', password="111111")
+    # account4 = Account.objects.create(user=user)
+    # reviewer4 = Reviewer.objects.create(account=account4)
+
+    # Order.objects.create(account=account1, reviewer=reviewer2)
+    # Order.objects.create(account=account1, reviewer=reviewer3)
+    # Order.objects.create(account=account1, reviewer=reviewer3)
+    # Order.objects.create(account=account2, reviewer=reviewer3)
+    # Order.objects.create(account=account2, reviewer=reviewer4)
+    # Order.objects.create(account=account4, reviewer=reviewer2)
 
 def get_average_rating(r):
     comments = Comment.objects.filter(reviewer=r)
