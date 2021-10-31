@@ -89,6 +89,7 @@ class HomePageView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reviewer'] = user_api.get_good_reviewer()
+        print(context)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -196,6 +197,8 @@ class ReviewerCardView(TemplateView):
 
         reviewers = Reviewer.objects.filter(id=reviewer_id)
         context['reviewer'] = reviewers[0] if len(reviewers) is not 0 else None
+        context['rating'] = user_api.get_average_rating(reviewers[0])
+        print(context['rating'])
         return context
 
     def get(self, request, *args, **kwargs):

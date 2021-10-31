@@ -10,35 +10,24 @@ h2 {
     padding: 8px;
 }
 
-.confirm-field{ 
-    width: 100%; 
-    height: 90%; 
-    margin-top: 10px; 
-    margin-bottom: 10px;
-    padding: 20px;
-}
-.confirm-option{
-    float: right;
-    width: 70px;
-    color: #fff;
-    margin: 2px;
-    margin-top: 30px;
-    border: none;
-    outline: none;
-}
-#confirm-btn{ background-color: #03ac28; margin-right: 50px;}
-#reject-btn{ background-color: #9c0d03}
-#confirm-status{
-    display: none; margin-right: 50px;
-}
-body.showConfirmStatus #confirm-option {
-    display: none;
-}
-body.showConfirmStatus #confirm-status {
-    display: block;
-}
-
 .order-title { padding: 30px;}
+.col-sm-2{padding:3px;}
+.accept-reject-choice{
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 5px; 
+    padding-top:3px; 
+    padding-bottom:3px;}
+#accept-order-btn{margin-top:35px; 
+    float:right; 
+    border-color: #04AA6D; 
+    background-color: #fff;
+    color: green;}
+#reject-order-btn{margin-top:35px; 
+    border-color: #f44336; 
+    background-color: #fff;
+    color: #f44336;}
+
 #order-select{
     padding:10px;
     border-radius: 3px;

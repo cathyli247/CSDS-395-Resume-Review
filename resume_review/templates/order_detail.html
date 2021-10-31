@@ -6,6 +6,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
 <link rel="stylesheet" href="{% static 'css/rating.css' %}" />
+<link rel="stylesheet" href="{% static 'css/track_order.css' %}" />
 <script src = "{% static 'js/rating.js' %}"></script>
 <script src = "{% static 'js/orderpage.js' %}"></script>
 
@@ -14,14 +15,34 @@
 
 <section class='order-section'>
     <!-- title -->
-    <div class='order-title'> <h2>Orders Details</h2></div>
+    <section class='row'>
+        <div class="col-sm-8" >
+            <div class='order-title'> <h2>Orders Details</h2></div>
+        </div>
+        <div class="col-sm-2" >
+            <button class='accept-reject-choice' id="accept-order-btn" > Accept Order</button>
+        </div>
+        <div class="col-sm-2">
+            <button class='accept-reject-choice' id="reject-order-btn" > Cancel Order</button>
+        </div>
+    </section>  
+
+    <div id="order-state-hidden" hidden><span>{{order.state}}</span></div>
+    <div class="progress-track">
+        <ul id="progressbar">
+            <li class="step0 active" id="step1"><span id="progress-one">Order Placed</span></li>
+            <li class="step0 active text-center" id="step2"><span style="text-align: center;" id="progress-two">Pending</span></li>
+            <li class="step0 text-center" id="step3"><span id="progress-three">Accepted</span></li>
+            <li class="step0 text-right" id="step4"><span id="progress-four">Completed</span></li>
+        </ul>
+    </div>
 
     <!-- information table -->
     <section class='order-table row'>
         <div class="col-sm-6 order-col-element" >
             <table>
                 <tr>
-                    <th>Reviewer</th>
+                    <th>Customer</th>
                     <td>{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
                 </tr>
                 <tr>
@@ -37,8 +58,8 @@
         <div class="col-sm-6 order-col-element" >
             <table>
                 <tr>
-                    <th>Status</th>
-                    <td id="complete-info">{{order.state}}</td>
+                    <th>Reviewer</th>
+                    <td id="complete-info">Manisha Mcpherson</td>
                 </tr>
                 <tr>
                     <th>Start Time</th>
@@ -136,9 +157,7 @@
             </div>
         </div>
     </section>
-    <section class='cancel-field container-fluid'>
-        <button type="submit" class='upload-btn' id="cancel-btn">Cancel Order</button>
-    </section>
+    
 </section>
 </form>
 {% endblock %}

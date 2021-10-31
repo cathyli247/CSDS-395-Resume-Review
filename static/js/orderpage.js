@@ -21,6 +21,35 @@ $(document).on('click','#submit',function(){
 });
 
 $( document ).ready(function() {
+  var orderState = $('#order-state-hidden').text();
+  if (orderState == "Completed"){
+    $('#step1').addClass("active");
+    $('#step2').addClass("active");
+    $('#step3').addClass("active");
+    $('#step4').addClass("active");
+  }
+  else if (orderState == "Accepted"){
+    $('#step1').addClass("active");
+    $('#step2').addClass("active");
+    $('#step3').addClass("active");
+    $('#step4').removeClass("active");
+  }
+  else if (orderState == "Pending"){
+    $('#step1').addClass("active");
+    $('#step2').addClass("active");
+    $('#step3').removeClass("active");
+    $('#step4').removeClass("active");
+  }
+  else if (orderState == "Rejected"){
+    $('#step1').addClass("active");
+    $('#step2').addClass("active");
+    $('#step3').addClass("active");
+    $('#step4').removeClass("active");
+    $('#step3').text("Rejected");
+  }
+});
+
+$( document ).ready(function() {
   var newFileName = $('#download-files').text().replace('resumes/', '');
   $('#download-files').text(newFileName)
 });
