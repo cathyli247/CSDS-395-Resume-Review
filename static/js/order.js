@@ -3,11 +3,9 @@ $( document ).ready(function() {
 });
 
 $( document ).ready(function() {
-    
         $('.Pending').addClass("text-warning");
         $('.Completed').addClass("text-success");
         $('.Accepted').addClass("text-info");
         $('.Rejected').addClass("text-danger");
-    
 });
 
