@@ -43,7 +43,7 @@
             <table>
                 <tr>
                     <th>Customer</th>
-                    <td>{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
+                    <td>{{ order.account.first_name }} {{ order.account.last_name }}</td>
                 </tr>
                 <tr>
                     <th>Order number</th>
@@ -59,7 +59,7 @@
             <table>
                 <tr>
                     <th>Reviewer</th>
-                    <td id="complete-info">Manisha Mcpherson</td>
+                    <td id="complete-info">{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
                 </tr>
                 <tr>
                     <th>Start Time</th>

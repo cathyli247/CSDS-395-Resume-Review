@@ -99,19 +99,28 @@ def create_test_database():
     # user = User.objects.create_user(username='user1', email='user1@case.edu', password="111111")
     # account1 = Account.objects.create(user=user)
     #
-    user = User.objects.get(username='user2')
-    account2 = Account.objects.get(user=user)
-    reviewer2 = Reviewer.objects.get(account=account2)
+    # user = User.objects.get(username='user1')
+    # account1 = Account.objects.get(user=user)
+    #
+    #
+    # user = User.objects.get(username='user2')
+    # account2 = Account.objects.get(user=user)
+    # reviewer2 = Reviewer.objects.get(account=account2)
+    #
+    # user = User.objects.get(username='user3')
+    # account3 = Account.objects.get(user=user)
+    # reviewer3 = Reviewer.objects.get(account=account3)
+    #
+    # user = User.objects.get(username='user4')
+    # account4 = Account.objects.get(user=user)
+    # reviewer4 = Reviewer.objects.get(account=account2)
 
-    user = User.objects.get(username='user3')
-    account3 = Account.objects.get(user=user)
-    reviewer3 = Reviewer.objects.get(account=account3)
+    reviewers = Reviewer.objects.all()
+    for reviewer in reviewers:
+        reviewer.delivery_time = 'One week'
+        reviewer.save()
 
-    user = User.objects.get(username='user4')
-    account4 = Account.objects.get(user=user)
-    reviewer4 = Reviewer.objects.get(account=account2)
-
-    Order.objects.create(account=account2, reviewer=reviewer4, state='Rejected')
+    # Order.objects.create(account=account2, reviewer=reviewer4, state='Rejected')
 
     # user = User.objects.create_user(username='user3', email='user3@case.edu', password="111111")
     # account3 = Account.objects.create(user=user)

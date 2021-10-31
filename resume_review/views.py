@@ -89,7 +89,6 @@ class HomePageView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reviewer'] = user_api.get_good_reviewer()
-        print(context)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -224,10 +223,12 @@ class UserProfileView(FormView):
             context['self_intro'] = ''
             context['reviewer'] = 'false'
             context['price'] = ''
+            context['delivery_time'] = ''
         else:
             context['self_intro'] = reviewer.self_intro
             context['reviewer'] = 'true'
             context['price'] = reviewer.price
+            context['delivery_time'] = reviewer.delivery_time
         return context
 
     def get(self, request, *args, **kwargs):
@@ -257,6 +258,7 @@ class UserProfileView(FormView):
         avatar = self.request.FILES.get('avatar', '')
         self_intro = self.request.POST.get('self_intro', '')
         price = self.request.POST.get('price', '')
+        delivery_time = self.request.POST.get('delivery_time', '')
 
         user = self.request.user
         user.first_name = first_name
@@ -274,15 +276,15 @@ class UserProfileView(FormView):
             account.avatar = avatar
         account.save()
         logger.info('save account info %s' % user)
-        response = super().form_valid(form)
 
         reviewer = user_api.get_reviewer_by_account(account=account)
         if reviewer:
             reviewer.self_intro = self_intro
             reviewer.price = price
+            reviewer.delivery_time = delivery_time
             reviewer.save()
             logger.info('save reviewer info %s' % user)
-        return response
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         response = super().form_invalid(form)

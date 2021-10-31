@@ -79,7 +79,17 @@ class UserProfileForm(forms.Form):
         (GRADUATE, 'Graduate'),
     ]
 
+    DELIVERY_TIME_CHOICES = [
+        ('One week', 'One week'),
+        ('Two weeks', 'Two weeks'),
+        ('Three weeks', 'Three weeks'),
+        ('Four weeks or more', 'Four weeks or more'),
+    ]
+
     academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, initial='Freshman', label='Academic Standing',
+                                          widget=Select(attrs={"class": "form-select"}))
+
+    delivery_time = forms.ChoiceField(choices=DELIVERY_TIME_CHOICES, required=True, initial='One week', label='Delivery Time',
                                           widget=Select(attrs={"class": "form-select"}))
 
 

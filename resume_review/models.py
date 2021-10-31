@@ -43,9 +43,14 @@ class Reviewer(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
-    delivery_time = models.DateTimeField(null=False, default=timezone.now)
-    def get_name(self): 
-        return self.account.first_name
+    DELIVERY_TIME_CHOICES = [
+        ('delivery_1', 'One week'),
+        ('delivery_2', 'Two weeks'),
+        ('delivery_3', 'Three weeks'),
+        ('delivery_4', 'Four weeks or more'),
+    ]
+    delivery_time = models.CharField(
+        max_length=255, choices=DELIVERY_TIME_CHOICES, default='delivery_1')
         
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)

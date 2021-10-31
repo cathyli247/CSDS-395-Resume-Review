@@ -1,3 +1,5 @@
+
+
 .order-section{ height: 100vh; margin: auto; margin-top: 10px; width: 85%;}
 
 h2 {
@@ -30,7 +32,7 @@ h2 {
 #order-select{
     padding:10px;
     border-radius: 3px;
-    margin-top:3px;
+    margin-bottom:10px;
 }
 #order-srch-form{
     width: 100%;
@@ -188,3 +190,50 @@ body.showRatingForm #ratingSection {
 .file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
 .file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
 .file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+
+body{
+    background:#f5f6fa;
+}
+.card {
+    border: none;
+    -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    margin-bottom: 30px;
+    margin-top:30px;
+    padding:20px;
+}
+.table th {
+    font-weight: 500;
+    color: #1b3d59;
+}
+
+.table thead {
+    background-color: #ECF1F7;
+}
+.table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>td {
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+.table tr td {
+    color: #718196;
+}
+.thumb-sm {
+    height: 32px;
+    width: 32px;
+}
+.badge-soft-warning {
+    background-color: rgba(248,201,85,.2);
+    color: #f8c955;
+}
+
+.badge {
+    font-weight: 500;
+}
+.badge-soft-primary {
+    background-color: rgba(96,93,175,.2);
+    color: #605daf;
+}
+
+.status {
+    font-size:30px;
+}
