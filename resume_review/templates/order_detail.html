@@ -20,15 +20,15 @@
             <div class='order-title'> <h2>Orders Details</h2></div>
         </div>
         <div class="col-sm-2" >
-            <button class='accept-reject-choice' id="accept-order-btn" > Accept Order</button>
+            <button type="button" class="btn btn-outline-success" id="accept-order-btn">Accept Order</button>
         </div>
         <div class="col-sm-2">
-            <button class='accept-reject-choice' id="reject-order-btn" > Cancel Order</button>
+            <button type="button" class="btn btn-outline-danger" id="reject-order-btn">Cancel Order</button>
         </div>
     </section>  
 
     <div id="order-state-hidden" hidden><span>{{order.state}}</span></div>
-    <div class="progress-track">
+    <div class="progress-track" style="margin-top:50px;margin-bottom:50px">
         <ul id="progressbar">
             <li class="step0 active" id="step1"><span id="progress-one">Order Placed</span></li>
             <li class="step0 active text-center" id="step2"><span style="text-align: center;" id="progress-two">Pending</span></li>
@@ -38,7 +38,7 @@
     </div>
 
     <!-- information table -->
-    <section class='order-table row'>
+    <section class='order-table row'  style="margin-bottom:30px">
         <div class="col-sm-6 order-col-element" >
             <table>
                 <tr>
@@ -67,18 +67,23 @@
                 </tr>
                 <tr>
                     <th>Complete Time</th>
-                    <td>{{order.finished_at}}</td>
+                    <td>
+                        {% if order.finished_at %}
+                        {{order.finished_at}}
+                        {% endif %}
+                    </td>
                 </tr>
             </table>
         </div>
     </section>
 
-    <hr>
+
 
     <!-- upload/download -->
-    <section class='upload-field container-fluid'>
-        <div><p> Documents </p></div>
-        <div class="row" style="margin-right:50px">
+    <section class='upload-field container-fluid' style="margin-top:30px;margin-bottom:30px">
+        <hr>
+        <div style="margin-top:30px;"><p> Documents </p></div>
+        <div class="row" style="margin-right:50px;margin-bottom:30px">
             <!-- upload field -->
 
             <div class="file-upload col-9">
@@ -113,13 +118,11 @@
     </section>
 
 
-    <hr>
-
     <!-- Rating -->
     <section class='rating-field container-fluid'>
-
+        <hr>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #003658;" id="ratingSection">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #003658;margin-top:30px;margin-bottom:50px" id="ratingSection">
             Rate the Reviewer
         </button>
 
@@ -129,7 +132,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Rating Form</h5>
-
                     </div>
                     <div class="modal-body">
                         <form id="ratingForm">
@@ -146,7 +148,7 @@
                                 <label for="star1" title="text"></label>
                             </div>
                             <br>
-                            <textarea class="textComments" placeholder = "Leave Comments..." rows = "6"></textarea>
+                            <textarea class="textComments" placeholder = "Leave Comments..." rows = "6" style="padding:10px"></textarea>
                         </form>
                     </div>
                     <div class="modal-footer">

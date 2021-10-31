@@ -1,4 +1,4 @@
-.order-section{ height: 100vh; margin: auto; margin-top: 20px; width: 85%;}
+.order-section{ height: 100vh; margin: auto; margin-top: 10px; width: 85%;}
 
 h2 {
     margin-top: 10px;
@@ -18,15 +18,14 @@ h2 {
     border-radius: 5px; 
     padding-top:3px; 
     padding-bottom:3px;}
-#accept-order-btn{margin-top:35px; 
-    float:right; 
-    border-color: #04AA6D; 
-    background-color: #fff;
-    color: green;}
-#reject-order-btn{margin-top:35px; 
-    border-color: #f44336; 
-    background-color: #fff;
-    color: #f44336;}
+
+#accept-order-btn{
+    margin-top:35px;
+    float:right; }
+#reject-order-btn{
+    margin-top:35px;
+}
+
 
 #order-select{
     padding:10px;
@@ -136,6 +135,11 @@ a:hover{ text-decoration: none;}
 }
 #ratingForm {width: 90%; margin: auto;}
 .textComments { width: 100%; margin-bottom: 5px; padding: 2px;}
+.message::-webkit-input-placeholder {padding-top: 10px;}
+.message:-moz-placeholder { /* Firefox 18- */padding-top: 10px;}
+.message::-moz-placeholder {  /* Firefox 19+ */padding-top: 10px;}
+.message:-ms-input-placeholder {padding-top: 10px;}
+
 .submit-btn { margin-bottom: 10px;}
 #submit-msg { color: #03ac28;}
 #ratingSection{ margin-bottom: 20px;}

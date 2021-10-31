@@ -54,7 +54,7 @@
                             <span class="status {{ order.state }}">•</span>
                             {{ order.state }}
                             </td>
-                            <td>{{ order.reviewer.price }}</td>
+                            <td>${{ order.reviewer.price }}</td>
                             <td class='go-to-detail'>
                                 <a href="/order_detail/?order_id={{ order.id }}"> <img src="{% static 'img/right-arrow.png' %}"></a>
                             </td>
