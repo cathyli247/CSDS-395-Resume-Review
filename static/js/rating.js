@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    var info = document.getElementById("complete-info");
+    var info = document.getElementById("order-state-hidden");
     $('.ratingSection').show();
     if (info.innerText == 'Completed') {
         $('#ratingSection').show();
