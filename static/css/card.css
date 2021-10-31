@@ -4,17 +4,17 @@
   box-sizing: border-box;
 }
 
-html{
+.text {
   font-size: 10px;
   font-family: "Roboto", sans-serif;
 }
 
-a{
+.reviewer-btn {
   text-decoration: none;
   color: #fff;
 }
 
-section{
+.reviewer-section {
   padding: 10rem 0;
   background-color: #fff;
 }
