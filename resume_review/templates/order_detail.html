@@ -4,7 +4,7 @@
 {% block title %}Order Details{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
+<link rel="stylesheet" href="{% static 'css/order_detail.css' %}" />
 <link rel="stylesheet" href="{% static 'css/rating.css' %}" />
 <link rel="stylesheet" href="{% static 'css/track_order.css' %}" />
 <script src = "{% static 'js/rating.js' %}"></script>
@@ -13,118 +13,111 @@
 <form class="order-detail-form" id="order-detail-form" method="post" action="" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
 
-<section class='order-section'>
-    <!-- title -->
-    <section class='row'>
-        <div class="col-sm-8" >
-            <div class='order-title'> <h2>Orders Details</h2></div>
-        </div>
-        <div class="col-sm-2" >
-            <button type="button" class="btn btn-outline-success" id="accept-order-btn">Accept Order</button>
-        </div>
-        <div class="col-sm-2">
-            <button type="button" class="btn btn-outline-danger" id="reject-order-btn">Cancel Order</button>
-        </div>
-    </section>  
 
-    <div id="order-state-hidden" hidden><span>{{order.state}}</span></div>
-    <div class="progress-track" style="margin-top:50px;margin-bottom:50px">
-        <ul id="progressbar">
-            <li class="step0 active" id="step1"><span id="progress-one">Order Placed</span></li>
-            <li class="step0 active text-center" id="step2"><span style="text-align: center;" id="progress-two">Pending</span></li>
-            <li class="step0 text-center" id="step3"><span id="progress-three">Accepted</span></li>
-            <li class="step0 text-right" id="step4"><span id="progress-four">Completed</span></li>
-        </ul>
+    <div class="container">
+        <article class="card">
+            <header class="card-header">
+                <div class='row'>
+                    <div class="col-sm-8" >
+                        <div class="order-title"> <h5>Orders Details</h5></div>
+                    </div>
+                    <div class="col-sm-2" >
+                        <a href="{% url 'order' %}" class="btn btn-primary order-btn" data-abc="true"> <i class="fas fa-chevron-circle-left"></i> Back</a>
+                    </div>
+                </div>
+            </header>
+            <div class="card-body">
+                <h6>Order ID: #{{order.id}}</h6>
+                <article class="card">
+                    <div class="order-col-element" >
+                        <table>
+                            <tr>
+                                <td class="table-header">Customer</td>
+                                <td class="table-content">{{ order.account.first_name }} {{ order.account.last_name }}</td>
+                                <td class="table-header">Reviewer</td>
+                                <td id="complete-info" class="table-content">{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
+                            </tr>
+                            <tr>
+
+                                <td class="table-header">Start Time</td>
+                                <td class="table-content">{{order.create_at}}</td>
+                                <td class="table-header">Complete Time</td>
+                                <td class="table-content">
+                                    {% if order.finished_at %}
+                                    {{order.finished_at}}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-header">Status</td>
+                                <td class="table-content">{{order.state}}</td>
+                                <td class="table-header">Price</td>
+                                <td class="table-content">${{ order.reviewer.price }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </article>
+                <div id="order-state-hidden" hidden><span>{{order.state}}</span></div>
+                <div class="progress-track" style="margin-top:50px;margin-bottom:50px">
+                    <ul id="progressbar">
+                        <li class="step0 active" id="step1"><span id="progress-one">Order Placed</span></li>
+                        <li class="step0 active text-center" id="step2"><span style="text-align: center;" id="progress-two">Pending</span></li>
+                        <li class="step0 text-center" id="step3"><span id="progress-three">Accepted</span></li>
+                        <li class="step0 text-right" id="step4"><span id="progress-four">Completed</span></li>
+                    </ul>
+                </div>
+                <hr>
+
+                <button type="button" class="btn btn-success">Accept Order</button>
+                <button type="button" class="btn btn-danger">Cancel Order</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #003658;" id="ratingSection">
+                    Rate the Reviewer
+                </button>
+            </div>
+        </article>
+        <div class="card">
+            <div class="card-body">
+            <div class="sub-title">Documents</div>
+            <div class="row mt-3">
+                <!-- upload field -->
+
+                <div class="file-upload col-9">
+                    <div class="file-select">
+                        <div class="file-select-button" id="fileName">Choose File</div>
+                        <div class="file-select-name" id="noFile">No file chosen...</div>
+                        {{ form.resume }}
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div style="display: flex; justify-content: flex-end">
+                        <button type="submit" class="btn btn-outline-primary order-btn" id="submit" style="width:100px">Upload</button>
+                    </div>
+                </div>
+            </div>
+
+            {% if order.resume %}
+
+            <div class="row" style="margin-right:50px;margin-top:20px">
+                <div class="col-9" id='download-files'>
+                    {{ order.resume }}
+                </div>
+                <div class="col-3">
+                    <div style="display: flex; justify-content: flex-end">
+                        <input id="id_download" name="download" hidden value="false">
+                        <button type="submit" class="btn btn-outline-primary order-btn" id="download" style="width:100px">Download</button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
-
-    <!-- information table -->
-    <section class='order-table row'  style="margin-bottom:30px">
-        <div class="col-sm-6 order-col-element" >
-            <table>
-                <tr>
-                    <th>Customer</th>
-                    <td>{{ order.account.first_name }} {{ order.account.last_name }}</td>
-                </tr>
-                <tr>
-                    <th>Order number</th>
-                    <td>#{{ order.id }}</td>
-                </tr>
-                <tr>
-                    <th>Price</th>
-                    <td>${{ order.reviewer.price }}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-sm-6 order-col-element" >
-            <table>
-                <tr>
-                    <th>Reviewer</th>
-                    <td id="complete-info">{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
-                </tr>
-                <tr>
-                    <th>Start Time</th>
-                    <td>{{order.create_at}}</td>
-                </tr>
-                <tr>
-                    <th>Complete Time</th>
-                    <td>
-                        {% if order.finished_at %}
-                        {{order.finished_at}}
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </section>
-
-
-
-    <!-- upload/download -->
-    <section class='upload-field container-fluid' style="margin-top:30px;margin-bottom:30px">
-        <hr>
-        <div style="margin-top:30px;"><p> Documents </p></div>
-        <div class="row" style="margin-right:50px;margin-bottom:30px">
-            <!-- upload field -->
-
-            <div class="file-upload col-9">
-                <div class="file-select">
-                    <div class="file-select-button" id="fileName">Choose File</div>
-                    <div class="file-select-name" id="noFile">No file chosen...</div>
-                    {{ form.resume }}
-                </div>
-            </div>
-            <div class="col-3">
-                <div style="display: flex; justify-content: flex-end">
-                    <button type="submit" class="btn btn-outline-primary" id="submit" style="width:100px">Upload</button>
-                </div>
-            </div>
-
-        </div>
-
-        {% if order.resume %}
-
-        <div class="row" style="margin-right:50px;margin-top:20px">
-            <div class="col-9" id='download-files'>
-                {{ order.resume }}
-            </div>
-            <div class="col-3">
-                <div style="display: flex; justify-content: flex-end">
-                    <input id="id_download" name="download" hidden value="false">
-                    <button type="submit" class="btn btn-outline-primary" id="download" style="width:100px">Download</button>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    </section>
-
+    </div>
 
     <!-- Rating -->
     <section class='rating-field container-fluid'>
-        <hr>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #003658;margin-top:30px;margin-bottom:50px" id="ratingSection">
-            Rate the Reviewer
-        </button>
+
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
