@@ -12,7 +12,9 @@
 
 <form class="order-detail-form" id="order-detail-form" method="post" action="" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
-
+    <input id="id_button" name="button" hidden>
+    <input id="id_rate" name="rate" hidden>
+    <input id="id_comment" name="comment" hidden>
 
     <div class="container">
         <article class="card">
@@ -69,10 +71,13 @@
                 </div>
                 <hr>
 
-                <button type="button" class="btn btn-success">Accept Order</button>
-                <button type="button" class="btn btn-danger">Cancel Order</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #003658;" id="ratingSection">
+                <button type="submit" class="btn btn-primary" id="accept">Accept Order</button>
+                <button type="submit" class="btn btn-danger" id="cancel">Cancel Order</button>
+                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" id="ratingSection">
                     Rate the Reviewer
+                </button>
+                <button type="submit" class="btn btn-success" id="complete">
+                    Complete Order
                 </button>
             </div>
         </article>
@@ -91,7 +96,7 @@
                 </div>
                 <div class="col-3">
                     <div style="display: flex; justify-content: flex-end">
-                        <button type="submit" class="btn btn-outline-primary order-btn" id="submit" style="width:100px">Upload</button>
+                        <button type="submit" class="btn btn-default order-btn" id="upload"><i class="fas fa-upload"></i> Upload</button>
                     </div>
                 </div>
             </div>
@@ -104,8 +109,7 @@
                 </div>
                 <div class="col-3">
                     <div style="display: flex; justify-content: flex-end">
-                        <input id="id_download" name="download" hidden value="false">
-                        <button type="submit" class="btn btn-outline-primary order-btn" id="download" style="width:100px">Download</button>
+                        <button type="submit" class="btn btn-default order-btn" id="download"><i class="fas fa-download"></i> Download</button>
                     </div>
                 </div>
             </div>
@@ -146,13 +150,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save rating</button>
+                        <button type="submit" class="btn btn-primary" id="submit_rate">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-</section>
 </form>
 {% endblock %}

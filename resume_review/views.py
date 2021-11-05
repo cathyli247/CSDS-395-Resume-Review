@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
@@ -170,17 +171,33 @@ class OrderDetailView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        button = self.request.POST.get('button', '')
         resume = self.request.FILES.get('resume', '')
         order_id = self.request.GET.get('order_id', '')
         order = user_api.get_order(order_id)
-        if self.request.POST.get('download', '') == 'true':
+        if button == 'cancel':
+            order.state = 'Rejected'
+        elif button == 'complete':
+            order.state = 'Completed'
+        elif button == 'accept':
+            order.state = 'Accepted'
+        elif button == 'submit_rate':
+            rate = self.request.POST.get('rate', '')
+            comment = self.request.POST.get('comment', '')
+
+            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now())
+            if comment:
+                comment_obj.comment = comment
+                comment_obj.save()
+
+        if button == 'download':
             filepath = order.resume.path
             response = FileResponse(open(filepath, 'rb'))
             return response
-        if resume:
+        if resume and button == 'upload':
             order.resume = resume
-            order.save()
-            logger.info('save resume to order %s' % order.id)
+        order.save()
+        logger.info('save resume to order %s with action %s' % (order.id, button))
 
         return HttpResponseRedirect(self.request.path_info + '?order_id=' + order_id)
 

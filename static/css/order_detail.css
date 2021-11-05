@@ -148,7 +148,17 @@ a:hover{ text-decoration: none;}
 
 .submit-btn { margin-bottom: 10px;}
 #submit-msg { color: #03ac28;}
-#ratingSection{}
+
+#ratingSection{
+    background-color: #2e4a65;
+    color: #ffffff;
+}
+
+#ratingSection:hover{
+    background-color: #00304e;
+    color: #ffffff;
+}
+
 body.showRatingForm #ratingSection {
     display: block;
 }
@@ -210,4 +220,16 @@ body{
 .table-header {
     color:#00304e;
     font-weight: bold;
+}
+
+.btn-default {
+    background-color:#8290a2;
+    color:#ffffff;
+    width: 150px;
+}
+
+.btn-default:hover {
+    background-color:#718196;
+    color:#ffffff;
+    width: 150px;
 }
