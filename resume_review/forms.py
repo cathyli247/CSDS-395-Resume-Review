@@ -119,8 +119,8 @@ class SearchForm(forms.Form):
         ('4', '>100'),
     ]
 
-    name = forms.CharField(required=True, label='price', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Enter your name'}))
+    name = forms.CharField(required=False, label='Name', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter the name'}))
     # three choices to filter
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
                               widget=Select(attrs={"class": "form-select"}), initial='All')

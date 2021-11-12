@@ -86,6 +86,7 @@ class LoginView(FormView):
 class HomePageView(FormView):
     template_name = "home.html"
     form_class = SearchForm
+    success_url = '/home'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,11 +102,11 @@ class HomePageView(FormView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            return self.form_valid(form)
+            return self.form_valid(form, **kwargs)
         else:
             return self.form_invalid(form)
 
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
         reviewer = Reviewer.objects.all()
         name = self.request.POST.get('name', '')
         reviewer = reviewer.filter(Q(account__first_name__contains=name) | Q(
@@ -122,7 +123,10 @@ class HomePageView(FormView):
         reviewer = reviewer.filter(
             price__gte=price) if price != 'All' else reviewer
 
-        return redirect(reverse('home', kwargs={"reviewer": reviewer}))
+        # return HttpResponseRedirect(reverse('home', kwargs={"reviewer": reviewer}))
+        data = self.get_context_data(**kwargs)
+        data['reviewer'] = reviewer
+        return render(self.request, 'home.html', data)
 
     def form_invalid(self, form):
         response = super().form_invalid(form)

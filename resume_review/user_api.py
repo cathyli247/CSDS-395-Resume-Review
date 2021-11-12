@@ -142,5 +142,9 @@ def get_average_rating(r):
     rate_sum = 0
     for comment in comments:
         rate_sum += float(comment.rate)
-    average_rate = rate_sum/len(comments)
+
+    if len(comments) == 0:
+        average_rate = 0
+    else:
+        average_rate = rate_sum/len(comments)
     return average_rate
