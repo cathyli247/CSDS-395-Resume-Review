@@ -44,14 +44,7 @@ class Reviewer(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
-<<<<<<< HEAD
-    delivery_time = models.DateTimeField(null=False, default=timezone.now)
 
-    def get_name(self):
-        return self.account.first_name
-
-
-=======
     DELIVERY_TIME_CHOICES = [
         ('delivery_1', 'One week'),
         ('delivery_2', 'Two weeks'),
@@ -60,8 +53,8 @@ class Reviewer(models.Model):
     ]
     delivery_time = models.CharField(
         max_length=255, choices=DELIVERY_TIME_CHOICES, default='delivery_1')
-        
->>>>>>> 8ca2a9230c30bf349ef37384f299e4434e7d0d7c
+
+
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rate = models.CharField(max_length=255)
@@ -92,12 +85,12 @@ class Order(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=1000)
-    account = models.ForeignKey(Account, on_delete=models.PROJECT)
-    reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
+    account = models.CharField(max_length=1000)
+    reviewer = models.CharField(max_length=1000)
 
 
 class Message(models.Model):
     value = models.CharField(max_length=1000)
     date = models.DateTimeField(default=datetime.now, blank=True)
-    account = models.ForeignKey(Account, on_delete=models.PROTECT)
-    room = models.ForeignKey(Room, on_delete=models.PROTECT)
+    account = models.CharField(max_length=1000)
+    room = models.CharField(max_length=1000)
