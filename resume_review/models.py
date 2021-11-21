@@ -84,14 +84,14 @@ class Order(models.Model):
 
 
 # can't migrate, not sure the reason
-# class Room(models.Model):
-#     name = models.CharField(max_length=1000)
-#     account = models.CharField(max_length=1000)
-#     reviewer = models.CharField(max_length=1000)
+class Room(models.Model):
+    name = models.CharField(max_length=1000)
+    account = models.ForeignKey(Account, on_delete=models.PROTECT)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
 
 
-# class Message(models.Model):
-#     value = models.CharField(max_length=1000)
-#     date = models.DateTimeField(default=datetime.now, blank=True)
-#     account = models.CharField(max_length=1000)
-#     room = models.CharField(max_length=1000)
+class Message(models.Model):
+    value = models.CharField(max_length=1000)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    account = models.ForeignKey(Account, on_delete=models.PROTECT)
+    room = models.ForeignKey(Room, on_delete=models.PROTECT)

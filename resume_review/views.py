@@ -317,7 +317,6 @@ class UserProfileView(FormView):
 
 
 def room(request, room):
-
     username = request.GET.get('username')
     reviewer = request.GET.get('reviewer')
     room_details = Room.objects.get(name=room)
@@ -353,9 +352,11 @@ def send(request):
     message = request.POST['message']
     username = request.POST['username']
     room_id = request.POST['room_id']
+    room_obj = Room.objects.get(id=room_id)
+    account = Account.objects.get(id=username)
 
     new_message = Message.objects.create(
-        value=message, user=username, room=room_id)
+        value=message, account=account, room=room_obj)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
