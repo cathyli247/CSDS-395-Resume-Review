@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 from resume_review import source_api
+from datetime import datetime
 
 
 class Account(models.Model):
@@ -44,9 +45,11 @@ class Reviewer(models.Model):
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
     delivery_time = models.DateTimeField(null=False, default=timezone.now)
-    def get_name(self): 
+
+    def get_name(self):
         return self.account.first_name
-        
+
+
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rate = models.CharField(max_length=255)
@@ -72,7 +75,17 @@ class Order(models.Model):
     finished_at = models.DateTimeField(null=True)
     state = models.CharField(
         max_length=100, choices=Order_State, default=PENDING)
-    resume = models.FileField(upload_to ='resumes', null=True)
+    resume = models.FileField(upload_to='resumes', null=True)
 
 
+class Room(models.Model):
+    name = models.CharField(max_length=1000)
+    account = models.ForeignKey(Account, on_delete=models.PROJECT)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
 
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    account = models.ForeignKey(Account, on_delete=models.PROTECT)
+    room = models.ForeignKey(Room, on_delete=models.PROTECT)

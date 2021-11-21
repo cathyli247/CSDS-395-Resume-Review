@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, FileResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
@@ -16,8 +16,9 @@ from resume_review import user_api
 from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm, OrderDetailForm
 from django.views.generic.edit import FormView
 
-from resume_review.models import Account, Comment, Reviewer, Order
+from resume_review.models import Account, Comment, Reviewer, Order, Room, Message
 from django.urls import reverse
+
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +149,6 @@ class OrderPageView(TemplateView):
         context['user_order'] = user_order
         context['reviewer_order'] = reviewer_order
         return context
-
 
 
 class OrderDetailView(FormView):
@@ -285,3 +285,17 @@ class UserProfileView(FormView):
     def form_invalid(self, form):
         response = super().form_invalid(form)
         return response
+
+    def chat_room(self, request, room):
+        return render(request, 'chatting.html')
+
+    def checkview(self, request):
+        room = self.request.POST['room_name']
+        username = self.request.POST['username']
+
+        if Room.objects.filter(name=room).exists():
+            return redirect('/' + room + '/?username=' + username)
+        else:
+            new_room = Room.objects.create(name=room)
+            new_room.save()
+            return redirect('/' + room + '/?username=' + username)
