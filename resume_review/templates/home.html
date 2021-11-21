@@ -75,8 +75,8 @@
             <div class="profile-card text">
                 <img src="{% static 'img/tink.jpeg' %}" alt="background" class="card-img">
                 <img class="profile-img" src="{{reviewer.account.avatar.url}}" >
-                <h1 class="text">{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
-<!--                <p class="about text">{{reviewer.self_intro}}</p>-->
+                <h1 class="text" style="margin-top:-20%; margin-left:-10%; text-align: center; font-size: 15px;">{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
+                <p class="about">{{reviewer.self_intro}}</p>
                 <a href="/reviewer_profile/?reviewer_id={{ reviewer.id }}" class="btn reviewer-btn">View</a>
             </div>
             {% endfor %}

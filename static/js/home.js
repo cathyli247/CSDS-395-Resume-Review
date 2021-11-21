@@ -12,4 +12,12 @@ $( document ).ready(function() {
     $("h1").css({top: 260, left: 123, position:'absolute'});
 
     $("#sidebar" ).find('.main-body').remove();
+
+    $(".about").each(function(i){
+        var len=$(this).text().trim().length;
+        if(len>65)
+        {
+            $(this).text($(this).text().substr(0,60)+'...');
+        }
+        });
 });
