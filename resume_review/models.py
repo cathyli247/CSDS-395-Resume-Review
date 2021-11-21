@@ -83,14 +83,15 @@ class Order(models.Model):
     resume = models.FileField(upload_to='resumes', null=True)
 
 
-class Room(models.Model):
-    name = models.CharField(max_length=1000)
-    account = models.CharField(max_length=1000)
-    reviewer = models.CharField(max_length=1000)
+# can't migrate, not sure the reason
+# class Room(models.Model):
+#     name = models.CharField(max_length=1000)
+#     account = models.CharField(max_length=1000)
+#     reviewer = models.CharField(max_length=1000)
 
 
-class Message(models.Model):
-    value = models.CharField(max_length=1000)
-    date = models.DateTimeField(default=datetime.now, blank=True)
-    account = models.CharField(max_length=1000)
-    room = models.CharField(max_length=1000)
+# class Message(models.Model):
+#     value = models.CharField(max_length=1000)
+#     date = models.DateTimeField(default=datetime.now, blank=True)
+#     account = models.CharField(max_length=1000)
+#     room = models.CharField(max_length=1000)

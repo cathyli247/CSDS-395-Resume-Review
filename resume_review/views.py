@@ -189,7 +189,8 @@ class OrderDetailView(FormView):
             rate = self.request.POST.get('rate', '')
             comment = self.request.POST.get('comment', '')
 
-            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now())
+            comment_obj = Comment.objects.create(
+                reviewer=order.reviewer, rate=rate, create_at=datetime.now())
             if comment:
                 comment_obj.comment = comment
                 comment_obj.save()
@@ -201,7 +202,8 @@ class OrderDetailView(FormView):
         if resume and button == 'upload':
             order.resume = resume
         order.save()
-        logger.info('save resume to order %s with action %s' % (order.id, button))
+        logger.info('save resume to order %s with action %s' %
+                    (order.id, button))
 
         return HttpResponseRedirect(self.request.path_info + '?order_id=' + order_id)
 
@@ -311,16 +313,55 @@ class UserProfileView(FormView):
         response = super().form_invalid(form)
         return response
 
-    def chat_room(self, request, room):
-        return render(request, 'chatting.html')
+# not used it until the bug in the database fixed
 
-    def checkview(self, request):
-        room = self.request.POST['room_name']
-        username = self.request.POST['username']
 
-        if Room.objects.filter(name=room).exists():
-            return redirect('/' + room + '/?username=' + username)
-        else:
-            new_room = Room.objects.create(name=room)
-            new_room.save()
-            return redirect('/' + room + '/?username=' + username)
+def room(request, room):
+
+    username = request.GET.get('username')
+    reviewer = request.GET.get('reviewer')
+    room_details = Room.objects.get(name=room)
+    room_list = Room.objects.all()
+    room_list = room_list.filter(Q(account=username) | Q(reviewer=username))
+
+    return render(request, 'room.html', {
+        'username': username,
+        'reviewer': reviewer,
+        'room': room,
+        'room_details': room_details,
+        'room_list': room_list
+    })
+
+
+def checkview(request):
+    room = request.POST['room_name']
+    username = request.POST['username']
+    reviewer = request.POST['reviewer']
+
+    if Room.objects.filter(name=room, account=username).exists():
+        return redirect('/'+room+'/?username='+username + '&reviewer=' + reviewer)
+    elif Room.objects.filter(name=room, reviewer=username).exists():
+        return redirect('/'+room+'/?username='+reviewer + '&reviewer=' + reviewer)
+    else:
+        new_room = Room.objects.create(
+            name=room, account=username, reviewer=reviewer)
+        new_room.save()
+        return redirect('/'+room+'/?username='+username + '&reviewer=' + reviewer)
+
+
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(
+        value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+def getMessages(request, room):
+    room_details = Room.objects.get(name=room)
+
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages": list(messages.values())})

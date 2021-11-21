@@ -10,4 +10,6 @@ urlpatterns = [
     path('user_profile/', views.UserProfileView.as_view(), name='user_profile'),
     path('reviewer_profile/', views.ReviewerCardView.as_view(),
          name='reviewer_profile'),
+    path('chat/', views.chat_room, name="room")
+
 ]
