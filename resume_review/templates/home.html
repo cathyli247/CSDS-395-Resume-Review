@@ -9,9 +9,49 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src = "{% static 'js/home.js' %}"></script>
 
+
 <form class="order-detail-form" id="order-detail-form" method="post" action="" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
 <div class="container">
+        <!-- sliding imgs -->
+        <div class="col-md-8 banner-sec">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="{% static 'img/home1.jpeg' %}" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <div class="banner-text">
+                                <h2>Welcome to <br>CWRU Resume Review</h2>
+                                <p>CWRU Resume Review system is a platform for students and alumni to share their intelligence and resources and help each other improve career paths. Here, you can get professional opinions on your resume, which allows you to enhance your competitiveness.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="{% static 'img/home2.jpeg' %}" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <div class="banner-text">
+                                <h2>Our Protocol</h2>
+                                <p>Upload your resume and find matched students or alumni with experiences to provide professional suggestions.<br></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="{% static 'img/home3.jpeg' %}" alt="centered image">
+                        <div class="carousel-caption d-none d-md-block">
+                            <div class="banner-text">
+                                <h2>Become a Reviewer?</h2>
+                                <p>If you are confident, become one of the reviewers to help your peers pursue their careers! Your experiences and efforts will be awarded through payroll and also improve your ratings in the system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="px-3" style="margin-top:30px">
     <div class="row border border-light rounded mb-4" style="padding-top:30px;padding-bottom:40px">
         {% for field in form%}

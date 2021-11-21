@@ -145,3 +145,8 @@ label {
     box-shadow: none;
     border: 1px solid #00838f
 }
+.carousel-item{height:100%; }
+.img-fluid{border-radius:10px 10px 10px 10px; height:100%; margin-top: 2rem; width: 100%;}
+.carousel{height:100%;}
+.carousel-inner{border-radius:10px 10px 10px 10px; height:70%; width: 150%; ;}
+.carousel-caption{text-align:left; left:5%;}
