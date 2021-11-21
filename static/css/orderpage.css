@@ -1,90 +1,3 @@
-.order-section{ height: 100vh; margin: auto; margin-top: 20px; width: 85%;}
-
-h2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #003658;
-    font-size: 30px;
-    width: 100%;
-    margin:auto;
-    padding: 8px;
-}
-
-.confirm-field{ 
-    width: 100%; 
-    height: 90%; 
-    margin-top: 10px; 
-    margin-bottom: 10px;
-    padding: 20px;
-}
-.confirm-option{
-    float: right;
-    width: 70px;
-    color: #fff;
-    margin: 2px;
-    margin-top: 30px;
-    border: none;
-    outline: none;
-}
-#confirm-btn{ background-color: #03ac28; margin-right: 50px;}
-#reject-btn{ background-color: #9c0d03}
-#confirm-status{
-    display: none; margin-right: 50px;
-}
-body.showConfirmStatus #confirm-option {
-    display: none;
-}
-body.showConfirmStatus #confirm-status {
-    display: block;
-}
-
-.order-title { padding: 30px;}
-#order-select{
-    padding:10px;
-    border-radius: 3px;
-    margin-top:3px;
-}
-#order-srch-form{
-    width: 100%;
-    float:right;
-}
-.order-search {
-    width: 95%;
-    padding: 5px;
-    margin: auto;
-}
-.search-order-button{
-    border:0px;
-    outline: none;
-    background-color: #fff;
-}
-.go-to-detail{
-    margin: auto;
-}
-td label{
-    margin-left:10px;
-    cursor: pointer;
-}
-
-
-form { align-items: center;}
-input{
-    width: 40%;
-    border-width: 0 0 2px;
-    border-color: #003658;
-    padding: 3px;
-    margin: 8px;
-    outline: none;
-    opacity: 90%;
-}
-.form-button {
-   border: 0px;
-   border-radius: 5px;
-   background-color: #fff;
-   padding: 2px;
-   height: 28px;
-   width: 28px;
-}
 img { height: 22px; width: 22px;}
 
 tr:hover { background-color: #e8f4fa; cursor: pointer;}
@@ -97,101 +10,49 @@ table {
     background-color: #fff;
 }
 
-
-.select-file-label {
-    background-color: #ebebeb;
-    border-style: solid;
-    border-color: #003658;
-    color: #003658;
-    padding: 10px 0px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin-top: 3px;
-    height: 80px;
-    width: 80px;
-    text-align: center;
-    margin: auto;
+body{
+    background:#f5f6fa;
 }
-span { margin: 3px;}
-#file-selected { margin-left: 3px;}
-.upload-btn{
-    background: #003658; 
-    color:#fff;
+.card {
     border: none;
-    border-radius: 3px;
-    padding: 3px;
-    text-align: center;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 15px;
-    margin-top: -3px;
-    width: 80px;
-}
-.upload-field{ width: 95%; margin: auto;}
-.upload-form{ width: 90%; float: left;}
-p { margin-top: 10px; color: #003658; font-weight: bold;}
-.uploaded-files { width: 90%;}
-
-.download-field{width: 95%; margin: auto; margin-top: 20px; margin-bottom: 80px;}
-
-.rating-field{ width: 95%; margin: auto; margin-top: 30px; margin-bottom: 80px;}
-#direct-to-rate{ color:#fff}
-a:hover{ text-decoration: none;}
-.show-rating-btn{
-    height: 30px;
-    width: 150px;
-    background-color: #003658;
-    border-radius: 3px;
-    text-align: center;
-    padding:2px;
-}
-#ratingForm {width: 90%; margin: auto;}
-.textComments { width: 100%; margin-bottom: 5px; padding: 2px;}
-.submit-btn { margin-bottom: 10px;}
-#submit-msg { color: #03ac28;}
-#ratingSection{ margin-bottom: 20px;}
-body.showRatingForm #ratingSection {
-    display: block;
-}
-#incomplete-msg{
-    color:#003658;
-    font-size: 12px;
-}
-
-.cancel-field {
-    width: 90%; margin: auto; 
-}
-#cancel-btn{
-    background: #9c0d03; 
-    color:#fff;
+    -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    box-shadow: 1px 0 20px rgba(96,93,175,.05);
     margin-bottom: 30px;
-    width: 150px;
-    outline: none;
-    float: right;
+    margin-top:30px;
+    padding:20px;
+}
+.table th {
+    font-weight: 500;
+    color: #1b3d59;
 }
 
-.complete-field {
-    width: 90%; margin: auto; margin-top: 50px;
+.table thead {
+    background-color: #ECF1F7;
 }
-#complete-btn{
-    background: #03ac28; 
-    color:#fff;
-    margin-bottom: 30px;
-    width: 150px;
-    outline: none;
-    float: right;
+.table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>td {
+    padding: 14px 12px;
+    vertical-align: middle;
+}
+.table tr td {
+    color: #718196;
+}
+.thumb-sm {
+    height: 32px;
+    width: 32px;
+}
+.badge-soft-warning {
+    background-color: rgba(248,201,85,.2);
+    color: #f8c955;
 }
 
-.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
-.file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
-.file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
-.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
-.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
-.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
-.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
-.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
-.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
-.file-upload .file-select.file-select-disabled{opacity:0.65;}
-.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
-.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
-.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+.badge {
+    font-weight: 500;
+}
+.badge-soft-primary {
+    background-color: rgba(96,93,175,.2);
+    color: #605daf;
+}
+
+.status {
+    font-size:30px;
+}

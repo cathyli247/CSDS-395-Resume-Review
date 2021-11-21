@@ -4,19 +4,35 @@
   box-sizing: border-box;
 }
 
-html{
-  font-size: 10px;
-  font-family: "Roboto", sans-serif;
+body{
+    background:#f5f6fa;
 }
 
-a{
+.border-light {
+    border: 1px solid #e0e0e0!important;
+}
+
+.card {
+    border: none;
+    -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    box-shadow: 1px 0 20px rgba(96,93,175,.05);
+    margin-bottom: 30px;
+    margin-top:20px;
+    padding:20px;
+}
+
+label {
+    color: #2e4a65;
+    margin-bottom:0.5rem;
+}
+
+#search {
+    margin-top: 2rem;
+}
+
+.reviewer-btn {
   text-decoration: none;
   color: #fff;
-}
-
-section{
-  padding: 10rem 0;
-  background-color: #fff;
 }
 
 .card-wrapper{
@@ -26,25 +42,26 @@ section{
   flex-direction: row;
   flex-wrap: wrap;
   border-radius: 2rem;
+  justify-content: center;
 }
 
-.card{
-  width: 32rem;
-  height: 52rem;
+.profile-card{
+  width: 16rem;
+  height: 25rem;
   /* width: 32rem; */
   background-color: #ebeef8;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem;
+  margin: 1rem;
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
   border-radius: 2rem;
 }
 
-.card .card-img{
+.profile-card .card-img{
   width: 100%;
-  height: 26rem;
+  height: 20rem;
   object-fit: cover;
   clip-path: polygon(0 0, 100% 0, 100% 63%, 0% 100%);
   border-top-left-radius: 2rem;
@@ -52,8 +69,8 @@ section{
 }
 
 .profile-img{
-  width: 15rem;
-  height: 15rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
   border-radius: 50%;
   margin-top: -10rem;
@@ -61,22 +78,23 @@ section{
   border: 1rem solid #ebeef8;
 }
 
-.card h1{
-  font-size: 2.5rem;
+.profile-card h1{
+  font-size: 1.5rem;
   color: #333;
   margin: 1.5rem 0;
 }
 
-.card .about{
-  font-size: 1.5rem;
+.profile-card .about{
+  font-size: 1rem;
   margin: 1rem 0;
   font-style: normal;
   text-align: center;
   color: #333;
   padding: 1rem 2.5rem;
+  text-overflow:ellipsis;
 }
 
-.card .btn{
+.profile-card .btn{
   padding: 1rem 2.5rem;
   background-color: #003658;
   border-radius: 2rem;
@@ -86,20 +104,44 @@ section{
   transition: all .5s;
 }
 
-.card .btn:hover{
+.profile-card .btn:hover{
   transform: translateY(-2px);
   box-shadow: .2rem .2rem 1rem rgba(21, 83, 207, 0.579);
 }
 
-.card .btn:active{
+.profile-card .btn:active{
   transform: translateY(0);
   box-shadow: none;
 }
 
-.card:hover{
+.profile-card:hover{
   transform: scale(1.02);
 }
 
 .checked {
   color: orange;
+}
+
+.advanced {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500
+}
+
+.btn-secondary,
+.btn-secondary:focus,
+.btn-secondary:active {
+    color: #fff;
+    background-color: #00838f !important;
+    border-color: #00838f !important;
+    box-shadow: none
+}
+
+.advanced {
+    color: #00838f !important
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #00838f
 }

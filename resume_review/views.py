@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
@@ -86,6 +87,7 @@ class LoginView(FormView):
 class HomePageView(FormView):
     template_name = "home.html"
     form_class = SearchForm
+    success_url = '/home'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,28 +103,31 @@ class HomePageView(FormView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
-            return self.form_valid(form)
+            return self.form_valid(form, **kwargs)
         else:
             return self.form_invalid(form)
 
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
         reviewer = Reviewer.objects.all()
         name = self.request.POST.get('name', '')
         reviewer = reviewer.filter(Q(account__first_name__contains=name) | Q(
             account__last_name__contains=name)) if name is not None else reviewer
         major = self.request.POST.get('major', '')
         reviewer = reviewer.filter(
-            account__major=major) if major is not None else reviewer
+            account__major=major) if major != 'All' else reviewer
 
         academic_standing = self.request.POST.get('academic_standing', '')
         reviewer = reviewer.filter(
-            account__academic=academic_standing) if academic_standing is not None else reviewer
+            account__academic=academic_standing) if academic_standing != 'All' else reviewer
 
         price = self.request.POST.get('price', '')
         reviewer = reviewer.filter(
-            price__gte=price) if price is not None else reviewer
+            price__gte=price) if price != 'All' else reviewer
 
-        return redirect(reverse('home', kwargs={"reviewer": reviewer}))
+        # return HttpResponseRedirect(reverse('home', kwargs={"reviewer": reviewer}))
+        data = self.get_context_data(**kwargs)
+        data['reviewer'] = reviewer
+        return render(self.request, 'home.html', data)
 
     def form_invalid(self, form):
         response = super().form_invalid(form)
@@ -170,17 +175,33 @@ class OrderDetailView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        button = self.request.POST.get('button', '')
         resume = self.request.FILES.get('resume', '')
         order_id = self.request.GET.get('order_id', '')
         order = user_api.get_order(order_id)
-        if self.request.POST.get('download', '') == 'true':
+        if button == 'cancel':
+            order.state = 'Rejected'
+        elif button == 'complete':
+            order.state = 'Completed'
+        elif button == 'accept':
+            order.state = 'Accepted'
+        elif button == 'submit_rate':
+            rate = self.request.POST.get('rate', '')
+            comment = self.request.POST.get('comment', '')
+
+            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now())
+            if comment:
+                comment_obj.comment = comment
+                comment_obj.save()
+
+        if button == 'download':
             filepath = order.resume.path
             response = FileResponse(open(filepath, 'rb'))
             return response
-        if resume:
+        if resume and button == 'upload':
             order.resume = resume
-            order.save()
-            logger.info('save resume to order %s' % order.id)
+        order.save()
+        logger.info('save resume to order %s with action %s' % (order.id, button))
 
         return HttpResponseRedirect(self.request.path_info + '?order_id=' + order_id)
 
@@ -196,6 +217,7 @@ class ReviewerCardView(TemplateView):
 
         reviewers = Reviewer.objects.filter(id=reviewer_id)
         context['reviewer'] = reviewers[0] if len(reviewers) is not 0 else None
+        context['rating'] = user_api.get_average_rating(reviewers[0])
         return context
 
     def get(self, request, *args, **kwargs):
@@ -222,10 +244,12 @@ class UserProfileView(FormView):
             context['self_intro'] = ''
             context['reviewer'] = 'false'
             context['price'] = ''
+            context['delivery_time'] = ''
         else:
             context['self_intro'] = reviewer.self_intro
             context['reviewer'] = 'true'
             context['price'] = reviewer.price
+            context['delivery_time'] = reviewer.delivery_time
         return context
 
     def get(self, request, *args, **kwargs):
@@ -255,6 +279,7 @@ class UserProfileView(FormView):
         avatar = self.request.FILES.get('avatar', '')
         self_intro = self.request.POST.get('self_intro', '')
         price = self.request.POST.get('price', '')
+        delivery_time = self.request.POST.get('delivery_time', '')
 
         user = self.request.user
         user.first_name = first_name
@@ -272,15 +297,15 @@ class UserProfileView(FormView):
             account.avatar = avatar
         account.save()
         logger.info('save account info %s' % user)
-        response = super().form_valid(form)
 
         reviewer = user_api.get_reviewer_by_account(account=account)
         if reviewer:
             reviewer.self_intro = self_intro
             reviewer.price = price
+            reviewer.delivery_time = delivery_time
             reviewer.save()
             logger.info('save reviewer info %s' % user)
-        return response
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         response = super().form_invalid(form)

@@ -9,24 +9,41 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src = "{% static 'js/home.js' %}"></script>
 
-<section>
-    {{ form.name }}
-    {{ form.major }}
-    {{ form.academic_standing }}
-    {{ form.price }}
+<form class="order-detail-form" id="order-detail-form" method="post" action="" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+<div class="container">
+    <div class="px-3" style="margin-top:30px">
+    <div class="row border border-light rounded mb-4" style="padding-top:30px;padding-bottom:40px">
+        {% for field in form%}
+        <div class="col">
+            <label>{{field.label}}</label>
+            <fieldset class="form-group">
+                {{field}}
+            </fieldset>
+        </div>
+        {% endfor %}
+        <div class="col-1">
+            <button type="submit" class="btn btn-primary" id="search"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    </div>
 
-    <div class="container">
+<div class="card">
+<section class="reviewer-section">
         <div class="card-wrapper">
             {% for reviewer in reviewer %}
-            <div class="card">
-                <img src="{% static 'img/tink.jpeg' %}" alt="card background" class="card-img">
+            <div class="profile-card text">
+                <img src="{% static 'img/tink.jpeg' %}" alt="background" class="card-img">
                 <img class="profile-img" src="{{reviewer.account.avatar.url}}" >
-                <h1>{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
-                <p class="about">{{reviewer.self_intro}}</p>
-                <a href="#" class="btn">View</a>
+                <h1 class="text">{{reviewer.account.first_name}} {{reviewer.account.last_name}}</h1>
+<!--                <p class="about text">{{reviewer.self_intro}}</p>-->
+                <a href="/reviewer_profile/?reviewer_id={{ reviewer.id }}" class="btn reviewer-btn">View</a>
             </div>
             {% endfor %}
         </div>
-    </div>
+
 </section>
+</div>
+</div>
 {% endblock %}
+</form>

@@ -202,6 +202,25 @@
                             <div class="info">
                                 <hr>
                             </div>
+
+                            <div class="row mb-3">
+                                {% with field=form.delivery_time %}
+                                <div class="col-sm-4">
+                                    <h6 class="mb-0">{{ field.label }}</h6>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="info text-secondary" id="info_delivery_time">
+                                        {{ delivery_time }}
+                                    </div>
+                                    <div class="edit">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                                {% endwith %}
+                            </div>
+                            <div class="info">
+                                <hr>
+                            </div>
                             {% endif %}
 
                             <div class="row mb-3">

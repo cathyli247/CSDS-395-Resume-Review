@@ -10,30 +10,26 @@
 <link rel="stylesheet" href="{% static 'css/orderpage.css' %}" />
 <script src = "{% static 'js/order.js' %}"></script>
 
-        <section class='order-section'>
-            <!-- title -->
-            <div class='order-title'> <h2>Orders </h2></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
 
-            <!-- Search -->
-            <div class="order-search row">
-                <div class="col-sm-4 order-col-element" >
-                    <select id="order-select">
-                        <option value="user">Order Sent</option>
-                        <option value="reviewer">Order Receviced</option>
-                    </select>
-                </div>
-                <div class="col-sm-8 order-col-element" >
-                    <form id='order-srch-form'>
-                        <input type="text" placeholder="Reviewer name">
-                        <input type="text" placeholder="Date">
-                        <button type="submit" class='search-order-button'> <img src="{% static 'img/search_icon.png' %}"> </button>
-                    </form>
-                </div>
-            </div>
 
-            <!-- order table -->
-            <section class='order-table'>
-                <table>
+                    <div class="row mb-2">
+                        <div class="col-sm-9"><h4 class="header-title pb-3 mt-1">Order History</h4></div>
+                        <div class="col-sm-3">
+                            <select class="form-select" id="order-select" style="width:160px;float:right">
+                                <option>Orders sent</option>
+                                <option>Orders received</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0" id="reviewer-table">
                     <thead>
                         <tr>
                             <th>Reviewer Name</th>
@@ -46,14 +42,14 @@
                     <tbody>
                         {% for order in user_order %}
                         <tr data-href= "/order_detail/?order_id={{ order.id }}">
-                            <td>{{ order.reviewer.account.first_name }}</td>
+                            <td><img src="{{order.reviewer.account.avatar.url}}" alt="" class="thumb-sm rounded-circle mr-2">  {{ order.reviewer.account.first_name }}</td>
                             <td>{{ order.create_at }}</td>
                             <td id = "status-of-order">
-                            <!-- text-info:comfirmed, text-waring:pending, text-danger:rejected-->
-                            <span class="status text-success">•</span>
+
+                            <span class="status {{ order.state }}">•</span>
                             {{ order.state }}
                             </td>
-                            <td>{{ order.reviewer.price }}</td>
+                            <td>${{ order.reviewer.price }}</td>
                             <td class='go-to-detail'>
                                 <a href="/order_detail/?order_id={{ order.id }}"> <img src="{% static 'img/right-arrow.png' %}"></a>
                             </td>
@@ -61,17 +57,42 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </section>
-        </section>
-    </body>
 
-    
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="customer-table">
+                                <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Price</th>
+                                    <th>Detail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in reviewer_order %}
+                                <tr data-href= "/order_detail/?order_id={{ order.id }}">
+                                    <td><img src="{{order.account.avatar.url}}" alt="" class="thumb-sm rounded-circle mr-2">  {{ order.account.first_name }}</td>
+                                    <td>{{ order.create_at }}</td>
+                                    <td id = "status-of-order">
 
-    <script>
-        $('tr[data-href]').on("click", function() {
-            document.location = $(this).data('href');
-        });
-
-    </script>
+                                        <span class="status {{ order.state }}">•</span>
+                                        {{ order.state }}
+                                    </td>
+                                    <td>${{ order.reviewer.price }}</td>
+                                    <td class='go-to-detail'>
+                                        <a href="/order_detail/?order_id={{ order.id }}"> <img src="{% static 'img/right-arrow.png' %}"></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+                    <!--end table-responsive-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

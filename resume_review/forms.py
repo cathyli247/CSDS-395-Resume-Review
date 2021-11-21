@@ -79,19 +79,32 @@ class UserProfileForm(forms.Form):
         (GRADUATE, 'Graduate'),
     ]
 
+    DELIVERY_TIME_CHOICES = [
+        ('One week', 'One week'),
+        ('Two weeks', 'Two weeks'),
+        ('Three weeks', 'Three weeks'),
+        ('Four weeks or more', 'Four weeks or more'),
+    ]
+
     academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, initial='Freshman', label='Academic Standing',
+                                          widget=Select(attrs={"class": "form-select"}))
+
+    delivery_time = forms.ChoiceField(choices=DELIVERY_TIME_CHOICES, required=True, initial='One week', label='Delivery Time',
                                           widget=Select(attrs={"class": "form-select"}))
 
 
 class SearchForm(forms.Form):
     MAJOR_CHOICES = source_api.get_major_list()
+    MAJOR_CHOICES.insert(0, ('All', 'All'))
 
+    ALL = 'All'
     FRESHMEN = 'Freshmen'
     SOPHOMORE = 'Sophomore'
     JUNIOR = 'Junior'
     SENIOR = 'Senior'
     GRADUATE = 'Graduate'
     ACADEMIC_STANDING_CHOICES = [
+        (ALL, 'All'),
         (FRESHMEN, 'Freshmen'),
         (SOPHOMORE, 'Sophomore'),
         (JUNIOR, 'Junior'),
@@ -99,21 +112,22 @@ class SearchForm(forms.Form):
         (GRADUATE, 'Graduate'),
     ]
     PRICE_CHOICE = [
+        ('All', 'All'),
         ('1', '<20'),
         ('2', '20-50'),
         ('3', '50-100'),
         ('4', '>100'),
     ]
 
-    name = forms.CharField(required=True, label='price', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Enter your name'}))
+    name = forms.CharField(required=False, label='Name', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Enter the name'}))
     # three choices to filter
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
-                              widget=Select(attrs={"class": "form-select"}))
+                              widget=Select(attrs={"class": "form-select"}), initial='All')
     academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
-                                          widget=Select(attrs={"class": "form-select"}))
+                                          widget=Select(attrs={"class": "form-select"}), initial='All')
     price = forms.ChoiceField(choices=PRICE_CHOICE, required=True, label='Price',
-                              widget=Select(attrs={"class": "form-select"}))
+                              widget=Select(attrs={"class": "form-select"}), initial='All')
 
 class OrderDetailForm(forms.Form):
     resume = forms.FileField()

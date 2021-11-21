@@ -39,7 +39,7 @@ function init_page() {
     $('#id_self_intro').val($('#info_self_intro').text().trim());
     var price = $('#info_price').text().trim();
     $('#id_price').val(parseInt(price));
-
+    $('#id_delivery_time').val($('#info_delivery_time').text().trim());
 }
 
 
@@ -48,7 +48,8 @@ function checkValidity() {
         return false;
     }
     var price = $('#id_price').val()
-    if (price.match(".*[a-z].*")) {
+
+    if (typeof price != 'undefined' && price.match(".*[a-z].*")) {
         return false;
     }
     return true;

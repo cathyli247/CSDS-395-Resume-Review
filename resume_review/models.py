@@ -44,12 +44,24 @@ class Reviewer(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
+<<<<<<< HEAD
     delivery_time = models.DateTimeField(null=False, default=timezone.now)
 
     def get_name(self):
         return self.account.first_name
 
 
+=======
+    DELIVERY_TIME_CHOICES = [
+        ('delivery_1', 'One week'),
+        ('delivery_2', 'Two weeks'),
+        ('delivery_3', 'Three weeks'),
+        ('delivery_4', 'Four weeks or more'),
+    ]
+    delivery_time = models.CharField(
+        max_length=255, choices=DELIVERY_TIME_CHOICES, default='delivery_1')
+        
+>>>>>>> 8ca2a9230c30bf349ef37384f299e4434e7d0d7c
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     rate = models.CharField(max_length=255)
@@ -72,7 +84,7 @@ class Order(models.Model):
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
     create_at = models.DateTimeField(null=False, default=timezone.now)
-    finished_at = models.DateTimeField(null=True)
+    finished_at = models.DateTimeField(null=True, default=None)
     state = models.CharField(
         max_length=100, choices=Order_State, default=PENDING)
     resume = models.FileField(upload_to='resumes', null=True)
