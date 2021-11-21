@@ -129,7 +129,6 @@ class HomePageView(FormView):
         reviewer = reviewer.filter(
             price__gte=price) if price != 'All' else reviewer
 
-        # return HttpResponseRedirect(reverse('home', kwargs={"reviewer": reviewer}))
         data = self.get_context_data(**kwargs)
         data['reviewer'] = reviewer
         return render(self.request, 'home.html', data)
@@ -224,6 +223,8 @@ class ReviewerCardView(TemplateView):
         reviewers = Reviewer.objects.filter(id=reviewer_id)
         context['reviewer'] = reviewers[0] if len(reviewers) is not 0 else None
         context['rating'] = user_api.get_average_rating(reviewers[0])
+        comments = Comment.objects.filter(reviewer=reviewers[0])
+        context['comments'] = comments
         return context
 
     def get(self, request, *args, **kwargs):
