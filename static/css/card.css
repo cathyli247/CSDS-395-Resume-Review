@@ -18,7 +18,7 @@ body{
     box-shadow: 1px 0 20px rgba(96,93,175,.05);
     margin-bottom: 30px;
     margin-top:20px;
-    padding:20px;
+    padding:10px;
 }
 
 label {
@@ -86,9 +86,9 @@ label {
 }
 
 .profile-card .about{
-  font-size: 1rem;
+  font-size: 13px;
   width: 95%;
-  margin-top: -30%;
+  margin-top: -25%;
   font-style: normal;
   text-align: center;
   color: #333;
@@ -97,7 +97,7 @@ label {
 }
 
 .profile-card .btn{
-  padding: 1rem 2.5rem;
+  padding: 0.5rem 2rem;
   background-color: #003658;
   border-radius: 2rem;
   margin: 1rem 0;

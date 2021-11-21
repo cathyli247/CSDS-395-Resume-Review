@@ -49,11 +49,13 @@ class Reviewer(models.Model):
         ('delivery_3', 'Three weeks'),
         ('delivery_4', 'Four weeks or more'),
     ]
+    rate = models.IntegerField(default=0)
     delivery_time = models.CharField(
         max_length=255, choices=DELIVERY_TIME_CHOICES, default='delivery_1')
         
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     rate = models.CharField(max_length=255)
     comment = models.TextField(null=True)
     create_at = models.DateTimeField(null=False, default=timezone.now)

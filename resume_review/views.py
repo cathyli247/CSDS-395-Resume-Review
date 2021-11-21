@@ -90,7 +90,13 @@ class HomePageView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reviewer'] = user_api.get_good_reviewer()
+        reviewers = user_api.get_good_reviewer()
+        for reviewer in reviewers:
+            reviewer.rate = user_api.get_average_rating(reviewer)
+            reviewer.save()
+
+        context['reviewer'] = reviewers
+
         return context
 
     def get(self, request, *args, **kwargs):

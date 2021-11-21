@@ -124,7 +124,7 @@ class SearchForm(forms.Form):
     # three choices to filter
     major = forms.ChoiceField(choices=MAJOR_CHOICES, required=True, label='Major',
                               widget=Select(attrs={"class": "form-select"}), initial='All')
-    academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Academic Standing',
+    academic_standing = forms.ChoiceField(choices=ACADEMIC_STANDING_CHOICES, required=True, label='Standing',
                                           widget=Select(attrs={"class": "form-select"}), initial='All')
     price = forms.ChoiceField(choices=PRICE_CHOICE, required=True, label='Price',
                               widget=Select(attrs={"class": "form-select"}), initial='All')
