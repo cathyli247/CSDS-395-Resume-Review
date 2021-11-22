@@ -85,12 +85,11 @@ def get_good_reviewer():
     good_reviewer = []
     reviewers = Reviewer.objects.all()
     for r in reviewers:
-        comments = Comment.objects.filter(reviewer=r)
-        rate_sum = 0
-        for c in comments:
-            rate_sum += int(float(c.rate))
-        ave_rate = rate_sum / len(comments) if len(comments) != 0 else 0
-        if ave_rate >= 4.0:
+        rate = get_average_rating(r)
+        r.rate = rate
+        r.save()
+
+        if rate >= 4.0:
             good_reviewer.append(r)
     return good_reviewer
 

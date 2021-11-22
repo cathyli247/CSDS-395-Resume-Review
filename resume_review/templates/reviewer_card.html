@@ -2,20 +2,21 @@
 {% load static %}
 {% block title %}Reviewer Profile{% endblock %}
 {% block content %}
-<!DOCTYPE html>
-<html lang = "en">
-<head>
-    <meta charset = "UTF-8">
-    <title>Reviewer Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-    <script src = "{% static 'css/reviewer_profile.css' %}"></script>
-    <script src = "{% static 'css/button.scss' %}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/reviewer_profile.css' %}" />
+<script src = "{% static 'js/reviewer_profile.js' %}"></script>
+<script>
+            $(function(){
+                $('.stars').stars();
+            });
+</script>
+
+<div class="main-body">
 <div class="container">
     <div class="row justify-content-center">
+        <div class="row gutters">
         <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn">
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow h-100">
                 <img src='{{reviewer.account.avatar.url}}' alt="...">
                 <div class="card-body p-1-9 p-xl-5">
                     <div class="mb-4">
@@ -29,45 +30,76 @@
                         <li class="mb-3"><a href="#!"><i class="far fa-envelope display-25 me-3 text-secondary"></i>{{reviewer.account.user.email}}</a></li>
                         <li class="mb-3"><a href="#!"><i class="fas fa-mobile-alt display-25 me-3 text-secondary"></i>{{reviewer.account.phone}}</a></li>
                     </ul>
-                    <a href="#" class="btn place_order btn-primary" style="padding: 10px 24px; width: 200px; margin-left: 20%;"><i class="fas fa-map-marker-smile" style="color: antiquewhite;"></i> Place Order</a> <br>
-                    <a href="#" class="btn place_order btn-success" style="padding: 10px 24px; margin-top: 1rem; width: 200px; margin-left: 20%;"><i class="far fa-user-md-chat"></i> Chat with Reviewer</a>
+                    <div style="width:100%;justify-content: center; align-items: center;text-align: center;  ">
+                        <a href="#" class="btn place_order btn-primary" style="padding:10px 0;width: 200px;"><i class="fas fa-search-dollar"></i> Place Order</a> <br>
+                        <a href="#" class="btn place_order btn-success" style="padding:10px 0;margin-top: 1rem; width: 200px;"><i class="fas fa-comments"></i> Chat with Reviewer</a>
+                    </div>
                 </div>
                 
             </div>
             
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8 m-0">
+            <div class="card-body h-100">
             <div class="ps-lg-1-6 ps-xl-5">
                 <!-- About Me Section -->
                 <div class="mb-5 wow fadeIn">
                     <div class="text-start mb-1-6 wow fadeIn">
-                        <h2 class="h1 mb-0 text-primary">#About Me</h2>
+                        <h2 class="h2 mb-0 text-primary">#About Me</h2>
                     </div>
-                    <p> {{reviewer.self_intro}} </p>
+                    <p class="mt-3"> {{reviewer.self_intro}} </p>
                 </div>
                 
 
                 <!-- Comment Section -->
-                <div class="headings d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="h1 mb-0 text-primary">#Comments</h2>
+                <div class="headings d-flex justify-content-between align-items-center">
+                    <h2 class="h2 mb-0 text-primary">#Comments</h2>
                 </div>
-                {% for comment in comments %}
-                <div class="card p-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="user d-flex flex-row align-items-center"> <img src="{{comment.account.avatar.url}}" width="30" height="30" class="user-img rounded-circle mr-2" style="margin-right: 10px;border-radius: 100%;"> 
-                            <span>
-                                <small class="font-weight-bold text-primary">{{comment.account.first_name}} {{comment.account.last_name}} <span class="fa fa-star checked">       {{comment.rate}} </span> </small> 
-                            </span> 
-                        </div> 
-                    </div>
-                    <div><small class="font-weight-bold">{{comment.comment}}</small></div>
-                    <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div style="color: #59b73f;"><small> {{comment.create_at}} </small></div>
+
+                <div class="panel">
+                    <div class="panel-body">
+                        {% for comment in comments %}
+                        <div class="media-block">
+                            <a class="media-left" href="#"><img class="img-circle img-sm" src="{{comment.account.avatar.url}}"></a>
+                            <div class="media-body">
+                                <div class="mar-btm">
+                                    <a href="#" class="text-semibold media-heading box-inline">{{comment.account.first_name}} {{comment.account.last_name}}</a>
+                                    <p>
+                                        <span class="text-muted text-sm"><i class="far fa-clock"></i> {{comment.create_at}}</span>  <span class="stars" style="float:right;color:#EBD408" data-rating="{{comment.rate}}" data-num-stars="5" ></span>
+
+                                    </p>
+
+                                </div>
+                                <p>{{comment.comment}}</p>
+                                <hr>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
+
+
+<!--                {% for comment in comments %}-->
+<!--                <div class="p-3">-->
+<!--                    <div class="d-flex justify-content-between align-items-center">-->
+<!--                        <div class="user d-flex flex-row align-items-center media-left"> <img src="{{comment.account.avatar.url}}" width="30" height="30" class="user-img rounded-circle mr-2" style="margin-right: 10px;border-radius: 100%;">-->
+<!--                            <span>-->
+<!--                                <small class="font-weight-bold text-primary">{{comment.account.first_name}} {{comment.account.last_name}} <span class="fa fa-star checked">       {{comment.rate}} </span> </small> -->
+<!--                            </span> -->
+<!--                        </div> -->
+<!--                    </div>-->
+<!--                    <div><small class="font-weight-bold">{{comment.comment}}</small></div>-->
+<!--                    <div class="action d-flex justify-content-between mt-2 align-items-center">-->
+<!--                    <div style="color: #59b73f;"><small> {{comment.create_at}} </small></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <hr>-->
+<!--                {% endfor %}-->
             </div>
-        </div> 
+        </div>
+        </div>
+        </div>
     </div>
+</div>
 </div>
 {% endblock %}

@@ -101,6 +101,11 @@ class HomePageView(FormView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        reviewers = context['reviewer']
+        for reviewer in reviewers:
+            reviewer.rate = user_api.get_average_rating(reviewer)
+            reviewer.save()
+
         if not self.request.user.is_authenticated:
             return HttpResponseRedirect('/')
         return self.render_to_response(context)
@@ -114,6 +119,10 @@ class HomePageView(FormView):
 
     def form_valid(self, form, **kwargs):
         reviewer = Reviewer.objects.all()
+        for r in reviewer:
+            r.rate = user_api.get_average_rating(r)
+            r.save()
+
         name = self.request.POST.get('name', '')
         reviewer = reviewer.filter(Q(account__first_name__contains=name) | Q(
             account__last_name__contains=name)) if name is not None else reviewer
