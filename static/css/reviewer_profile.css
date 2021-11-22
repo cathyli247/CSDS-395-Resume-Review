@@ -138,3 +138,10 @@ p {
     color: green;
     cursor: pointer
 }
+
+.place-order {
+    color: #fff;
+    background-color: #00838f !important;
+    border-color: #00838f !important;
+    box-shadow: none
+}
