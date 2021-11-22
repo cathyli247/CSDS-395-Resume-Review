@@ -8,7 +8,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, FileRe
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-
+import pytz
 # Create your views here.
 from django.views import View
 from django.views.generic import TemplateView
@@ -180,10 +180,12 @@ class OrderDetailView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        user = self.request.user
         button = self.request.POST.get('button', '')
         resume = self.request.FILES.get('resume', '')
         order_id = self.request.GET.get('order_id', '')
         order = user_api.get_order(order_id)
+        account = Account.objects.get(user=user)
         if button == 'cancel':
             order.state = 'Rejected'
         elif button == 'complete':
@@ -194,7 +196,8 @@ class OrderDetailView(FormView):
             rate = self.request.POST.get('rate', '')
             comment = self.request.POST.get('comment', '')
 
-            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now())
+            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(pytz.timezone('US/Eastern')),account=account)
+            print(comment_obj.create_at)
             if comment:
                 comment_obj.comment = comment
                 comment_obj.save()

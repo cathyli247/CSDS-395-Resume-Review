@@ -147,4 +147,4 @@ def get_average_rating(r):
         average_rate = 0
     else:
         average_rate = rate_sum/len(comments)
-    return average_rate
+    return round(average_rate, 2)
