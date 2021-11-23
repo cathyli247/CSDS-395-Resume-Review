@@ -319,26 +319,42 @@ class UserProfileView(FormView):
 def room(request, room):
     username = request.GET.get('username')
     reviewer = request.GET.get('reviewer')
-    username = 'aaa'
+    userid = 1
+
+    print('--------username---------')
     room_details = Room.objects.get(name=room)
+    print("before filter")
     room_list = Room.objects.all()
+
     room_list = room_list.filter(
-        Q(account__user=username) | Q(reviewer__account__user=username))
-    # contactors = []
-    # contactors += room_list.filter(
-    #     reviewer__account__user=username).values_list('account')
-    # contactors += room_list.filter(Q(reviewer__account__user=username)
-    #                                | ~Q(reviewer__user=username)).values_list('account')
-    # print(contactors)
+        Q(account=userid) | Q(reviewer__account=userid))
+    contactors = []
+
+    reviewers_account_id = room_list.filter(Q(account=userid) and
+                                            ~Q(reviewer__account=userid)).values('reviewer')
+    print("--------rid---------")
+    print(reviewers_account_id)
+    print("----reviewer------")
+    for rid in reviewers_account_id:
+        print(rid)
+        print(Reviewer.objects.get(id=rid.get("reviewer")))
+
+    print('--------------first contractors--------------------')
+    # contactors_id += room_list.filter(Q(account__user__username=username)
+    #                                   | ~Q(reviewer__user__username=username)).values('account_id')
+
     print("---------------below is the info printed")
-    print(username)
     print(room_list)
+    print(reviewers_account_id)
+    print(Reviewer.objects.filter(id=1)[0])
     return render(request, 'chattingUpdated.html', {
         'username': username,
         'reviewer': reviewer,
         'room': room,
         'room_details': room_details,
-        'room_list': room_list
+        'room_list': room_list,
+        'reviewers_account_id': reviewers_account_id
+
     })
 
 
