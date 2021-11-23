@@ -319,11 +319,21 @@ class UserProfileView(FormView):
 def room(request, room):
     username = request.GET.get('username')
     reviewer = request.GET.get('reviewer')
+    username = 'aaa'
     room_details = Room.objects.get(name=room)
     room_list = Room.objects.all()
-    room_list = room_list.filter(Q(account=username) | Q(reviewer=username))
-
-    return render(request, 'room.html', {
+    room_list = room_list.filter(
+        Q(account__user=username) | Q(reviewer__account__user=username))
+    # contactors = []
+    # contactors += room_list.filter(
+    #     reviewer__account__user=username).values_list('account')
+    # contactors += room_list.filter(Q(reviewer__account__user=username)
+    #                                | ~Q(reviewer__user=username)).values_list('account')
+    # print(contactors)
+    print("---------------below is the info printed")
+    print(username)
+    print(room_list)
+    return render(request, 'chattingUpdated.html', {
         'username': username,
         'reviewer': reviewer,
         'room': room,
@@ -337,15 +347,15 @@ def checkview(request):
     username = request.POST['username']
     reviewer = request.POST['reviewer']
 
-    if Room.objects.filter(name=room, account=username).exists():
-        return redirect('/'+room+'/?username='+username + '&reviewer=' + reviewer)
-    elif Room.objects.filter(name=room, reviewer=username).exists():
-        return redirect('/'+room+'/?username='+reviewer + '&reviewer=' + reviewer)
+    if Room.objects.filter(name=room, account__user=username).exists():
+        return redirect('/'+room)
+    elif Room.objects.filter(name=room, reviewer__account__user=username).exists():
+        return redirect('/'+room)
     else:
         new_room = Room.objects.create(
-            name=room, account=username, reviewer=reviewer)
+            name=room, account__user=username, reviewer__account__user=reviewer)
         new_room.save()
-        return redirect('/'+room+'/?username='+username + '&reviewer=' + reviewer)
+        return redirect('/'+room)
 
 
 def send(request):
@@ -366,3 +376,7 @@ def getMessages(request, room):
 
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages": list(messages.values())})
+
+
+def chattest(request):
+    render(request, "chatting.html")
