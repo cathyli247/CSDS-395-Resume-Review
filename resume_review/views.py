@@ -228,7 +228,6 @@ class OrderDetailView(FormView):
         order.save()
         logger.info('save resume to order %s with action %s' %
                     (order.id, button))
-
         return HttpResponseRedirect(self.request.path_info + '?order_id=' + order_id)
 
 
@@ -252,6 +251,22 @@ class ReviewerCardView(TemplateView):
         context = self.get_context_data(**kwargs)
         if not self.request.user.is_authenticated:
             return HttpResponseRedirect('/')
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        print(self.request.POST)
+        button = self.request.POST.get('button', '')
+        if button == "true":
+            current_user = self.request.user
+            reviewer_id = self.request.GET['reviewer_id']
+            current_reviewer = Reviewer.objects.filter(id=reviewer_id)[0]
+            current_account = user_api.get_account_by_user(current_user)
+            new_order = Order.objects.create(state='Pending', account=current_account,
+                                             reviewer=current_reviewer)
+            new_id = new_order.id
+            # http://127.0.0.1:8000/order_detail/?order_id=2
+            return redirect('http://127.0.0.1:8000/order_detail/?order_id=' + str(new_id))
+        context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
 
 

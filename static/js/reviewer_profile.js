@@ -20,3 +20,25 @@ $.fn.stars = function() {
         $(this).html(`${fullStar}${halfStar}${noStar}`);
     });
 }
+
+//button
+$(document).on('click','a#order_button',function(){
+    console.log("nms");
+    const csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+    console.log(csrftoken);
+    $.ajax({
+        url: window.location.href,
+        headers: {'X-CSRFToken': csrftoken},
+        data: {'button': "true"},
+        type: "POST",
+        dataType: 'json',
+        success: function (data) {
+            if (data) {
+                console.log(data);
+                // call function to do something with data
+                process_data_function(data);
+            }
+        }
+    });
+    // window.location.href;
+});

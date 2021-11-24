@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Reviewer Profile{% endblock %}
 {% block content %}
+{% csrf_token%}
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/reviewer_profile.css' %}" />
 <script src = "{% static 'js/reviewer_profile.js' %}"></script>
@@ -31,7 +32,7 @@
                         <li class="mb-3"><a href="#!"><i class="fas fa-mobile-alt display-25 me-3 text-secondary"></i>{{reviewer.account.phone}}</a></li>
                     </ul>
                     <div style="width:100%;justify-content: center; align-items: center;text-align: center;  ">
-                        <a href="#" class="btn place_order btn-primary" style="padding:10px 0;width: 200px;"><i class="fas fa-search-dollar"></i> Place Order</a> <br>
+                        <a href="#" class="btn place_order btn-primary" style="padding:10px 0;width: 200px;" id="order_button"><i class="fas fa-search-dollar"></i> Place Order</a> <br>
                         <a href="#" class="btn place_order btn-success" style="padding:10px 0;margin-top: 1rem; width: 200px;"><i class="fas fa-comments"></i> Chat with Reviewer</a>
                     </div>
                 </div>
