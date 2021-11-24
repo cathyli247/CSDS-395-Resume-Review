@@ -319,6 +319,7 @@ class UserProfileView(FormView):
 def room(request, room):
     username = request.GET.get('username')
     reviewer = request.GET.get('reviewer')
+    contactor = request.GET.get('contactor')
     userid = 1
 
     print('--------username---------')
@@ -331,14 +332,15 @@ def room(request, room):
     contactors = []
 
     reviewers_account_id = room_list.filter(Q(account=userid) and
-                                            ~Q(reviewer__account=userid)).values('reviewer')
+                                            ~Q(reviewer__account=userid)).values("reviewer").distinct()
     print("--------rid---------")
     print(reviewers_account_id)
     print("----reviewer------")
     for rid in reviewers_account_id:
         print(rid)
-        print(Reviewer.objects.get(id=rid.get("reviewer")))
-
+        print(rid['reviewer'])
+        print(Reviewer.objects.get(id=rid['reviewer']))
+        contactors += Reviewer.objects.filter(id=rid['reviewer'])
     print('--------------first contractors--------------------')
     # contactors_id += room_list.filter(Q(account__user__username=username)
     #                                   | ~Q(reviewer__user__username=username)).values('account_id')
@@ -346,14 +348,18 @@ def room(request, room):
     print("---------------below is the info printed")
     print(room_list)
     print(reviewers_account_id)
-    print(Reviewer.objects.filter(id=1)[0])
+    print(contactors)
+    if not contactor:
+        contactor = contactors[0]
+
     return render(request, 'chattingUpdated.html', {
         'username': username,
         'reviewer': reviewer,
         'room': room,
         'room_details': room_details,
         'room_list': room_list,
-        'reviewers_account_id': reviewers_account_id
+        'reviewers_account_id': contactors,
+        'contactor': contactor
 
     })
 
@@ -363,13 +369,13 @@ def checkview(request):
     username = request.POST['username']
     reviewer = request.POST['reviewer']
 
-    if Room.objects.filter(name=room, account__user=username).exists():
+    if Room.objects.filter(name=room, account=username).exists():
         return redirect('/'+room)
-    elif Room.objects.filter(name=room, reviewer__account__user=username).exists():
+    elif Room.objects.filter(name=room, reviewer=username).exists():
         return redirect('/'+room)
     else:
         new_room = Room.objects.create(
-            name=room, account__user=username, reviewer__account__user=reviewer)
+            name=room, account=username, reviewer=reviewer)
         new_room.save()
         return redirect('/'+room)
 
@@ -378,11 +384,9 @@ def send(request):
     message = request.POST['message']
     username = request.POST['username']
     room_id = request.POST['room_id']
-    room_obj = Room.objects.get(id=room_id)
-    account = Account.objects.get(id=username)
-
+    username = 1
     new_message = Message.objects.create(
-        value=message, account=account, room=room_obj)
+        value=message, user=username, room=room_id)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
