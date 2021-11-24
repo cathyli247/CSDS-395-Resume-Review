@@ -135,8 +135,16 @@ class HomePageView(FormView):
             account__academic=academic_standing) if academic_standing != 'All' else reviewer
 
         price = self.request.POST.get('price', '')
-        reviewer = reviewer.filter(
-            price__gte=price) if price != 'All' else reviewer
+
+        if(price == "1"):
+            reviewer = reviewer.filter(price__lte=20)
+        elif(price == "2"):
+            reviewer = reviewer.filter(Q(price__gte=20) & Q(price__lte=50))
+        elif(price == "3"):
+            reviewer = reviewer.filter(
+                Q(price__gte=50) & Q(price__lte=100))
+        elif(price == "4"):
+            reviewer = reviewer.filter(price__gte=100)
 
         data = self.get_context_data(**kwargs)
         data['reviewer'] = reviewer
@@ -167,7 +175,6 @@ class OrderPageView(TemplateView):
         context['user_order'] = user_order
         context['reviewer_order'] = reviewer_order
         return context
-
 
 
 class OrderDetailView(FormView):
@@ -205,7 +212,8 @@ class OrderDetailView(FormView):
             rate = self.request.POST.get('rate', '')
             comment = self.request.POST.get('comment', '')
 
-            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(pytz.timezone('US/Eastern')),account=account)
+            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(
+                pytz.timezone('US/Eastern')), account=account)
             print(comment_obj.create_at)
             if comment:
                 comment_obj.comment = comment
@@ -218,7 +226,8 @@ class OrderDetailView(FormView):
         if resume and button == 'upload':
             order.resume = resume
         order.save()
-        logger.info('save resume to order %s with action %s' % (order.id, button))
+        logger.info('save resume to order %s with action %s' %
+                    (order.id, button))
 
         return HttpResponseRedirect(self.request.path_info + '?order_id=' + order_id)
 
