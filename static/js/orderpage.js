@@ -51,7 +51,6 @@ $( document ).ready(function() {
     $('#step3').addClass("active");
     $('#step4').removeClass("active");
     $('#progress-three').text("Rejected");
-    
   }
 });
 
