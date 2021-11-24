@@ -50,7 +50,8 @@ $( document ).ready(function() {
     $('#step2').addClass("active");
     $('#step3').addClass("active");
     $('#step4').removeClass("active");
-    $('#step3').text("Rejected");
+    $('#progress-three').text("Rejected");
+    
   }
 });
 
