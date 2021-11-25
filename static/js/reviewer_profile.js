@@ -39,3 +39,22 @@ $(document).on('click','a#order_button',function(){
         }
     });
 });
+
+
+$(document).on('click','a#chat_button',function(){
+    console.log("nms");
+    const csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+    console.log(csrftoken);
+    $.ajax({
+        url: window.location.href,
+        headers: {'X-CSRFToken': csrftoken},
+        data: {'chat': "true"},
+        type: "POST",
+        dataType: 'json',
+        success: function (data) {
+            if (data['room_id']) {
+                location.href = '/chat/?room=' + data['room_id'];
+            }
+        }
+    });
+});

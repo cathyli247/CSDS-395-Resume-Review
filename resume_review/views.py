@@ -263,14 +263,21 @@ class ReviewerCardView(TemplateView):
     def post(self, request, *args, **kwargs):
         data = {}
         button = self.request.POST.get('button', '')
+        chat = self.request.POST.get('chat', '')
+        current_user = self.request.user
+        reviewer_id = self.request.GET['reviewer_id']
+        current_account = user_api.get_account_by_user(current_user)
+        current_reviewer = Reviewer.objects.filter(id=reviewer_id)[0]
+
         if button == "true":
-            current_user = self.request.user
-            reviewer_id = self.request.GET['reviewer_id']
-            current_reviewer = Reviewer.objects.filter(id=reviewer_id)[0]
-            current_account = user_api.get_account_by_user(current_user)
             new_order = Order.objects.create(state='Pending', account=current_account,
                                              reviewer=current_reviewer)
             data['order_id'] = new_order.id
+
+        if chat == 'true':
+
+            room,_ = Room.objects.get_or_create(account=current_account, reviewer=current_reviewer)
+            data['room_id'] = room.id
 
         return HttpResponse(json.dumps(data))
 
@@ -307,7 +314,6 @@ class UserProfileView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
         if self.request.POST.get('unlock', '') == 'true':
             account = user_api.get_account_by_user(user=self.request.user)
             reviewer, _ = Reviewer.objects.get_or_create(account=account)
@@ -345,7 +351,6 @@ class UserProfileView(FormView):
         if avatar:
             account.avatar = avatar
 
-        print(account.__dict__)
         account.save()
         logger.info('save account info %s' % user)
 
@@ -369,6 +374,7 @@ def room(request):
     context = {}
     user = request.user
     account = user_api.get_account_by_user(user)
+    print(account)
 
     room_info = user_api.get_room_info(account)
     contactors = [i['other_user'] for i in room_info]
@@ -378,9 +384,10 @@ def room(request):
 
     room_id = request.GET.get('room', '')
     if room_id:
-        room = Room.objects.get(id=room_id)
-        context['room'] = room
-        context['other_account'] = user_api.get_contactor_by_room(account, room)
+        current_room = Room.objects.get(id=room_id)
+        context['room'] = current_room
+        context['other_account'] = user_api.get_contactor_by_room(account, current_room)
+        print(context['other_account'])
 
     return render(request, 'room.html', context)
 

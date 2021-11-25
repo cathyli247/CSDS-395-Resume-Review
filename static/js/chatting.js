@@ -19,7 +19,7 @@ $(document).on('click', '#submit', function (e) {
 
 
 $(document).ready(function () {
-    if (typeof ($('input#room').val()) === undefined || $('input#room').val()=='') {
+    if (typeof ($('input#room_id').val()) === undefined || $('input#room_id').val()=='') {
     }
     else{
         setInterval(function () {
