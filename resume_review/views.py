@@ -331,8 +331,9 @@ def room(request, room):
         Q(account=userid) | Q(reviewer__account=userid))
     contactors = []
 
-    reviewers_account_id = room_list.filter(Q(account=userid) and
-                                            ~Q(reviewer__account=userid)).values("reviewer").distinct()
+    reviewers_account_id = room_list.filter(Q(Q(account=userid) and
+                                            ~Q(reviewer__account=userid)) | Q(~Q(account=userid) and Q(reviewer__account=userid))).values("reviewer").distinct()
+
     print("--------rid---------")
     print(reviewers_account_id)
     print("----reviewer------")

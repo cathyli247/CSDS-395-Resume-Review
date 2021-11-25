@@ -57,6 +57,12 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="{% static 'js/chatting.js' %}"></script>
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/chattingStyle.css' %}">
+  <link rel="stylesheet" href="chattingStyle.css">
 
 </head>
 
@@ -126,6 +132,21 @@
     <div class="row clearfix">
       <div class="col-lg-12">
         <div class="card chat-app">
+          <div id="plist" class="people-list">
+            <ul class="list-unstyled chat-list mt-2 mb-0">
+
+              {% for reviewer in reviewers_account_id %}
+              <li class="clearfix">
+                <img src="{{reviewer.account.avatar.url}}" alt="avatar">
+                <div class="about">
+                  <div class="name">{{reviewer.account.first_name}}</div>
+                </div>
+              </li>
+              {% endfor %}
+
+            </ul>
+          </div>
+
           <div class="chat">
             <div class="chat-header clearfix">
               <div class="row">
