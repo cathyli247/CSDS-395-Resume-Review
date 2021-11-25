@@ -1,6 +1,6 @@
 import logging
 
-from resume_review.models import Account, Reviewer, Comment, Order
+from resume_review.models import Account, Reviewer, Comment, Order, Room
 from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
@@ -136,6 +136,7 @@ def create_test_database():
     # Order.objects.create(account=account2, reviewer=reviewer4)
     # Order.objects.create(account=account4, reviewer=reviewer2)
 
+
 def get_average_rating(r):
     comments = Comment.objects.filter(reviewer=r)
     rate_sum = 0
@@ -147,3 +148,66 @@ def get_average_rating(r):
     else:
         average_rate = rate_sum/len(comments)
     return round(average_rate, 2)
+
+
+
+def get_room_info(account):
+    '''
+    get a dict list of all chat room info
+    :param account: Account obj
+    :return: a dict list of room info
+    '''
+    res = []
+    try:
+        ## as user
+        rooms = Room.objects.filter(account=account)
+        for room in rooms:
+            room_info = {}
+            room_info['room'] = room
+            room_info['current_user'] = account
+            room_info['other_user'] = room.reviewer.account
+            res.append(room_info)
+
+        ## as reviewer
+        reviewer = get_reviewer_by_account(account)
+        if reviewer:
+            rooms = Room.objects.filter(reviewer=reviewer)
+            for room in rooms:
+                room_info = {}
+                room_info['room'] = room
+                room_info['current_user'] = reviewer
+                room_info['other_user'] = room.account
+                res.append(room_info)
+    except:
+        logger.error('get_room_info failed')
+    return res
+
+
+def get_contactor_by_room(account, current_room):
+    '''
+    get the contactor by the current user and room
+    :param account: Account obj
+    :param current_room: Room obj
+    :return: the Account obj of the other user
+    '''
+    rooms = get_room_info(account)
+    for room in rooms:
+        if room['current_user'] == account and room['room'] == current_room:
+            return room['other_user']
+    return None
+
+
+def generate_msg_dict(message):
+    '''
+    generate a dict for msg information
+    :param message: Message obj
+    :return: a dict of message info
+    '''
+    res = {}
+    res['value'] = message.value
+    res['account_id'] = message.account.id
+    res['account_name'] = message.account.first_name + ' ' + message.account.last_name
+    res['avatar_url'] = message.account.avatar.url
+    res['date'] = message.date.strftime("%m/%d/%Y, %H:%M:%S")
+
+    return res

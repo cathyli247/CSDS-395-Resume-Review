@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 from resume_review import source_api
+from datetime import datetime
 
 
 class Account(models.Model):
@@ -43,6 +44,7 @@ class Reviewer(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     specialized_field = models.CharField(max_length=255)
     self_intro = models.TextField()
+
     DELIVERY_TIME_CHOICES = [
         ('delivery_1', 'One week'),
         ('delivery_2', 'Two weeks'),
@@ -52,7 +54,8 @@ class Reviewer(models.Model):
     rate = models.FloatField(default=0)
     delivery_time = models.CharField(
         max_length=255, choices=DELIVERY_TIME_CHOICES, default='delivery_1')
-        
+
+
 class Comment(models.Model):
     reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     account = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
@@ -79,10 +82,18 @@ class Order(models.Model):
     finished_at = models.DateTimeField(null=True, default=None)
     state = models.CharField(
         max_length=100, choices=Order_State, default=PENDING)
-    resume = models.FileField(upload_to ='resumes', null=True)
+    resume = models.FileField(upload_to='resumes', null=True)
 
 
-class Chat(models.Model):
+# can't migrate, not sure the reason
+class Room(models.Model):
+    name = models.CharField(max_length=1000)
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
     reviewer = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
-    content = models.TextField(null=True)
+
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    account = models.ForeignKey(Account, on_delete=models.PROTECT)
+    room = models.ForeignKey(Room, on_delete=models.PROTECT)

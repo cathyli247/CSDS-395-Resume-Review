@@ -10,4 +10,8 @@ urlpatterns = [
     path('user_profile/', views.UserProfileView.as_view(), name='user_profile'),
     path('reviewer_profile/', views.ReviewerCardView.as_view(),
          name='reviewer_profile'),
+    path('chat/', views.room, name='chat'),
+    path('checkview', views.checkview, name='checkview'),
+    path('send', views.send, name='send'),
+    path('getMessages/', views.getMessages, name='getMessages'),
 ]

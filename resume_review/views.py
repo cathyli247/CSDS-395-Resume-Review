@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, FileResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 import pytz
@@ -18,8 +18,9 @@ from resume_review import user_api
 from resume_review.forms import RegisterForm, LoginForm, SearchForm, UserProfileForm, OrderDetailForm
 from django.views.generic.edit import FormView
 
-from resume_review.models import Account, Comment, Reviewer, Order
+from resume_review.models import Account, Comment, Reviewer, Order, Room, Message
 from django.urls import reverse
+
 
 logger = logging.getLogger(__name__)
 
@@ -220,6 +221,7 @@ class OrderDetailView(FormView):
 
             comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(
                 pytz.timezone('US/Eastern')), account=account)
+
             if comment:
                 comment_obj.comment = comment
                 comment_obj.save()
@@ -305,13 +307,14 @@ class UserProfileView(FormView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        print(self.request.POST)
         if self.request.POST.get('unlock', '') == 'true':
             account = user_api.get_account_by_user(user=self.request.user)
             reviewer, _ = Reviewer.objects.get_or_create(account=account)
             return HttpResponseRedirect(self.get_success_url())
 
         form = self.get_form()
-        if form.is_valid():
+        if form:
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -341,6 +344,8 @@ class UserProfileView(FormView):
         account.academic = academic_standing
         if avatar:
             account.avatar = avatar
+
+        print(account.__dict__)
         account.save()
         logger.info('save account info %s' % user)
 
@@ -356,3 +361,63 @@ class UserProfileView(FormView):
     def form_invalid(self, form):
         response = super().form_invalid(form)
         return response
+
+# not used it until the bug in the database fixed
+
+
+def room(request):
+    context = {}
+    user = request.user
+    account = user_api.get_account_by_user(user)
+
+    room_info = user_api.get_room_info(account)
+    contactors = [i['other_user'] for i in room_info]
+    context['current_account'] = account
+    context['contactors'] = contactors
+    context['room_info'] = room_info
+
+    room_id = request.GET.get('room', '')
+    if room_id:
+        room = Room.objects.get(id=room_id)
+        context['room'] = room
+        context['other_account'] = user_api.get_contactor_by_room(account, room)
+
+    return render(request, 'room.html', context)
+
+
+def checkview(request):
+    room = request.POST['room_id']
+    username = request.POST['current_account_id']
+    reviewer = request.POST['other_account_id']
+
+    if Room.objects.filter(name=room, account=username).exists():
+        return redirect('/?='+room)
+    elif Room.objects.filter(name=room, reviewer=username).exists():
+        return redirect('/?='+room)
+    else:
+        new_room = Room.objects.create(
+            name=room, account=username, reviewer=reviewer)
+        new_room.save()
+        return redirect('/?='+room)
+
+
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+    account = Account.objects.get(id=int(username))
+    room = Room.objects.get(id=int(room_id))
+
+    new_message = Message.objects.create(value=message, account=account, room=room)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+def getMessages(request):
+    current_room = request.GET.get('room', '')
+    room_details = Room.objects.get(id=current_room)
+
+    messages = Message.objects.filter(room=room_details.id)
+    res = [user_api.generate_msg_dict(i) for i in messages]
+    return HttpResponse(json.dumps({"messages": res}))
+
