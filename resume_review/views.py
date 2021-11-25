@@ -352,7 +352,7 @@ def room(request, room):
     if not contactor:
         contactor = contactors[0]
 
-    return render(request, 'chattingUpdated.html', {
+    return render(request, 'room.html', {
         'username': username,
         'reviewer': reviewer,
         'room': room,
