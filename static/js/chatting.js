@@ -35,10 +35,10 @@ $(document).ready(function () {
                         var temp = '';
                         var key = messages['messages'][i];
                         if (key['account_id'] == $('input#current_account_id').val()){
-                            temp += "<div class='chat-message-right mb-4'><div><img src="+ key['avatar_url'] + " class='rounded-circle mr-1'width='40' height='40'><div class='text-muted small text-nowrap mt-2'>" +key['date']+"</div></div><div class='flex-shrink-1 bg-light rounded py-2 px-3 mr-3'><div class='font-weight-bold mb-1'>"+key['account_name']+"</div>"+ key['value'] +"</div></div>";
+                            temp += "<div class='chat-message-right mb-4'><div><img src="+ key['avatar_url'] + " class='rounded-circle mr-1'width='40' height='40'></div><div class='flex-shrink-1 bg-light rounded py-2 px-3 mr-3'><div class='font-weight-bold mb-1'><strong>"+key['account_name']+"</strong></div>"+ key['value'] +"</div><div class='text-muted small text-nowrap mt-2 p-2'>" +key['date']+"</div></div>";
                         }
                         else {
-                            temp += "<div class='chat-message-left mb-4'><div><img src="+ key['avatar_url'] + " class='rounded-circle mr-1'width='40' height='40'><div class='text-muted small text-nowrap mt-2'>" +key['date']+"</div></div><div class='flex-shrink-1 bg-light rounded py-2 px-3 mr-3'><div class='font-weight-bold mb-1'>"+key['account_name']+"</div>"+ key['value'] +"</div></div>";
+                            temp += "<div class='chat-message-left mb-4'><div><img src="+ key['avatar_url'] + " class='rounded-circle mr-1'width='40' height='40'></div><div class='flex-shrink-1 bg-light rounded py-2 px-3 mr-3'><div class='font-weight-bold mb-1'><strong>"+key['account_name']+"</strong></div>"+ key['value'] +"</div><div class='text-muted small text-nowrap mt-2 p-2'>" +key['date']+"</div></div>";
                         }
                         $("#display").append(temp);
                     }
