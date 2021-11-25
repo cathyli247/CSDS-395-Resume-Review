@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='order',
             name='state',
-            field=models.CharField(choices=[('Pending', 'Pending'), ('Accepted', 'Accepted'), ('Canceled', 'Canceled'), ('Completed', 'Completed')], default='Pending', max_length=100),
+            field=models.CharField(choices=[('Pending', 'Pending'), ('Accepted', 'Accepted'), ('Cancelled', 'Cancelled'), ('Completed', 'Completed')], default='Pending', max_length=100),
         ),
     ]

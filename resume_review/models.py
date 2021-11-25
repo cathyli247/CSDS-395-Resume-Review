@@ -64,13 +64,13 @@ class Comment(models.Model):
 class Order(models.Model):
     PENDING = 'Pending'
     ACCEPT = 'Accepted'
-    REJECT = 'Canceled'
+    REJECT = 'Cancelled'
     COMPLETE = 'Completed'
 
     Order_State = [
         (PENDING, 'Pending'),
         (ACCEPT, 'Accepted'),
-        (REJECT, 'Canceled'),
+        (REJECT, 'Cancelled'),
         (COMPLETE, 'Completed'),
     ]
     account = models.ForeignKey(Account, on_delete=models.PROTECT)
