@@ -384,9 +384,12 @@ def send(request):
     message = request.POST['message']
     username = request.POST['username']
     room_id = request.POST['room_id']
-    username = 1
+    print(request.POST)
+    account = Account.objects.get(id=int(username))
+    room = Room.objects.get(id=int(room_id))
+
     new_message = Message.objects.create(
-        value=message, user=username, room=room_id)
+        value=message, account=account, room=room)
     new_message.save()
     return HttpResponse('Message sent successfully')
 

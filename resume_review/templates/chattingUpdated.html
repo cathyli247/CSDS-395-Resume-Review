@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/chattingStyle.css' %}">
+    <script src="{% static 'js/chatting.js' %}"></script>
+
     <!-- <link rel="stylesheet" href= "chattingStyle.css"> -->
 </head>
 
@@ -78,47 +80,3 @@
         </div>
     </div>
 </body>
-
-<script type="text/javascript">
-    $(document).on('submit', '#post-form', function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: '/send',
-            data: {
-                username: $('#username').val(),
-                room_id: $('#room_id').val(),
-                message: $('#message').val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success: function (data) {
-                //alert(data)
-            }
-        });
-        document.getElementById('message').value = ''
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-
-        setInterval(function () {
-            $.ajax({
-                type: 'GET',
-                url: "/getMessages/{{room}}/",
-                success: function (response) {
-                    console.log(response);
-                    $("#display").empty();
-                    for (var key in response.messages) {
-                        var temp = "<li class='clearfix'><div class= 'message-data text-right'><span class='message-data-time'>" + response.messages[key].date + "</span><img src=" + response.messages[key].user.account.avatar.url + "alt='avatar'></div><div class='message other-message float-right'>" + response.messages[key].value + "</div></li>";
-                        $("#display").append(temp);
-                    }
-                },
-                error: function (response) {
-                    alert('An error occured')
-                }
-            });
-        }, 1000);
-    })
-</script>

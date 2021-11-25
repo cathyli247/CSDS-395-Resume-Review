@@ -61,20 +61,21 @@
 </head>
 
 <body>
-
+  <input type="text" id="test" value="{{room}}" hidden>
   <h2>{{room}} - DjChat</h2>
 
-  <div id="display">
+  <!-- <div id="display">
 
-    <!-- <div class="container darker">
+    <div class="container darker">
   <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
   <span class="time-left">20th, April 2021</span>
-</div> -->
+</div>
 
-  </div>
+  </div> -->
 
 
-  <div class="container">
+
+  <!-- <div class="container">
     <style>
       input[type=text],
       select {
@@ -117,25 +118,71 @@
       <input type="text" name="message" id="message" width="100px" />
       <input type="submit" value="Send">
     </form>
-  </div>
+  </div> -->
 
-  <div>
-    {% for r in room_list%}
-    <div>
-      {{r.account}}
-    </div>
-    {% endfor %}
-    <div>
-      {{room_details.name}}
+
+
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-lg-12">
+        <div class="card chat-app">
+          <div class="chat">
+            <div class="chat-header clearfix">
+              <div class="row">
+                <div class="col-lg-6">
+                  <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                    <img src="{{contactor.account.avatar.url}}" alt="avatar">
+                  </a>
+                  <div class="chat-about">
+                    <!-- <h6 class="m-b-0">{{contactor.account.first_name}}
+                                        {{contactor.account.last_name}}</h6> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-history">
+              <div class="m-b-0" id="display">
+                <!-- <li class="clearfix">
+                                <div class="message-data text-right">
+                                    <span class="message-data-time">10:10 AM, Today</span>
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                </div>
+                                <div class="message other-message float-right"> TestingTestingTestingTestingTestingTestingTestingTesting </div>
+                            </li> -->
+              </div>
+            </div>
+            <div class="chat-message clearfix chatbox">
+              <!-- <form id="post-form" class="input-group mb-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-send"></i></span>
+                            </div>
+                            {% csrf_token %}
+                            <input type="hidden" name="username" id="username" value="{{username}}" />
+                            <input type="hidden" name="username" id="reviewer" value="{{reviewer}}" />
+                            <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
+                            <input type="text" class="form-control" placeholder="Enter text here..." name="message"
+                                id="message">
+                            <input type="submit" value="Send">
+                        </form> -->
+
+              <form id="post-form">
+                {% csrf_token %}
+                <input type="hidden" name="username" id="username" value="{{username}}" />
+                <input type="hidden" name="username" id="reviewer" value="{{reviewer}}" />
+                <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
+                <input type="text" name="message" id="message" width="100px" />
+                <input type="submit" value="Send">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
 
 
 
 
 
 </body>
-
-
-</html>
