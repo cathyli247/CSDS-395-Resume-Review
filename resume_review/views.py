@@ -1,3 +1,4 @@
+import json
 import logging
 from datetime import datetime
 
@@ -204,17 +205,19 @@ class OrderDetailView(FormView):
         account = Account.objects.get(user=user)
         if button == 'cancel':
             order.state = 'Rejected'
+            order.finished_at = None
         elif button == 'complete':
             order.state = 'Completed'
+            order.finished_at = datetime.now()
         elif button == 'accept':
             order.state = 'Accepted'
+            order.finished_at = None
         elif button == 'submit_rate':
             rate = self.request.POST.get('rate', '')
             comment = self.request.POST.get('comment', '')
 
             comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(
                 pytz.timezone('US/Eastern')), account=account)
-            print(comment_obj.create_at)
             if comment:
                 comment_obj.comment = comment
                 comment_obj.save()
@@ -254,7 +257,7 @@ class ReviewerCardView(TemplateView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
+        data = {}
         button = self.request.POST.get('button', '')
         if button == "true":
             current_user = self.request.user
@@ -263,11 +266,9 @@ class ReviewerCardView(TemplateView):
             current_account = user_api.get_account_by_user(current_user)
             new_order = Order.objects.create(state='Pending', account=current_account,
                                              reviewer=current_reviewer)
-            new_id = new_order.id
-            # http://127.0.0.1:8000/order_detail/?order_id=2
-            return redirect('http://127.0.0.1:8000/order_detail/?order_id=' + str(new_id))
-        context = self.get_context_data(**kwargs)
-        return self.render_to_response(context)
+            data['order_id'] = new_order.id
+
+        return HttpResponse(json.dumps(data))
 
 
 class UserProfileView(FormView):

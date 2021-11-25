@@ -33,12 +33,9 @@ $(document).on('click','a#order_button',function(){
         type: "POST",
         dataType: 'json',
         success: function (data) {
-            if (data) {
-                console.log(data);
-                // call function to do something with data
-                process_data_function(data);
+            if (data['order_id']) {
+                location.href = '/order_detail/?order_id=' + data['order_id'];
             }
         }
     });
-    // window.location.href;
 });
