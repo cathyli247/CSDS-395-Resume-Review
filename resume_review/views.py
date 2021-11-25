@@ -219,8 +219,7 @@ class OrderDetailView(FormView):
             rate = self.request.POST.get('rate', '')
             comment = self.request.POST.get('comment', '')
 
-            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(
-                pytz.timezone('US/Eastern')), account=account)
+            comment_obj = Comment.objects.create(reviewer=order.reviewer, rate=rate, create_at=datetime.now(), account=account)
 
             if comment:
                 comment_obj.comment = comment
