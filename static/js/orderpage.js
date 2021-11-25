@@ -25,6 +25,14 @@ $(document).on('change','input[name="star"]',function(){
     $('#submit_rate').prop('disabled', false);
 });
 
+$( document ).ready(function() {
+  $('#doc-card').hide();
+  if ($('#order-state-hidden').text() == "Accepted" || $('#order-state-hidden').text() == "Completed"){
+    $('#doc-card').show();
+  }
+
+});
+
 
 
 $( document ).ready(function() {
