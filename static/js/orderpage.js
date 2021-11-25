@@ -25,6 +25,56 @@ $(document).on('change','input[name="star"]',function(){
     $('#submit_rate').prop('disabled', false);
 });
 
+
+
+$( document ).ready(function() {
+  if ($('#current-user').val() == $('#customer-name').text()) {
+    if ($('#order-state-hidden').text() == "Pending"){
+      $('#accept').hide();
+      $('#cancel').show();
+      $('#ratingSection').hide();
+      $('#complete').hide();
+    }
+    if ($('#order-state-hidden').text() == "Accepted" || $('#order-state-hidden').text() == "Rejected" || $('#order-state-hidden').text() == "Cancelled"){
+      $('#accept').hide();
+      $('#cancel').hide();
+      $('#ratingSection').hide();
+      $('#complete').hide();
+    }
+    if ($('#order-state-hidden').text() == "Completed") {
+      $('#accept').hide();
+      $('#cancel').hide();
+      $('#ratingSection').show();
+      $('#complete').hide();
+    }
+    else{
+      $('#ratingSection').hide();
+    }
+  }
+
+  if ($('#current-user').val() == $('#reviewer-name').text()) {
+    $('#ratingSection').hide();
+    if ($('#order-state-hidden').text() == "Pending"){
+      $('#accept').show();
+      $('#cancel').show();
+      $('#complete').hide();
+    }
+    if ($('#order-state-hidden').text() == "Accepted"){
+      $('#accept').hide();
+      $('#cancel').hide();
+      $('#complete').show();
+    }
+    if ($('#order-state-hidden').text() == "Completed" || $('#order-state-hidden').text() == "Rejected") {
+      $('#accept').hide();
+      $('#cancel').hide();
+      $('#complete').hide();
+    }
+  }
+});
+
+
+
+
 $( document ).ready(function() {
   var orderState = $('#order-state-hidden').text();
   if (orderState == "Completed"){

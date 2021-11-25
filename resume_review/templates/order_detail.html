@@ -15,7 +15,7 @@
     <input id="id_button" name="button" hidden>
     <input id="id_rate" name="rate" hidden>
     <input id="id_comment" name="comment" hidden>
-    <input hidden value="{{current_account.first_name}} {{current_account.last_name}}">
+    <input hidden value="{{current_account.first_name}} {{current_account.last_name}}" id='current-user'>
 
     <div class="container">
         <article class="card">
@@ -36,9 +36,9 @@
                         <table>
                             <tr>
                                 <td class="table-header">Customer</td>
-                                <td class="table-content">{{ order.account.first_name }} {{ order.account.last_name }}</td>
+                                <td class="table-content" id='customer-name'>{{ order.account.first_name }} {{ order.account.last_name }}</td>
                                 <td class="table-header">Reviewer</td>
-                                <td id="complete-info" class="table-content">{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
+                                <td id="reviewer-name" class="table-content">{{ order.reviewer.account.first_name }} {{ order.reviewer.account.last_name }}</td>
                             </tr>
                             <tr>
 
