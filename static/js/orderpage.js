@@ -35,7 +35,7 @@ $( document ).ready(function() {
       $('#ratingSection').hide();
       $('#complete').hide();
     }
-    if ($('#order-state-hidden').text() == "Accepted" || $('#order-state-hidden').text() == "Cancelled" || $('#order-state-hidden').text() == "Cancelled"){
+    if ($('#order-state-hidden').text() == "Accepted" || $('#order-state-hidden').text() == "Cancelled"){
       $('#accept').hide();
       $('#cancel').hide();
       $('#ratingSection').hide();
