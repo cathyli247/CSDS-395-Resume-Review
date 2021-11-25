@@ -175,7 +175,7 @@ def get_room_info(account):
             for room in rooms:
                 room_info = {}
                 room_info['room'] = room
-                room_info['current_user'] = reviewer
+                room_info['current_user'] = reviewer.account
                 room_info['other_user'] = room.account
                 res.append(room_info)
     except:
