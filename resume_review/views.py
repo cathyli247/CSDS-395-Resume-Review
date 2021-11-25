@@ -374,7 +374,6 @@ def room(request):
     context = {}
     user = request.user
     account = user_api.get_account_by_user(user)
-    print(account)
 
     room_info = user_api.get_room_info(account)
     contactors = [i['other_user'] for i in room_info]
@@ -387,7 +386,6 @@ def room(request):
         current_room = Room.objects.get(id=room_id)
         context['room'] = current_room
         context['other_account'] = user_api.get_contactor_by_room(account, current_room)
-        print(context['other_account'])
 
     return render(request, 'room.html', context)
 
