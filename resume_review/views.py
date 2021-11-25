@@ -206,7 +206,7 @@ class OrderDetailView(FormView):
         order = user_api.get_order(order_id)
         account = Account.objects.get(user=user)
         if button == 'cancel':
-            order.state = 'Rejected'
+            order.state = 'Canceled'
             order.finished_at = None
         elif button == 'complete':
             order.state = 'Completed'

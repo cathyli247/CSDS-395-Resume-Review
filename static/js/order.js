@@ -4,7 +4,7 @@ $( document ).ready(function() {
         $('.Pending').addClass("text-warning");
         $('.Completed').addClass("text-success");
         $('.Accepted').addClass("text-info");
-        $('.Rejected').addClass("text-danger");
+        $('.Canceled').addClass("text-danger");
 });
 
 $(document).on('change','#order-select',function(){

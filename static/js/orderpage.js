@@ -35,7 +35,7 @@ $( document ).ready(function() {
       $('#ratingSection').hide();
       $('#complete').hide();
     }
-    if ($('#order-state-hidden').text() == "Accepted" || $('#order-state-hidden').text() == "Rejected" || $('#order-state-hidden').text() == "Cancelled"){
+    if ($('#order-state-hidden').text() == "Accepted" || $('#order-state-hidden').text() == "Canceled" || $('#order-state-hidden').text() == "Cancelled"){
       $('#accept').hide();
       $('#cancel').hide();
       $('#ratingSection').hide();
@@ -64,7 +64,7 @@ $( document ).ready(function() {
       $('#cancel').hide();
       $('#complete').show();
     }
-    if ($('#order-state-hidden').text() == "Completed" || $('#order-state-hidden').text() == "Rejected") {
+    if ($('#order-state-hidden').text() == "Completed" || $('#order-state-hidden').text() == "Canceled") {
       $('#accept').hide();
       $('#cancel').hide();
       $('#complete').hide();
@@ -95,12 +95,12 @@ $( document ).ready(function() {
     $('#step3').removeClass("active");
     $('#step4').removeClass("active");
   }
-  else if (orderState == "Rejected"){
+  else if (orderState == "Canceled"){
     $('#step1').addClass("active");
     $('#step2').addClass("active");
     $('#step3').addClass("active");
     $('#step4').removeClass("active");
-    $('#progress-three').text("Rejected");
+    $('#progress-three').text("Canceled");
   }
 });
 
