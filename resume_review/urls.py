@@ -10,9 +10,8 @@ urlpatterns = [
     path('user_profile/', views.UserProfileView.as_view(), name='user_profile'),
     path('reviewer_profile/', views.ReviewerCardView.as_view(),
          name='reviewer_profile'),
-    path('<str:room>/', views.room, name='room'),
+    path('chat/', views.room, name='chat'),
     path('checkview', views.checkview, name='checkview'),
     path('send', views.send, name='send'),
-    path('getMessages/<str:room>/', views.getMessages, name='getMessages'),
-    path('chattest', views.chattest)
+    path('getMessages/', views.getMessages, name='getMessages'),
 ]

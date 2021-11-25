@@ -1,3 +1,4 @@
+import json
 import logging
 from datetime import datetime
 
@@ -316,6 +317,7 @@ class UserProfileView(FormView):
 # not used it until the bug in the database fixed
 
 
+<<<<<<< HEAD
 def room(request, room):
     username = request.GET.get('username')
     reviewer = request.GET.get('reviewer')
@@ -363,44 +365,61 @@ def room(request, room):
         'contactor': contactor
 
     })
+=======
+def room(request):
+    context = {}
+    user = request.user
+    account = user_api.get_account_by_user(user)
+
+    room_info = user_api.get_room_info(account)
+    contactors = [i['other_user'] for i in room_info]
+    context['current_account'] = account
+    context['contactors'] = contactors
+    context['room_info'] = room_info
+
+    room_id = request.GET.get('room', '')
+    if room_id:
+        room = Room.objects.get(id=room_id)
+        context['room'] = room
+        context['other_account'] = user_api.get_contactor_by_room(account, room)
+
+    return render(request, 'room.html', context)
+>>>>>>> bc16c8967f4445adebce8212bccd05d1b90ff399
 
 
 def checkview(request):
-    room = request.POST['room_name']
-    username = request.POST['username']
-    reviewer = request.POST['reviewer']
+    room = request.POST['room_id']
+    username = request.POST['current_account_id']
+    reviewer = request.POST['other_account_id']
 
     if Room.objects.filter(name=room, account=username).exists():
-        return redirect('/'+room)
+        return redirect('/?='+room)
     elif Room.objects.filter(name=room, reviewer=username).exists():
-        return redirect('/'+room)
+        return redirect('/?='+room)
     else:
         new_room = Room.objects.create(
             name=room, account=username, reviewer=reviewer)
         new_room.save()
-        return redirect('/'+room)
+        return redirect('/?='+room)
 
 
 def send(request):
     message = request.POST['message']
     username = request.POST['username']
     room_id = request.POST['room_id']
-    print(request.POST)
     account = Account.objects.get(id=int(username))
     room = Room.objects.get(id=int(room_id))
 
-    new_message = Message.objects.create(
-        value=message, account=account, room=room)
+    new_message = Message.objects.create(value=message, account=account, room=room)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 
-def getMessages(request, room):
-    room_details = Room.objects.get(name=room)
+def getMessages(request):
+    current_room = request.GET.get('room', '')
+    room_details = Room.objects.get(id=current_room)
 
     messages = Message.objects.filter(room=room_details.id)
-    return JsonResponse({"messages": list(messages.values())})
+    res = [user_api.generate_msg_dict(i) for i in messages]
+    return HttpResponse(json.dumps({"messages": res}))
 
-
-def chattest(request):
-    render(request, "chatting.html")
