@@ -1,5 +1,9 @@
 # CSDS-395-Resume-Review
 
+A group project of building a resume review website using Django.
+
+### Implementation Tips
+
 - run the project:    
 ```python3 manage.py runserver```
 
